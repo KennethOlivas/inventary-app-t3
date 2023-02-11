@@ -55,7 +55,7 @@ body {
 
 @layer components {
   .sidebar-item-selected {
-    @apply text-white  border-r-4 border-white bg-pink-600 transition-all duration-150;
+    @apply text-white  border-r-4 border-white bg-indigo-600 transition-all duration-150;
   }
   .sidebar-item {
     @apply border-r-4 border-transparent hover:text-white/90 hover:border-white transition-all duration-150;

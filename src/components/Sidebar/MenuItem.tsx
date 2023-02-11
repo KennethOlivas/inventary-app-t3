@@ -1,30 +1,25 @@
 import clsx from "clsx";
-import { FC, SetStateAction } from "react";
+import { FC } from "react";
 import {
   Squares2X2Icon,
   SwatchIcon,
   WrenchScrewdriverIcon,
+  UsersIcon,
+  CubeIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { onChangeMenu } from "@/store/features/Sidebar/sideBarSlice";
+import { SideBarItem } from "@/common/sideBarData";
 
 const Icons = [
   <Squares2X2Icon className="h-5 w-5" />,
-  <SwatchIcon className="h-5 w-5" />,
+  <CubeIcon className="h-5 w-5" />,
   <WrenchScrewdriverIcon className="h-5 w-5" />,
-  <WrenchScrewdriverIcon className="h-5 w-5" />,
-  <WrenchScrewdriverIcon className="h-5 w-5" />,
-  <WrenchScrewdriverIcon className="h-5 w-5" />,
-  <WrenchScrewdriverIcon className="h-5 w-5" />,
+  <UsersIcon className="h-5 w-5" />,
 ];
 type Props = {
-  item: {
-    id: string;
-    title: string;
-    notifications: boolean | number;
-    href?: string;
-  };
+  item: SideBarItem;
   selected: string;
 };
 
@@ -46,7 +41,7 @@ const MenuItem: FC<Props> = ({
         <div className="ml-2 block sm:hidden xl:block">{title}</div>
         <div className="block flex-grow sm:hidden xl:block" />
         {notifications && (
-          <div className="mr-2 flex h-5  w-5 items-center justify-center rounded-full bg-pink-600 sm:hidden xl:flex">
+          <div className="mr-2 flex h-5  w-5 items-center justify-center rounded-full bg-indigo-600 sm:hidden xl:flex">
             <div className="text-sm text-white">{notifications}</div>
           </div>
         )}

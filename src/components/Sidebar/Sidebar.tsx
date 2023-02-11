@@ -20,17 +20,16 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
   const sidebarIndex = useSelector(selectMenu);
   const dispatch = useDispatch();
   const router = useRouter();
+  const path = router.pathname.split("/")[1] || "dashboard";
 
   useEffect(() => {
     const getIndexOfPath = () => {
-      const index = sidebarItems[0]?.findIndex((item) => {
-        return item.href === router.pathname;
+      const index = sidebarItems?.findIndex((item) => {
+        return item.href.includes(path);
       });
       if (index === undefined) return "0";
       return index === -1 ? "0" : index.toString();
     };
-    console.log(getIndexOfPath());
-
     dispatch(onChangeMenu(getIndexOfPath()));
   }, [router.pathname]);
 
@@ -65,13 +64,7 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
             <p>icon</p>
           </div>
         </div>
-        {sidebarItems[0]?.map((i) => (
-          <MenuItem key={i.id} item={i} selected={sidebarIndex} />
-        ))}
-        <div className="mt-8 mb-0 block px-3 font-bold sm:hidden xl:block">
-          SHORTCUTS
-        </div>
-        {sidebarItems[1]?.map((i) => (
+        {sidebarItems?.map((i) => (
           <MenuItem key={i.id} item={i} selected={sidebarIndex} />
         ))}
         <div className="flex-grow" />

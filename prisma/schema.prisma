@@ -60,3 +60,26 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+// model product 
+model Product {
+    id      String  @id @default(uuid())
+    name    String
+    Order   Order?  @relation(fields: [orderId], references: [id])
+    orderId String?
+}
+
+model inventory {
+    id    String @id @default(uuid())
+    price Int
+    stock Int
+}
+
+model Order {
+    id        String    @id @default(uuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    status    String
+    total     Int
+    products  Product[]
+}

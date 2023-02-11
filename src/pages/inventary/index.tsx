@@ -6,25 +6,28 @@ type Props = {};
 const index = (props: Props) => {
   return (
     <div className="w-screen">
-      <div className="mx-auto mt-8 max-w-screen-2xl-lg px-2">
+      <div className="max-w-screen-2xl-lg mx-auto mt-8 px-2">
         <div className="p-4">
-          <Link
-            href={{
-              pathname: "inventary/product/[slug]",
-              query: { slug: "1" },
-            }}>
-            <button className="px-4 py-2 bg-indigo-600 shadow-lg shadow-indigo-600/40 hover:bg-indigo-500 text-white/90 hover:text-white rounded-md transition-all duration-200">
-              Go to Product
-            </button>
-          </Link>
-
-          <div className="mt-6 overflow-hidden rounded-xl  shadow bg-[#171717]">
+          <div className="flex justify-end">
+            <Link
+              href={{
+                pathname: "inventary/product/[slug]",
+                query: { slug: "1" },
+              }}
+            >
+              <button className="rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white">
+                Go to Product
+              </button>
+            </Link>
+          </div>
+          <div className="mt-6 overflow-hidden rounded-xl  bg-[#171717] shadow">
             <table className="min-w-full border-separate border-spacing-y-2 ">
               <thead className="hidden border-b lg:table-header-group">
                 <tr className="">
                   <td
                     width="50%"
-                    className="whitespace-normal py-4 text-sm font-medium text-gray-200 sm:px-6">
+                    className="whitespace-normal py-4 text-sm font-medium text-gray-200 sm:px-6"
+                  >
                     Invoice
                   </td>
 
@@ -46,7 +49,8 @@ const index = (props: Props) => {
                 <tr className=" bg-transparent hover:bg-indigo-700/40">
                   <td
                     width="50%"
-                    className="whitespace-no-wrap py-4 text-sm font-bold text-gray-400 sm:px-6 ">
+                    className="whitespace-no-wrap py-4 text-sm font-bold text-gray-400 sm:px-6 "
+                  >
                     Standard Plan - Feb 2023
                     <div className="mt-1 lg:hidden">
                       <p className="font-normal text-gray-200">
@@ -61,7 +65,7 @@ const index = (props: Props) => {
 
                   <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                     $59.00
-                    <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-indigo-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
+                    <div className="mt-1 ml-auto flex w-fit items-center rounded-full bg-indigo-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
                       Complete
                     </div>
                   </td>
@@ -76,7 +80,8 @@ const index = (props: Props) => {
                 <tr className="">
                   <td
                     width="50%"
-                    className="whitespace-no-wrap py-4 text-sm font-bold text-gray-400sm:px-6">
+                    className="whitespace-no-wrap text-gray-400sm:px-6 py-4 text-sm font-bold"
+                  >
                     Standard Plan - Jan 2022
                     <div className="mt-1 lg:hidden">
                       <p className="font-normal text-gray-200">
@@ -91,7 +96,7 @@ const index = (props: Props) => {
 
                   <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                     $59.00
-                    <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-red-200 py-1 px-2 text-left font-medium text-red-500 lg:hidden">
+                    <div className="mt-1 ml-auto flex w-fit items-center rounded-full bg-red-200 py-1 px-2 text-left font-medium text-red-500 lg:hidden">
                       Canceled
                     </div>
                   </td>
@@ -106,7 +111,8 @@ const index = (props: Props) => {
                 <tr className="">
                   <td
                     width="50%"
-                    className="whitespace-no-wrap py-4 text-sm font-bold text-gray-400sm:px-6">
+                    className="whitespace-no-wrap text-gray-400sm:px-6 py-4 text-sm font-bold"
+                  >
                     Basic Plan - Dec 2021
                     <div className="mt-1 lg:hidden">
                       <p className="font-normal text-gray-200">
@@ -121,7 +127,7 @@ const index = (props: Props) => {
 
                   <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                     $29.00
-                    <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-indigo-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
+                    <div className="mt-1 ml-auto flex w-fit items-center rounded-full bg-indigo-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
                       Complete
                     </div>
                   </td>
@@ -136,7 +142,8 @@ const index = (props: Props) => {
                 <tr className="">
                   <td
                     width="50%"
-                    className="whitespace-no-wrap py-4 text-sm font-bold text-gray-400sm:px-6">
+                    className="whitespace-no-wrap text-gray-400sm:px-6 py-4 text-sm font-bold"
+                  >
                     Basic Plan - Nov 2021
                     <div className="mt-1 lg:hidden">
                       <p className="font-normal text-gray-200">
@@ -151,7 +158,7 @@ const index = (props: Props) => {
 
                   <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                     $29.00
-                    <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-indigo-200 py-1 px-2 text-left font-medium text-indigo-500 lg:hidden">
+                    <div className="mt-1 ml-auto flex w-fit items-center rounded-full bg-indigo-200 py-1 px-2 text-left font-medium text-indigo-500 lg:hidden">
                       Pending
                     </div>
                   </td>
@@ -166,7 +173,8 @@ const index = (props: Props) => {
                 <tr className="">
                   <td
                     width="50%"
-                    className="whitespace-no-wrap py-4 text-sm font-bold text-gray-400sm:px-6">
+                    className="whitespace-no-wrap text-gray-400sm:px-6 py-4 text-sm font-bold"
+                  >
                     Basic Plan - Oct 2021
                     <div className="mt-1 lg:hidden">
                       <p className="font-normal text-gray-200">
@@ -181,7 +189,7 @@ const index = (props: Props) => {
 
                   <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                     $29.00
-                    <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-indigo-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
+                    <div className="mt-1 ml-auto flex w-fit items-center rounded-full bg-indigo-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
                       Complete
                     </div>
                   </td>
