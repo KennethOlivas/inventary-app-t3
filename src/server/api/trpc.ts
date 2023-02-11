@@ -103,6 +103,22 @@ export const publicProcedure = t.procedure;
  * procedure.
  */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+  if (ctx.session !== null) {
+    const user = ctx.prisma.user.findUnique({
+      where: {
+        id: ctx.session.user.id,
+      },
+
+      select: {
+        id: true,
+        name: true,
+      },
+    });    
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+  }
+
   if (!ctx.session || !ctx.session.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }

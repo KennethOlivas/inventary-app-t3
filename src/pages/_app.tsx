@@ -5,6 +5,10 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
+import Layout from "@/components/Layout";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
+import { useRouter } from "next/router";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +16,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </SessionProvider>
   );
 };
