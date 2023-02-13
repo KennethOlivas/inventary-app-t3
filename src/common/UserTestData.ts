@@ -36,4 +36,22 @@ export const UserData: User[] = [
     email: "JohnDoe@gmail.com",
     sesions: 5,
   },
+  {
+    id: 6,
+    name: "Jill Doe",
+    email: "",
+    sesions: 6,
+  },
+  {
+    id: 7,
+    name: "John Doe",
+    email: "",
+    sesions: 7,
+  },
+  {
+    id: 8,
+    name: "John Doe",
+    email: "",
+    sesions: 8,
+  },
 ];
