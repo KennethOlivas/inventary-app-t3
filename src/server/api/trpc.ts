@@ -24,6 +24,12 @@ import { prisma } from "../db";
 type CreateContextOptions = {
   session: Session | null;
 };
+export interface TRPCContext {
+  user: User | null;
+}
+export interface AuthenticatedTRPCContext {
+  user: User;
+}
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
@@ -67,6 +73,9 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
  */
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { ProcedureResolver } from "@trpc/server/dist/deprecated/internals/procedure";
+import { z } from "zod";
+import { User } from "@prisma/client";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
@@ -113,7 +122,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
         id: true,
         name: true,
       },
-    });    
+    });
     if (!user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
@@ -140,3 +149,21 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+export type Resolver<
+  TInput extends z.ZodSchema | undefined = undefined,
+  TOutput = void
+> = ProcedureResolver<
+  TRPCContext,
+  TInput extends z.ZodSchema ? z.infer<TInput> : undefined,
+  TOutput
+>;
+
+export type AuthenticatedResolver<
+  TInput extends z.ZodSchema | undefined = undefined,
+  TOutput = void
+> = ProcedureResolver<
+  AuthenticatedTRPCContext,
+  TInput extends z.ZodSchema ? z.infer<TInput> : undefined,
+  TOutput
+>;
