@@ -8,6 +8,7 @@ import Modal from "@/components/Modal/Index";
 import AddUserForm from "@/components/User/AddUserForm";
 import { User } from "@prisma/client";
 import { useRouter } from "next/router";
+import Breadcrumbs from "@/components/UI/Breadcrumbs";
 
 const index: NextPage = () => {
   const { push } = useRouter();
@@ -55,7 +56,8 @@ const index: NextPage = () => {
 
   return (
     <div className="w-screen">
-      <div className="max-w-screen-2xl-lg mx-auto mt-8 p-4 px-2">
+      <Breadcrumbs />
+      <div className="max-w-screen-2xl-lg mx-auto px-2">
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-200">Users</h1>
           <button

@@ -1,4 +1,5 @@
 import Loader from "@/components/Loader";
+import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import { api } from "@/utils/api";
 import { useRouter } from "next/router";
 
@@ -15,7 +16,13 @@ const User = () => {
 
   return (
     <div className="w-screen">
-      <div className="max-w-screen-2xl-lg mx-auto mt-8 p-4 px-2">
+      <Breadcrumbs />
+      <div className="max-w-screen-2xl-lg mx-auto  px-2">
+        <div className="flex justify-between">
+          <h1 className="text-3xl font-bold text-gray-200">
+            User: {data.name}
+          </h1>
+        </div>
         <p>{data.name}</p>
         <p> {data.email}</p>
         <p>{data.id}</p>
