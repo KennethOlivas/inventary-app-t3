@@ -2,12 +2,6 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table Example {
-  id String [pk]
-  createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
-}
-
 Table Account {
   id String [pk]
   userId String [not null]
@@ -36,6 +30,12 @@ Table Session {
   user User [not null]
 }
 
+Table Role {
+  id String [pk]
+  name String [not null]
+  users User [not null]
+}
+
 Table User {
   id String [pk]
   name String
@@ -44,6 +44,8 @@ Table User {
   image String
   accounts Account [not null]
   sessions Session [not null]
+  Role Role
+  roleId String
 }
 
 Table VerificationToken {
@@ -81,5 +83,7 @@ Table Order {
 Ref: Account.userId > User.id [delete: Cascade]
 
 Ref: Session.userId > User.id [delete: Cascade]
+
+Ref: User.roleId > Role.id
 
 Ref: Product.orderId > Order.id
