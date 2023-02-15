@@ -15,12 +15,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -48,6 +42,12 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Role {
+    id    String @id @default(cuid())
+    name  String
+    users User[]
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
@@ -56,6 +56,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Role          Role?     @relation(fields: [roleId], references: [id])
+    roleId        String?
 }
 
 model VerificationToken {
