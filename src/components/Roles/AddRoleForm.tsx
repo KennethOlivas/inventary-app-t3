@@ -1,14 +1,12 @@
 import { api } from "@/utils/api";
-import { Formik, Form, FormikHelpers } from "formik";
-import { UserInput } from "prisma/inputs";
-import React, { FC, useMemo } from "react";
-
+import { Form, Formik, FormikHelpers } from "formik";
+import { RoleInput } from "prisma/inputs";
+import React, { FC } from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import TextField from "../Inputs/TextField";
 
-const Schema = UserInput.pick({
+const Schema = RoleInput.pick({
   name: true,
-  email: true,
 });
 
 type Props = {
@@ -16,8 +14,8 @@ type Props = {
   onAddUser: () => void;
 };
 
-const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
-  const addUser = api.user.addUser.useMutation({
+const AddRoleForm: FC<Props> = ({ onAddUser, onCancel }) => {
+  const createRole = api.role.addRole.useMutation({
     onSuccess() {
       onAddUser();
       onCancel();
@@ -28,19 +26,15 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
       onCancel();
     },
   });
-
-  const inicialValues = useMemo(() => {
-    return {
-      name: "",
-      email: "",
-    };
-  }, []);
+  const inicialValues = {
+    name: "",
+  };
 
   const onSubmit = async (
     values: typeof inicialValues,
     formikHelpers: FormikHelpers<typeof inicialValues>
   ) => {
-    await addUser.mutateAsync(values);
+    await createRole.mutateAsync(values);
     formikHelpers.resetForm();
   };
 
@@ -53,7 +47,6 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
       <Form>
         <div className="my-4 flex flex-col space-y-4">
           <TextField id="name" name="name" placeholder="Name" type="text" />
-          <TextField id="email" name="email" placeholder="Email" type="email" />
         </div>
 
         <div className="spacex-4 flex justify-evenly space-x-4">
@@ -77,4 +70,4 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
   );
 };
 
-export default AddUserForm;
+export default AddRoleForm;

@@ -97,7 +97,7 @@ export const Table = <T extends object>({
           {table.getRowModel().rows.map((row) => (
             <motion.tr
               variants={item}
-              className=" bg-transparent hover:bg-indigo-700 transition-all duration-100"
+              className=" bg-transparent transition-all duration-100 hover:bg-indigo-700"
               key={row.id}
               onClick={() => onRowClick && onRowClick(row.getValue("id"))}
             >
@@ -154,6 +154,7 @@ export const Table = <T extends object>({
                 | Go to page:
                 <input
                   type="number"
+                  max={table.getPageCount()}
                   value={table.getState().pagination.pageIndex + 1}
                   onChange={(e) => {
                     const page = e.target.value

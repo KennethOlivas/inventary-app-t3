@@ -76,7 +76,6 @@ const EditUserForm: FC<Props> = ({ userData }) => {
             name="description"
             placeholder="Description"
           />
-
           <div className="flex flex-col-reverse">
             <button
               type="submit"
