@@ -3,12 +3,13 @@ import { NextPage } from "next";
 import React, { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { api } from "@/utils/api";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 import Modal from "@/components/Modal/Index";
 import AddUserForm from "@/components/User/AddUserForm";
 import { User } from "@prisma/client";
 import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
+import Link from "next/link";
 
 const index: NextPage = () => {
   const { push } = useRouter();
@@ -60,13 +61,23 @@ const index: NextPage = () => {
       <div className="max-w-screen-2xl-lg mx-auto px-2">
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-200">Users</h1>
-          <button
-            onClick={openModal}
-            className="flex rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"
-          >
-            Add User
-            <PlusIcon className="ml-2 h-6 w-6" />
-          </button>
+          <div className="flex space-x-4">
+            <Link
+              href="/user/roles"
+              className="flex rounded-md bg-yellow-600 px-4 py-2 text-white/90 shadow-lg shadow-yellow-600/40 transition-all duration-200 hover:bg-yellow-500 hover:text-white"
+            >
+              Roles
+              <Cog6ToothIcon className="ml-2 h-6 w-6" />
+            </Link>
+
+            <button
+              onClick={openModal}
+              className="flex rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"
+            >
+              Add User
+              <PlusIcon className="ml-2 h-6 w-6" />
+            </button>
+          </div>
         </div>
         <Modal onClose={closeModal} state={isOpen} title="Add User">
           <AddUserForm onCancel={closeModal} onAddUser={refetch} />

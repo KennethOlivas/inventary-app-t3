@@ -8,6 +8,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import Select from "../Select";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Skeleton from "./Skeleton";
+import { motion } from "framer-motion";
 
 interface ReactTableProps<T extends object> {
   data: T[];
@@ -17,6 +18,26 @@ interface ReactTableProps<T extends object> {
   loading?: boolean;
   onRowClick?: (id: string) => void;
 }
+
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 export const Table = <T extends object>({
   data,
@@ -34,9 +55,25 @@ export const Table = <T extends object>({
   });
 
   return (
-    <div className="mt-6 overflow-hidden rounded-xl bg-[#171717] shadow">
+    <motion.div
+      initial={{
+        opacity: 0.2,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      className="mt-6 overflow-hidden rounded-xl bg-[#171717] shadow"
+    >
       {loading ? <Skeleton /> : null}
-      <table className="min-w-full border-separate border-spacing-y-2 ">
+      <motion.table
+        initial="hidden"
+        animate="visible"
+        variants={container}
+        className="min-w-full border-separate border-spacing-y-2 "
+      >
         <thead className="hidden border-b lg:table-header-group">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -58,8 +95,9 @@ export const Table = <T extends object>({
         </thead>
         <tbody className="lg:border-gray-300">
           {table.getRowModel().rows.map((row) => (
-            <tr
-              className=" bg-transparent hover:bg-indigo-700"
+            <motion.tr
+              variants={item}
+              className=" bg-transparent hover:bg-indigo-700 transition-all duration-100"
               key={row.id}
               onClick={() => onRowClick && onRowClick(row.getValue("id"))}
             >
@@ -71,7 +109,7 @@ export const Table = <T extends object>({
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
-            </tr>
+            </motion.tr>
           ))}
         </tbody>
         {showFooter ? (
@@ -99,7 +137,7 @@ export const Table = <T extends object>({
             ))}
           </tfoot>
         ) : null}
-      </table>
+      </motion.table>
       {showNavigation ? (
         <div className="w-full">
           <div className="mt-5 h-2" />
@@ -154,7 +192,7 @@ export const Table = <T extends object>({
           </div>
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 export default Table;

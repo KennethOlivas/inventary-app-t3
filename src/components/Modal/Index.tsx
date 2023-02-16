@@ -1,8 +1,8 @@
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition} from "@headlessui/react";
 import React, { FC, Fragment, ReactNode } from "react";
 
 type Props = {
-  title: string;
+  title?: string;
   state: boolean;
   onClose: () => void;
   children: ReactNode;

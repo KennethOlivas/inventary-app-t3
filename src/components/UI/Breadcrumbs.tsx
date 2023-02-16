@@ -5,7 +5,12 @@ import Link from "next/link";
 
 const Breadcrumbs = () => {
   const { asPath } = useRouter();
-  const path = asPath.split("/");
+  const path = asPath.split("/").reduce((acc, curr) => {
+    if (curr === "") {
+      return ["/"];
+    }
+    return [...acc, `${acc[acc.length - 1]}${curr}/`];
+  }, [] as string[]);
 
   return (
     <section className="p-4  px-2">
@@ -17,7 +22,7 @@ const Breadcrumbs = () => {
           {path.map((item, index, arr) => {
             if (index === 0) {
               return (
-                <li className="inline-flex items-center">
+                <li className="inline-flex items-center" key={index}>
                   <HomeIcon
                     className="mr-4 h-6 w-6 text-gray-400"
                     aria-hidden="true"
@@ -32,17 +37,17 @@ const Breadcrumbs = () => {
               );
             }
             return (
-              <li>
+              <li key={index}>
                 <div className="flex items-center">
                   <ChevronRightIcon
                     className="h-6 w-6 text-gray-400"
                     aria-hidden="true"
                   />
                   <Link
-                    href={`/${arr[index - 1]}/${item}`}
+                    href={`${item}`}
                     className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ml-2"
                   >
-                    {item}
+                    {item.split("/")[item.split("/").length - 2]}
                   </Link>
                 </div>
               </li>

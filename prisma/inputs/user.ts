@@ -10,6 +10,9 @@ const UserInput = schemaForType<User>()(
     email: z.string().email(),
     emailVerified: z.date(),
     image: z.string(),
+    position: z.string(),
+    description: z.string(),
+    roleId: z.string(),
   })
 );
 

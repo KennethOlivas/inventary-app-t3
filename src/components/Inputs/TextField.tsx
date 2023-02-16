@@ -1,19 +1,22 @@
 import { Field } from "formik";
 import { FC } from "react";
 
+
 type Props = {
   name: string;
   id: string;
   placeholder: string;
   type?: string;
+  component?: "input" | "textarea";
 };
 
-const TextField: FC<Props> = ({ id, name, placeholder, type }) => {
+const TextField: FC<Props> = ({ id, name, placeholder, type, component }) => {
   return (
     <div className="relative">
       <Field
         type={type || "text"}
         id={id}
+        component={component || "input"}
         name={name}
         placeholder={placeholder}
         className="border-1 peer block w-full appearance-none rounded-lg border-2 border-gray-300

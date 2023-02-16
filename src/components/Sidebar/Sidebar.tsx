@@ -57,7 +57,7 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
           <div className="bg-sidebar-card-top flex h-full w-full items-center justify-start rounded-xl px-3 sm:justify-center sm:px-0 xl:justify-start xl:px-3">
             <p>icon</p>
             <div className="ml-3 block sm:hidden xl:block">
-              <div className="text-sm font-bold text-white">Sales House</div>
+              <div className="text-sm font-bold text-white">Data</div>
               <div className="text-sm">General Item</div>
             </div>
             <div className="block flex-grow sm:hidden xl:block" />
@@ -68,25 +68,6 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
           <MenuItem key={i.id} item={i} selected={sidebarIndex} />
         ))}
         <div className="flex-grow" />
-        <div className="hidden h-28 w-full p-3 sm:block sm:h-20 xl:h-32">
-          <div
-            className="h-full w-full overflow-hidden rounded-xl px-3 sm:px-0 xl:px-3"
-            style={{
-              backgroundImage:
-                "url('https://assets.codepen.io/3685267/res-react-dash-usage-card.svg')",
-            }}
-          >
-            <div className="block pt-3 sm:hidden xl:block">
-              <div className="text-sm font-bold text-gray-300">Used Space</div>
-              <div className="text-xs text-gray-500">
-                Admin updated 09:12 am November 08,2022
-              </div>
-              <div className="w-full text-gray-300">
-                <p>content</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <Footer />
