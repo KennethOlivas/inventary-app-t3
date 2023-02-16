@@ -2,6 +2,7 @@ import { Dialog, Transition} from "@headlessui/react";
 import React, { FC, Fragment, ReactNode } from "react";
 
 type Props = {
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
   title?: string;
   state: boolean;
   onClose: () => void;
@@ -9,7 +10,7 @@ type Props = {
   description?: string;
 };
 
-const Modal: FC<Props> = ({ onClose, state, title, children, description }) => {
+const Modal: FC<Props> = ({ onClose, state, title, children, description, size }) => {
   return (
     <>
       <Transition appear show={state} as={Fragment}>
@@ -37,7 +38,9 @@ const Modal: FC<Props> = ({ onClose, state, title, children, description }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#171717] p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className={`w-full max-w-${size ? size : "md"} transform 
+                overflow-hidden rounded-2xl bg-[#171717] p-6 text-left
+                align-middle shadow-xl transition-all`}>
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium capitalize leading-6 text-white text-center"

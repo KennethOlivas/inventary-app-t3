@@ -54,6 +54,7 @@ export const Table = <T extends object>({
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+
   return (
     <motion.div
       initial={{
