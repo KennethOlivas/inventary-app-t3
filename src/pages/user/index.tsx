@@ -10,6 +10,7 @@ import { User } from "@prisma/client";
 import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import Link from "next/link";
+import FieldUserButton from "@/utils/FieldData/FieldUserButton";
 
 const index: NextPage = () => {
   const { push } = useRouter();
@@ -62,6 +63,7 @@ const index: NextPage = () => {
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-200">Users</h1>
           <div className="flex space-x-4">
+            <FieldUserButton onFinishQuery={refetch} />
             <Link
               href="/user/roles"
               className="flex rounded-md bg-yellow-600 px-4 py-2 text-white/90 shadow-lg shadow-yellow-600/40 transition-all duration-200 hover:bg-yellow-500 hover:text-white"
