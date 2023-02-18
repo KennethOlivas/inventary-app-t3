@@ -3,7 +3,11 @@ import { NextPage } from "next";
 import React, { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { api } from "@/utils/api";
-import { PlusIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
+import {
+  PlusIcon,
+  Cog6ToothIcon,
+  DocumentArrowDownIcon,
+} from "@heroicons/react/24/outline";
 import Modal from "@/components/Modal/Index";
 import AddUserForm from "@/components/User/AddUserForm";
 import { User } from "@prisma/client";
@@ -18,6 +22,29 @@ const index: NextPage = () => {
   const { data, isLoading, refetch } = api.user.all.useQuery(
     undefined // no input,
   );
+
+  const xlsx = api.user.xlsx.useMutation({
+    onSuccess() {
+      console.log("success");
+    },
+
+    onError() {
+      console.log("error");
+    },
+  });
+
+  const onDownload = React.useCallback(async () => {
+    await xlsx.mutateAsync();
+  }, [xlsx]);
+
+  const handleClickOpen = async () => {
+    await onDownload();
+    if (!xlsx.data) return;
+    const mediaType =
+      "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,";
+
+    window.location.href = `${mediaType}${xlsx.data.file}`;
+  };
 
   const cols = useMemo<ColumnDef<User>[]>(
     () => [
@@ -71,6 +98,14 @@ const index: NextPage = () => {
               Roles
               <Cog6ToothIcon className="ml-2 h-6 w-6" />
             </Link>
+
+            <button
+              onClick={handleClickOpen}
+              className="flex rounded-md bg-emerald-600 px-4 py-2 text-white/90 shadow-lg shadow-emerald-600/40 transition-all duration-200 hover:bg-emerald-500 hover:text-white"
+            >
+              xlsx
+              <DocumentArrowDownIcon className="ml-2 h-6 w-6" />
+            </button>
 
             <button
               onClick={openModal}

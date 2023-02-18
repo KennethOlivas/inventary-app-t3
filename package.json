@@ -23,6 +23,7 @@
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
     "clsx": "^1.2.1",
+    "exceljs": "^4.3.0",
     "formik": "^2.2.9",
     "framer-motion": "^9.0.3",
     "next": "13.1.6",
