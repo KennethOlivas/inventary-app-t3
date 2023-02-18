@@ -1,4 +1,4 @@
-import { Dialog, Transition} from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import React, { FC, Fragment, ReactNode } from "react";
 
 type Props = {
@@ -10,7 +10,14 @@ type Props = {
   description?: string;
 };
 
-const Modal: FC<Props> = ({ onClose, state, title, children, description, size }) => {
+const Modal: FC<Props> = ({
+  onClose,
+  state,
+  title,
+  children,
+  description,
+  size,
+}) => {
   return (
     <>
       <Transition appear show={state} as={Fragment}>
@@ -38,12 +45,16 @@ const Modal: FC<Props> = ({ onClose, state, title, children, description, size }
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className={`w-full max-w-${size ? size : "md"} transform 
+                <Dialog.Panel
+                  className={`w-full ${
+                    size ? "max-w-" + size : "max-w-md"
+                  } transform 
                 overflow-hidden rounded-2xl bg-[#171717] p-6 text-left
-                align-middle shadow-xl transition-all`}>
+                align-middle shadow-xl transition-all`}
+                >
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium capitalize leading-6 text-white text-center"
+                    className="text-center text-lg font-medium capitalize leading-6 text-white"
                   >
                     {title}
                   </Dialog.Title>

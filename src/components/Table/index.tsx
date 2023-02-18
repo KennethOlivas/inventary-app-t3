@@ -1,14 +1,25 @@
 import {
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import type { ColumnDef } from "@tanstack/react-table";
 import Select from "../Select";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import Skeleton from "./Skeleton";
 import { motion } from "framer-motion";
+import { ChangeEvent, useState } from "react";
 
 interface ReactTableProps<T extends object> {
   data: T[];
@@ -47,13 +58,26 @@ export const Table = <T extends object>({
   loading,
   onRowClick,
 }: ReactTableProps<T>) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    state: {
+      sorting,
+      globalFilter,
+    },
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
   });
 
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) =>
+    setGlobalFilter(event.target.value);
 
   return (
     <motion.div
@@ -68,6 +92,31 @@ export const Table = <T extends object>({
       }}
       className="mt-6 overflow-hidden rounded-xl bg-[#171717] shadow"
     >
+      <div className="group relative mx-4 my-4 ">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
+          <MagnifyingGlassIcon className="h-5 w-5 text-gray-500 group-focus:text-indigo-500 " />
+        </div>
+        <input
+          value={globalFilter ?? ""}
+          onChange={onChangeInput}
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search"
+          className="border-1 peer block w-full appearance-none rounded-lg border-2 border-transparent bg-transparent px-2.5
+            pl-10 pb-4 pt-4 text-sm text-white placeholder-transparent hover:border-gray-600 focus:border-indigo-600 
+            focus:outline-none focus:ring-0 "
+        />
+        <label
+          htmlFor="search"
+          className="absolute top-2 left-8 z-10 origin-[0] -translate-y-4 scale-75 
+            transform  bg-[#171717] px-2 text-sm text-gray-500 duration-300 
+            peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 
+            peer-focus:top-2 peer-focus:left-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 peer-focus:text-indigo-600"
+        >
+          Search
+        </label>
+      </div>
       {loading ? <Skeleton /> : null}
       <motion.table
         initial="hidden"
@@ -80,15 +129,34 @@ export const Table = <T extends object>({
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
-                  className="whitespace-normal py-4 text-left text-sm font-medium capitalize text-gray-200 sm:px-6"
+                  className="group whitespace-normal py-4 text-left text-sm font-medium capitalize text-gray-200 sm:px-6 "
                   key={header.id}
+                  onClick={() => header.column.getToggleSortingHandler()}
+                  colSpan={header.colSpan}
                 >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
+                  {header.isPlaceholder ? null : (
+                    <div
+                      {...{
+                        className: header.column.getCanSort()
+                          ? "cursor-pointer select-none flex items-center gap-2"
+                          : "",
+                        onClick: header.column.getToggleSortingHandler(),
+                      }}
+                    >
+                      {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                      {{
+                        asc: (
+                          <ArrowDownIcon className="h-4 w-4 text-gray-600 duration-200 group-hover:text-white" />
+                        ),
+                        desc: (
+                          <ArrowUpIcon className="h-4 w-4 text-gray-600 duration-200 group-hover:text-white" />
+                        ),
+                      }[header.column.getIsSorted() as string] ?? null}
+                    </div>
+                  )}
                 </th>
               ))}
             </tr>

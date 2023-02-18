@@ -6,8 +6,10 @@ import { schemaForType } from "@/utils/schemaForType";
 const UserInput = schemaForType<User>()(
   z.object({
     id: z.string(),
-    name: z.string(),
-    email: z.string().email(),
+    name: z.string({
+      required_error: "Name is required",
+    }),
+    email: z.string().email({ message: "Invalid email address" }),
     emailVerified: z.date(),
     image: z.string(),
     position: z.string(),

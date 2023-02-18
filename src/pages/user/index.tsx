@@ -116,7 +116,7 @@ const index: NextPage = () => {
             </button>
           </div>
         </div>
-        <Modal onClose={closeModal} state={isOpen} title="Add User">
+        <Modal size="md" onClose={closeModal} state={isOpen} title="Add User">
           <AddUserForm onCancel={closeModal} onAddUser={refetch} />
         </Modal>
         <Table

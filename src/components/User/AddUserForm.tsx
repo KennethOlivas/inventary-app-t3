@@ -50,29 +50,46 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
       onSubmit={onSubmit}
       validationSchema={toFormikValidationSchema(Schema)}
     >
-      <Form>
-        <div className="my-4 flex flex-col space-y-4">
-          <TextField id="name" name="name" placeholder="Name" type="text" />
-          <TextField id="email" name="email" placeholder="Email" type="email" />
-        </div>
+      {({ errors, touched }) => (
+        <Form>
+          <>
+            <div className="my-4 flex flex-col space-y-4">
+              <TextField
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="text"
+                error={errors.name}
+                touched={touched.name}
+              />
+              <TextField
+                id="email"
+                name="email"
+                placeholder="Email"
+                type="email"
+                error={errors.email}
+                touched={touched.email}
+              />
+            </div>
+            <div className="spacex-4 flex justify-evenly space-x-4">
+              <button
+                type="button"
+                className="w-full rounded-md bg-pink-600 px-4 py-2 text-white/90 shadow-lg shadow-pink-600/40 transition-all duration-200 hover:bg-pink-500 hover:text-white"
+                onClick={onCancel}
+              >
+                Cancel
+              </button>
 
-        <div className="spacex-4 flex justify-evenly space-x-4">
-          <button
-            type="button"
-            className="w-full rounded-md bg-pink-600 px-4 py-2 text-white/90 shadow-lg shadow-pink-600/40 transition-all duration-200 hover:bg-pink-500 hover:text-white"
-            onClick={onCancel}
-          >
-            Cancel
-          </button>
-
-          <button
-            type="submit"
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"
-          >
-            Submit
-          </button>
-        </div>
-      </Form>
+              <button
+                type="submit"
+                className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"
+              >
+                Submit
+              </button>
+            </div>
+          </>
+        </Form>
+      )}
     </Formik>
   );
 };
