@@ -55,15 +55,34 @@ body {
 
 @layer components {
   .sidebar-item-selected {
-    @apply text-white  border-r-4 border-white bg-indigo-600 transition-all duration-150;
+    @apply border-r-4  border-white bg-indigo-600 text-white transition-all duration-150;
   }
   .sidebar-item {
-    @apply border-r-4 border-transparent hover:text-white/90 hover:border-white transition-all duration-150;
+    @apply border-r-4 border-transparent transition-all duration-150 hover:border-white hover:text-white/90;
   }
   .input {
-    @apply pl-12 py-2 pr-2 block w-full rounded-lg bg-card outline-none border-2 border-transparent focus:border-gray-200
-    placeholder-gray-600 focus:placeholder-gray-200 transition-all duration-200 text-white
+    @apply bg-card block w-full rounded-lg border-2 border-transparent py-2 pl-12 pr-2 text-white placeholder-gray-600
+    outline-none transition-all duration-200 focus:border-gray-200 focus:placeholder-gray-200;
   }
   /* ... */
 }
 
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #171717 #1e1e1e;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #171717;
+  border-radius: 10px;
+  border: 3px solid #1e1e1e;
+}
