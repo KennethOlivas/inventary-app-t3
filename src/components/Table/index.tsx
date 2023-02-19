@@ -19,7 +19,8 @@ import {
 } from "@heroicons/react/24/outline";
 import Skeleton from "./Skeleton";
 import { motion } from "framer-motion";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 interface ReactTableProps<T extends object> {
   data: T[];
@@ -58,6 +59,8 @@ export const Table = <T extends object>({
   loading,
   onRowClick,
 }: ReactTableProps<T>) => {
+  const router = useRouter();
+  // get the current page from the query string
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -76,9 +79,65 @@ export const Table = <T extends object>({
     onGlobalFilterChange: setGlobalFilter,
   });
 
-  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) =>
-    setGlobalFilter(event.target.value);
+  const onChangePage = (page: number) => {
+    router.push({
+      query: {
+        ...router.query,
+        page: page + 1,
+      },
+    });
+  };
 
+  const onChangePageSize = (pageSize: number) => {
+    router.push({
+      query: {
+        ...router.query,
+        pageSize,
+      },
+    });
+  };
+
+  const onChangeSorting = (sorting: SortingState) => {
+    console.log(
+      sorting.map((s) => `${s.id}:${s.desc ? "desc" : "asc"}`).join(",")
+    );
+
+    router.push({
+      query: {
+        ...router.query,
+        sort: sorting
+          .map((s) => `${s.id}:${s.desc ? "desc" : "asc"}`)
+          .join(","),
+      },
+    });
+  };
+
+  const onChangeGlobalFilter = (globalFilter: string) => {
+    router.push({
+      query: {
+        ...router.query,
+        globalFilter,
+      },
+    });
+  };
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === "") {
+      table.setGlobalFilter(undefined);
+      onChangeGlobalFilter && onChangeGlobalFilter("");
+      return;
+    }
+    table.setGlobalFilter(event.target.value);
+    onChangeGlobalFilter && onChangeGlobalFilter(table.getState().globalFilter);
+  };
+
+  useEffect(() => {
+    const { page, pageSize, globalFilter } = router.query;
+
+    table.setPageSize(Number(pageSize) || 10);
+    table.setPageIndex(Number(page) - 1 || 0);
+    table.setGlobalFilter(globalFilter as string);
+  }, [table]);
   return (
     <motion.div
       initial={{
@@ -131,7 +190,10 @@ export const Table = <T extends object>({
                 <th
                   className="group whitespace-normal py-4 text-left text-sm font-medium capitalize text-gray-200 sm:px-6 "
                   key={header.id}
-                  onClick={() => header.column.getToggleSortingHandler()}
+                  onClick={() => {
+                    header.column.getToggleSortingHandler();
+                    onChangeSorting(table.getState().sorting);
+                  }}
                   colSpan={header.colSpan}
                 >
                   {header.isPlaceholder ? null : (
@@ -230,6 +292,7 @@ export const Table = <T extends object>({
                       ? Number(e.target.value) - 1
                       : 0;
                     table.setPageIndex(page);
+                    onChangePage && onChangePage(page);
                   }}
                   className="mt-1 w-16 rounded-lg bg-indigo-600 p-1 py-2  text-left text-white
                 shadow-md outline-none transition-all duration-150 hover:bg-indigo-500 hover:shadow-md"
@@ -240,20 +303,28 @@ export const Table = <T extends object>({
                 options={[5, 10, 30, 40, 50]}
                 onChange={(value) => {
                   table.setPageSize(Number(value));
+                  onChangePageSize && onChangePageSize(Number(value));
                 }}
               />
             </div>
             <div className="flex space-x-4">
               <button
                 className="rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg transition-all duration-200 hover:bg-indigo-500 hover:text-white"
-                onClick={() => table.previousPage()}
+                onClick={() => {
+                  table.previousPage();
+
+                  onChangePage(table.getState().pagination.pageIndex - 1);
+                }}
                 disabled={!table.getCanPreviousPage()}
               >
                 <ChevronLeftIcon className="h-6 w-6" />
               </button>
               <button
                 className="rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg transition-all duration-200 hover:bg-indigo-500 hover:text-white"
-                onClick={() => table.nextPage()}
+                onClick={() => {
+                  table.nextPage();
+                  onChangePage(table.getState().pagination.pageIndex + 1);
+                }}
                 disabled={!table.getCanNextPage()}
               >
                 <ChevronRightIcon className="h-6 w-6" />

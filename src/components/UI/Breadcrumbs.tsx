@@ -4,13 +4,22 @@ import React from "react";
 import Link from "next/link";
 
 const Breadcrumbs = () => {
-  const { asPath } = useRouter();
-  const path = asPath.split("/").reduce((acc, curr) => {
+  const { pathname, query } = useRouter();
+  const path = pathname.split("/").reduce((acc, curr) => {
     if (curr === "") {
       return ["/"];
     }
     return [...acc, `${acc[acc.length - 1]}${curr}/`];
   }, [] as string[]);
+
+
+  path.forEach((item, index) => {
+    if (item.includes("[id]")) {
+      path[index] = item.replace("[id]", query.id as string);
+    }
+  });
+
+  
 
   return (
     <section className="p-4 px-2">
