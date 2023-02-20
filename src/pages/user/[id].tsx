@@ -6,6 +6,7 @@ import Image from "next/image";
 import Tabs from "@/components/UI/Tabs/Tabs";
 import TabItem from "@/components/UI/Tabs/TabItem";
 import UserTabSettings from "@/components/User/UserTabSettings/UserTabSettings";
+import HeaderTitle from "@/components/UI/HeaderTitle";
 
 const User = () => {
   const router = useRouter();
@@ -22,11 +23,7 @@ const User = () => {
     <div className="w-screen">
       <Breadcrumbs />
       <div className="max-w-screen-2xl-lg mx-auto px-2">
-        <div className="flex justify-between">
-          <h1 className="text-3xl font-bold text-gray-200">
-            User: {data.name}
-          </h1>
-        </div>
+        <HeaderTitle title={` User: ${data.name}`} />
         <div className="mt-6 grid w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
           <div className="rounded-lg bg-[#171717] p-4 shadow sm:p-6 xl:p-8 ">
             <div className="mb-4 flex w-full items-center justify-center">
@@ -69,7 +66,6 @@ const User = () => {
           </div>
         </div>
       </div>
-     
     </div>
   );
 };

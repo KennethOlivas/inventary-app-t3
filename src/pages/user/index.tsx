@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import Link from "next/link";
 import FieldUserButton from "@/utils/FieldData/FieldUserButton";
+import HeaderTitle from "@/components/UI/HeaderTitle";
 
 const index: NextPage = () => {
   const { push } = useRouter();
@@ -86,9 +87,8 @@ const index: NextPage = () => {
   return (
     <div className="w-screen">
       <Breadcrumbs />
-      <div className="max-w-screen-2xl-lg mx-auto px-2">
-        <div className="flex justify-between">
-          <h1 className="text-3xl font-bold text-gray-200">Users</h1>
+      <div className="max-w-screen-4xl mx-auto px-2 mb-4">
+        <HeaderTitle title="Users">
           <div className="flex space-x-4">
             <FieldUserButton onFinishQuery={refetch} />
             <Link
@@ -115,13 +115,13 @@ const index: NextPage = () => {
               <PlusIcon className="ml-2 h-6 w-6" />
             </button>
           </div>
-        </div>
+        </HeaderTitle>
         <Modal size="md" onClose={closeModal} state={isOpen} title="Add User">
           <AddUserForm onCancel={closeModal} onAddUser={refetch} />
         </Modal>
         <Table
           onRowClick={onClickRow}
-          data={data!}
+          data={data}
           columns={cols}
           showFooter={false}
           loading={isLoading}

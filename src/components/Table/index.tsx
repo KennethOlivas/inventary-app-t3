@@ -23,7 +23,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 interface ReactTableProps<T extends object> {
-  data: T[];
+  data: T[] | undefined;
   columns: ColumnDef<T>[];
   showFooter: boolean;
   showNavigation?: boolean;
@@ -63,7 +63,9 @@ export const Table = <T extends object>({
   // get the current page from the query string
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
-
+  if (!data) {
+    return null;
+  }
   const table = useReactTable({
     data,
     columns,
@@ -224,11 +226,14 @@ export const Table = <T extends object>({
             </tr>
           ))}
         </thead>
+        {table.getRowModel().rows.length === 0 ? (
+          <div className="mx-4 h-20 w-full text-3xl">No data</div>
+        ) : null}
         <tbody className="lg:border-gray-300">
           {table.getRowModel().rows.map((row) => (
             <motion.tr
               variants={item}
-              className=" bg-transparent transition-all duration-100 hover:bg-indigo-700"
+              className="bg-transparent transition-all duration-100 hover:bg-indigo-700"
               key={row.id}
               onClick={() => onRowClick && onRowClick(row.getValue("id"))}
             >
@@ -243,6 +248,7 @@ export const Table = <T extends object>({
             </motion.tr>
           ))}
         </tbody>
+
         {showFooter ? (
           <tfoot className="border-t">
             {table.getFooterGroups().map((footerGroup) => (

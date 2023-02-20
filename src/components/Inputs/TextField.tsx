@@ -5,7 +5,7 @@ type Props = {
   name: string;
   id: string;
   placeholder: string;
-  type?: string;
+  type?: "text" | "number" | "email" | "password" | "date" | "textarea";
   component?: "input" | "textarea";
   error?: string;
   touched?: boolean;

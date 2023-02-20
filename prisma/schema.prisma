@@ -72,16 +72,16 @@ model VerificationToken {
 
 // model product 
 model Product {
-    id      String  @id @default(uuid())
-    name    String
-    Order   Order?  @relation(fields: [orderId], references: [id])
-    orderId String?
-}
-
-model inventory {
-    id    String @id @default(uuid())
-    price Int
-    stock Int
+    id          String   @id @default(uuid())
+    name        String
+    description String?
+    price       Int
+    image       String?
+    stock       Int
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    Order       Order?   @relation(fields: [orderId], references: [id])
+    orderId     String?
 }
 
 model Order {
@@ -91,4 +91,17 @@ model Order {
     status    String
     total     Int
     products  Product[]
+    Client    Client    @relation(fields: [clientId], references: [id])
+    clientId  String
+}
+
+model Client {
+    id        String   @id @default(uuid())
+    name      String
+    lastName  String
+    email     String
+    phone     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Orders    Order[]
 }

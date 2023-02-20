@@ -63,14 +63,14 @@ Table VerificationToken {
 Table Product {
   id String [pk]
   name String [not null]
+  description String
+  price Int [not null]
+  image String
+  stock Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
   Order Order
   orderId String
-}
-
-Table inventory {
-  id String [pk]
-  price Int [not null]
-  stock Int [not null]
 }
 
 Table Order {
@@ -80,6 +80,19 @@ Table Order {
   status String [not null]
   total Int [not null]
   products Product [not null]
+  Client Client [not null]
+  clientId String [not null]
+}
+
+Table Client {
+  id String [pk]
+  name String [not null]
+  lastName String [not null]
+  email String [not null]
+  phone String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  Orders Order [not null]
 }
 
 Ref: Account.userId > User.id [delete: Cascade]
@@ -89,3 +102,5 @@ Ref: Session.userId > User.id [delete: Cascade]
 Ref: User.roleId > Role.id
 
 Ref: Product.orderId > Order.id
+
+Ref: Order.clientId > Client.id
