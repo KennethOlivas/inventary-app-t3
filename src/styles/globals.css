@@ -67,6 +67,12 @@ body {
   .indigo-button {
     @apply flex rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white;
   }
+  .pink-button {
+    @apply flex rounded-md bg-pink-600 px-4 py-2 text-white/90 shadow-lg shadow-pink-600/40 transition-all duration-200 hover:bg-pink-500 hover:text-white;
+  }
+  .emerald-button {
+    @apply flex rounded-md bg-emerald-600 px-4 py-2 text-white/90 shadow-lg shadow-emerald-600/40 transition-all duration-200 hover:bg-emerald-500 hover:text-white;
+  }
   /* ... */
 }
 

@@ -1,5 +1,6 @@
 import {
   ColumnFiltersState,
+  FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -66,6 +67,16 @@ export const Table = <T extends object>({
   if (!data) {
     return null;
   }
+
+  const globalFilterFn: FilterFn<T> = (row, columnId, filterValue: string) => {
+    const search = filterValue.toLowerCase();
+
+    let value = row.getValue(columnId) as string;
+    if (typeof value === "number") value = String(value);
+
+    return value?.toLowerCase().includes(search);
+  };
+  
   const table = useReactTable({
     data,
     columns,
@@ -78,6 +89,7 @@ export const Table = <T extends object>({
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn,
     onGlobalFilterChange: setGlobalFilter,
   });
 
@@ -124,6 +136,7 @@ export const Table = <T extends object>({
   };
 
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    debugger;
     if (event.target.value === "") {
       table.setGlobalFilter(undefined);
       onChangeGlobalFilter && onChangeGlobalFilter("");
@@ -226,9 +239,7 @@ export const Table = <T extends object>({
             </tr>
           ))}
         </thead>
-        {table.getRowModel().rows.length === 0 ? (
-          <div className="mx-4 h-20 w-full text-3xl">No data</div>
-        ) : null}
+
         <tbody className="lg:border-gray-300">
           {table.getRowModel().rows.map((row) => (
             <motion.tr

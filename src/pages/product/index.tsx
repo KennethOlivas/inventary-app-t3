@@ -23,7 +23,10 @@ const index = () => {
       },
       {
         header: "stock",
-        cell: (row) => row.renderValue(),
+        cell: (row) => {
+          const value = row.renderValue() as string;
+          return <>{value}</>;
+        },
         accessorKey: "stock",
       },
       {

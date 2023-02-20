@@ -2,6 +2,7 @@ import TabItem from "@/components/UI/Tabs/TabItem";
 import Tabs from "@/components/UI/Tabs/Tabs";
 import { User } from "@prisma/client";
 import React, { FC, useMemo } from "react";
+import DeleteUser from "./DeleteUser";
 import EditUserForm from "./EditUserForm";
 
 type Props = {
@@ -9,11 +10,8 @@ type Props = {
 };
 
 const UserTabSettings: FC<Props> = ({ userData }) => {
-  const SelectedTab = (item: string) => {
-    console.log(item);
-  };
   const setingsItems = useMemo(() => {
-    return ["General", "Roles", "Extra"];
+    return ["General", "Roles", "More"];
   }, []);
 
   return (
@@ -25,7 +23,7 @@ const UserTabSettings: FC<Props> = ({ userData }) => {
         <p>data2</p>
       </TabItem>
       <TabItem>
-        <p>data3</p>
+        <DeleteUser userData={userData} />
       </TabItem>
     </Tabs>
   );

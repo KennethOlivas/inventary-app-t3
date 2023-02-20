@@ -56,10 +56,7 @@ const index = () => {
       <Breadcrumbs />
       <div className="max-w-screen-2xl-lg mx-auto  px-2">
         <HeaderTitle title="Roles">
-          <button
-            onClick={openModal}
-            className="flex rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"
-          >
+          <button onClick={openModal} className="indigo-button">
             Add Role
             <PlusIcon className="ml-2 h-6 w-6" />
           </button>

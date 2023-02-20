@@ -8,6 +8,7 @@ type Props = {
   onClose: () => void;
   children: ReactNode;
   description?: string;
+  
 };
 
 const Modal: FC<Props> = ({
