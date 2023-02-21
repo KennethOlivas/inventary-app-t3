@@ -2,10 +2,11 @@ import { api } from "@/utils/api";
 import { Product } from "@prisma/client";
 import { Form, Formik, FormikHelpers } from "formik";
 import { ProductInput } from "prisma/inputs";
-import React, { FC, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import TextField from "../Inputs/TextField";
 import Loader from "../Loader";
+import { useNotification } from "react-hook-notification";
 
 const Schema = ProductInput.pick({
   name: true,
@@ -27,6 +28,7 @@ const UpsertProductForm: FC<Props> = ({
   productId,
   isEdit,
 }) => {
+  const notification = useNotification();
   const addProduct = api.product.addProduct.useMutation({
     onSuccess() {
       onAddUser();
@@ -51,9 +53,30 @@ const UpsertProductForm: FC<Props> = ({
     },
   });
 
-  const { data: editValues, isLoading } = api.product.getProductById.useQuery({
+  const {
+    data: editValues,
+    isLoading,
+    refetch,
+  } = api.product.getProductById.useQuery({
     id: productId,
   });
+
+  const handleNotification = useCallback((isEdit: boolean) => {
+    if (isEdit) {
+      notification.success({
+        text: "Product edited successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+      return;
+    }
+
+    notification.success({
+      text: "Product added successfully",
+      position: "bottom-right",
+      theme: "dark",
+    });
+  }, []);
 
   const inicialValues = useMemo(() => {
     return {
@@ -73,10 +96,12 @@ const UpsertProductForm: FC<Props> = ({
         id: editValues?.id || "",
         ...values,
       });
+      handleNotification(isEdit);
+      refetch();
       formikHelpers.resetForm();
       return;
     }
-
+    handleNotification(false);
     await addProduct.mutateAsync(values);
     formikHelpers.resetForm();
   };
