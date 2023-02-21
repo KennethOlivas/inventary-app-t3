@@ -76,7 +76,7 @@ export const Table = <T extends object>({
 
     return value?.toLowerCase().includes(search);
   };
-  
+
   const table = useReactTable({
     data,
     columns,
@@ -164,7 +164,7 @@ export const Table = <T extends object>({
       transition={{
         duration: 0.5,
       }}
-      className="mt-6 overflow-hidden rounded-xl bg-[#171717] shadow"
+      className="relative mt-6 overflow-y-auto rounded-xl bg-[#171717] shadow"
     >
       <div className="group relative mx-4 my-4 ">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
@@ -196,7 +196,7 @@ export const Table = <T extends object>({
         initial="hidden"
         animate="visible"
         variants={container}
-        className="min-w-full border-separate border-spacing-y-2 "
+        className="whitespace-no-wrap table-striped relative  w-full min-w-full table-auto border-separate border-spacing-y-2"
       >
         <thead className="hidden border-b lg:table-header-group">
           {table.getHeaderGroups().map((headerGroup) => (

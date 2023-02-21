@@ -52,7 +52,7 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-grow flex-col overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-grow flex-col ">
         <div className="hidden h-24 w-full flex-shrink-0 p-3 sm:block sm:h-20 xl:h-24">
           <div className="bg-sidebar-card-top flex h-full w-full items-center justify-start rounded-xl px-3 sm:justify-center sm:px-0 xl:justify-start xl:px-3">
             <p>icon</p>

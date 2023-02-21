@@ -1,5 +1,5 @@
-import { publicProcedure } from "@/server/api/trpc";
+import { protectedProcedure } from "@/server/api/trpc";
 
-export const all = publicProcedure.query(({ ctx }) => {
+export const all = protectedProcedure.query(({ ctx }) => {
   return ctx.prisma.product.findMany();
 });
