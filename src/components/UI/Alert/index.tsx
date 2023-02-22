@@ -4,7 +4,7 @@ import {
   ExclamationTriangleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = {
   type: "success" | "error" | "warning" | "info";
@@ -30,7 +30,9 @@ const Alert: FC<Props> = ({ mesaage, title, type }) => {
         )}
       </div>
       <div>
-        <h2 className="text-center text-lg  font-semibold text-gray-50">{title}</h2>
+        <h2 className="text-center text-lg  font-semibold text-gray-50">
+          {title}
+        </h2>
         <p className="mt-2 text-center text-sm leading-relaxed text-gray-100">
           {mesaage}
         </p>

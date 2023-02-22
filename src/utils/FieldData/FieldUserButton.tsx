@@ -1,6 +1,7 @@
 import Modal from "@/components/Modal/Index";
 import { CircleStackIcon } from "@heroicons/react/24/outline";
-import React, { FC, useState } from "react";
+import type { FC } from "react";
+import React, { useState } from "react";
 import { api } from "../api";
 
 type Props = {
@@ -10,13 +11,7 @@ type Props = {
 const FieldUserButton: FC<Props> = ({ onFinishQuery }) => {
   const [modalState, setModalState] = useState(false);
   const [users, setUsers] = useState<string>("");
-  const addUser = api.user.addUser.useMutation({
-    onSuccess() {},
-
-    onError() {
-      console.log("error");
-    },
-  });
+  const addUser = api.user.addUser.useMutation();
 
   const openModal = async () => {
     setModalState(true);

@@ -1,7 +1,7 @@
 import Table from "@/components/Table";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import React, { useMemo, useState } from "react";
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { api } from "@/utils/api";
 import {
   PlusIcon,
@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Modal from "@/components/Modal/Index";
 import AddUserForm from "@/components/User/AddUserForm";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import Link from "next/link";
@@ -19,7 +19,7 @@ import HeaderTitle from "@/components/UI/HeaderTitle";
 
 const index: NextPage = () => {
   const { push } = useRouter();
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { data, isLoading, refetch } = api.user.all.useQuery(
     undefined // no input,
   );
@@ -87,7 +87,7 @@ const index: NextPage = () => {
   return (
     <div className="w-screen">
       <Breadcrumbs />
-      <div className="max-w-screen-4xl mx-auto px-2 mb-4">
+      <div className="max-w-screen-4xl mx-auto mb-4 px-2">
         <HeaderTitle title="Users">
           <div className="flex space-x-4">
             <FieldUserButton onFinishQuery={refetch} />

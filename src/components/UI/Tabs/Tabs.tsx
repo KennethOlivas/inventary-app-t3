@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import type { FC, ReactNode } from "react";
 import { Tab } from "@headlessui/react";
 
 function classNames(...classes: string[]) {

@@ -12,14 +12,11 @@ const Breadcrumbs = () => {
     return [...acc, `${acc[acc.length - 1]}${curr}/`];
   }, [] as string[]);
 
-
   path.forEach((item, index) => {
     if (item.includes("[id]")) {
       path[index] = item.replace("[id]", query.id as string);
     }
   });
-
-  
 
   return (
     <section className="p-4 px-2">
@@ -28,7 +25,7 @@ const Breadcrumbs = () => {
         aria-label="Breadcrumb"
       >
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
-          {path.map((item, index, arr) => {
+          {path.map((item, index) => {
             if (index === 0) {
               return (
                 <li className="inline-flex items-center" key={index}>

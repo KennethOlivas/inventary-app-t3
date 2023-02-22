@@ -3,15 +3,13 @@ import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import { api } from "@/utils/api";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Tabs from "@/components/UI/Tabs/Tabs";
-import TabItem from "@/components/UI/Tabs/TabItem";
 import UserTabSettings from "@/components/User/UserTabSettings/UserTabSettings";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 
 const User = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { data, isLoading, refetch } = api.user.byId.useQuery({ id: id });
+  const { data, isLoading } = api.user.byId.useQuery({ id: id });
   if (isLoading) {
     return <Loader />;
   }

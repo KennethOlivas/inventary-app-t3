@@ -1,9 +1,7 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { FC } from "react";
+import type { FC } from "react";
 
-type Props = {};
-
-const Footer: FC<Props> = () => {
+const Footer: FC = () => {
   return (
     <div className="flex-shrink-0  p-2">
       <div className="sidebar-separator-bottom flex h-full items-center py-2 sm:justify-center xl:justify-start">

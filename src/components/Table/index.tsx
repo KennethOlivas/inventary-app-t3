@@ -1,15 +1,12 @@
 import {
-  ColumnFiltersState,
-  FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, FilterFn, SortingState } from "@tanstack/react-table";
 import Select from "../Select";
 import {
   ArrowDownIcon,
@@ -20,7 +17,8 @@ import {
 } from "@heroicons/react/24/outline";
 import Skeleton from "./Skeleton";
 import { motion } from "framer-motion";
-import { ChangeEvent, useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 interface ReactTableProps<T extends object> {
@@ -136,7 +134,6 @@ export const Table = <T extends object>({
   };
 
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    debugger;
     if (event.target.value === "") {
       table.setGlobalFilter(undefined);
       onChangeGlobalFilter && onChangeGlobalFilter("");

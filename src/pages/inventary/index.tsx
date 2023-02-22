@@ -1,9 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-type Props = {};
-
-const index = (props: Props) => {
+const index = () => {
   return (
     <div className="w-screen">
       <div className="max-w-screen-2xl-lg mx-auto mt-8 px-2">

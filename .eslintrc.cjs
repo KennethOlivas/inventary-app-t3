@@ -3,4 +3,10 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   root: true,
+  rules: {
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "import/prefer-default-export": "off",
+  },
 };

@@ -1,7 +1,9 @@
 import { api } from "@/utils/api";
-import { Form, Formik, FormikHelpers } from "formik";
+import type { FormikHelpers } from "formik";
+import { Form, Formik } from "formik";
 import { RoleInput } from "prisma/inputs";
-import React, { FC } from "react";
+import type { FC } from "react";
+import React from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import TextField from "../Inputs/TextField";
 

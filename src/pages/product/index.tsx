@@ -5,9 +5,9 @@ import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { Product } from "@prisma/client";
-import { CellContext, ColumnDef } from "@tanstack/react-table";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import type { Product } from "@prisma/client";
+import type { CellContext, ColumnDef } from "@tanstack/react-table";
+import { useCallback, useMemo, useState } from "react";
 
 const index = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

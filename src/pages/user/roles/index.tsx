@@ -5,8 +5,8 @@ import Table from "@/components/Table";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import { api } from "@/utils/api";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { ColumnDef } from "@tanstack/react-table";
-import { Role } from "@prisma/client";
+import type { ColumnDef } from "@tanstack/react-table";
+import type { Role } from "@prisma/client";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 
 const index = () => {
@@ -44,7 +44,7 @@ const index = () => {
   );
 
   const handleClick = (id: string): void => {
-    setSelectedRole(data?.find((role) => role.id === id) || null);
+    setSelectedRole(data?.find((role) => role.id === id) ?? null);
     setEditRole(true);
   };
 

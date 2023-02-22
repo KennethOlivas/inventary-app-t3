@@ -5,10 +5,11 @@ import {
   ExclamationTriangleIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { FC } from "react";
+import type { FC } from "react";
+import React from "react";
 
 type Props = {
   userData: User | null | undefined;
@@ -26,11 +27,11 @@ const DeleteUser: FC<Props> = ({ userData }) => {
     return <div>you can't delete your user</div>;
   }
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     if (!userData?.id) {
       return;
     }
-    const response = deleteUser.mutateAsync({
+    deleteUser.mutateAsync({
       id: userData?.id,
     });
 

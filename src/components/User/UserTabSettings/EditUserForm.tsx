@@ -2,10 +2,11 @@ import TextField from "@/components/Inputs/TextField";
 import Modal from "@/components/Modal/Index";
 import Alert from "@/components/UI/Alert";
 import { api } from "@/utils/api";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { Form, Formik } from "formik";
 import { UserInput } from "prisma/inputs";
-import React, { FC, useMemo, useState } from "react";
+import type { FC } from "react";
+import React, { useMemo, useState } from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 
 const schema = UserInput.pick({

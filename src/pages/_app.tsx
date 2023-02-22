@@ -8,7 +8,6 @@ import "../styles/globals.css";
 import Layout from "@/components/Layout";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
-import { useRouter } from "next/router";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

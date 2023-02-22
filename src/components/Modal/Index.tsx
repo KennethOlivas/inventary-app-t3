@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
-import React, { FC, Fragment, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+import React, { Fragment } from "react";
 
 type Props = {
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
@@ -8,7 +9,6 @@ type Props = {
   onClose: () => void;
   children: ReactNode;
   description?: string;
-  
 };
 
 const Modal: FC<Props> = ({

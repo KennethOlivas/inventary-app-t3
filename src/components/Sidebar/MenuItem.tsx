@@ -1,8 +1,7 @@
 import clsx from "clsx";
-import { FC } from "react";
+import type { FC } from "react";
 import {
   Squares2X2Icon,
-  SwatchIcon,
   WrenchScrewdriverIcon,
   UsersIcon,
   CubeIcon,
@@ -10,7 +9,7 @@ import {
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { onChangeMenu } from "@/store/features/Sidebar/sideBarSlice";
-import { SideBarItem } from "@/common/sideBarData";
+import type { SideBarItem } from "@/common/sideBarData";
 
 const Icons = [
   <Squares2X2Icon className="h-5 w-5" />,

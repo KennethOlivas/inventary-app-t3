@@ -1,5 +1,6 @@
-import { NextPage } from "next";
-import React, { ReactElement, useEffect, useState } from "react";
+import type { NextPage } from "next";
+import type { ReactElement } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";

@@ -1,7 +1,8 @@
 import TabItem from "@/components/UI/Tabs/TabItem";
 import Tabs from "@/components/UI/Tabs/Tabs";
-import { User } from "@prisma/client";
-import React, { FC, useMemo } from "react";
+import type { User } from "@prisma/client";
+import type { FC } from "react";
+import React, { useMemo } from "react";
 import DeleteUser from "./DeleteUser";
 import EditUserForm from "./EditUserForm";
 
