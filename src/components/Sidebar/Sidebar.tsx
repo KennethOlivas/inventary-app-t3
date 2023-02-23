@@ -1,5 +1,5 @@
 import { sidebarItems } from "@/common/sideBarData";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronUpIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import type { FC } from "react";
 import { useEffect } from "react";
@@ -11,6 +11,8 @@ import {
   selectMenu,
 } from "@/store/features/Sidebar/sideBarSlice";
 import { useRouter } from "next/router";
+import { Disclosure, Transition } from "@headlessui/react";
+import Collapse from "../UI/Collapse";
 
 type Props = {
   onSidebarHide: () => void;
@@ -65,9 +67,13 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
             <p>icon</p>
           </div>
         </div>
-        {sidebarItems?.map((i) => (
-          <MenuItem key={i.id} item={i} selected={sidebarIndex} />
-        ))}
+        <div className="mx-2">
+          <Collapse>
+            {sidebarItems?.map((i) => (
+              <MenuItem key={i.id} item={i} selected={sidebarIndex} />
+            ))}
+          </Collapse>
+        </div>
         <div className="flex-grow" />
       </div>
 

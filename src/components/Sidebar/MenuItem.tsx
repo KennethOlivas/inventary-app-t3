@@ -5,6 +5,8 @@ import {
   WrenchScrewdriverIcon,
   UsersIcon,
   CubeIcon,
+  UserGroupIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -14,6 +16,7 @@ import type { SideBarItem } from "@/common/sideBarData";
 const Icons = [
   <Squares2X2Icon className="h-5 w-5" />,
   <CubeIcon className="h-5 w-5" />,
+  <StarIcon className="h-5 w-5" />,
   <WrenchScrewdriverIcon className="h-5 w-5" />,
   <UsersIcon className="h-5 w-5" />,
 ];
@@ -32,7 +35,7 @@ const MenuItem: FC<Props> = ({
       <div className="group relative inline-block w-full">
         <button
           className={clsx(
-            "flex w-full cursor-pointer items-center justify-start py-2 px-3 sm:justify-center sm:px-0 xl:justify-start  xl:px-3",
+            "flex w-full cursor-pointer items-center justify-start py-4 px-3 sm:justify-center sm:px-0 xl:justify-start  xl:px-3",
             selected === id ? "sidebar-item-selected" : "sidebar-item"
           )}
           onClick={() => dispatch(onChangeMenu(id))}
