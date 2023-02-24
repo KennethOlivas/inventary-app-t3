@@ -3,7 +3,7 @@ import type { FC, ReactNode } from "react";
 import React, { Fragment } from "react";
 
 type Props = {
-  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
+  size: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
   title?: string;
   state: boolean;
   onClose: () => void;
@@ -47,9 +47,7 @@ const Modal: FC<Props> = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full ${
-                    size ? "max-w-" + size : "max-w-md"
-                  } transform 
+                  className={`w-full max-w-${size} transform 
                 overflow-hidden rounded-2xl bg-[#171717] p-6 text-left
                 align-middle shadow-xl transition-all`}
                 >

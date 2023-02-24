@@ -1,6 +1,8 @@
+import Loader from "@/components/Loader";
 import Modal from "@/components/Modal/Index";
 import UpsertProductForm from "@/components/Product/UpsertProductForm";
 import Table from "@/components/Table";
+import ActionsTableButtons from "@/components/UI/ActionsTableButtons.tsx";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
@@ -40,8 +42,21 @@ const index = () => {
     () => [
       {
         header: "Name",
-        cell: (row) => row.renderValue(),
+        cell: (row) => {
+          const value = row.renderValue() as string;
+          return (
+            <span className=" text-sm capitalize text-gray-300">{value}</span>
+          );
+        },
         accessorKey: "name",
+      },
+      {
+        header: "price",
+        cell: (row) => {
+          const value = row.renderValue() as string;
+          return <span className=" text-sm text-gray-300">$ {value}</span>;
+        },
+        accessorKey: "price",
       },
       {
         header: "stock",
@@ -52,13 +67,26 @@ const index = () => {
         accessorKey: "stock",
       },
       {
-        header: "price",
+        header: "Status",
         cell: (row) => {
-          const value = row.renderValue() as string;
-          return <div className=" text-sm text-gray-300">$ {value}</div>;
+          const value = row.renderValue() as number;
+          return (
+            <span
+              className={`inline-block whitespace-nowrap rounded-md
+             py-1 px-2 text-center align-baseline text-xs 
+            font-bold uppercase ${
+              value > 0
+                ? "bg-emerald-200 text-emerald-800"
+                : "bg-pink-200 text-pink-800"
+            }`}
+            >
+              {value > 0 ? "In Stock" : "Out of Stock"}
+            </span>
+          );
         },
-        accessorKey: "price",
+        accessorKey: "stock",
       },
+
       {
         header: "description",
         cell: (row) => {
@@ -75,21 +103,11 @@ const index = () => {
         cell: (row: CellContext<Product, unknown>) => {
           const value = row.renderValue() as string;
           return (
-            <div className="flex space-x-8 text-sm text-gray-300">
-              <button
-                onClick={() => onClickEdit(value)}
-                className="text-gray-400 duration-150 hover:rotate-6 hover:scale-125 hover:text-indigo-200"
-              >
-                <PencilIcon className="h-5 w-5" />
-              </button>
-
-              <button
-                onClick={() => onClickDelete(value)}
-                className="text-gray-400 duration-150 hover:rotate-6 hover:scale-125 hover:text-indigo-200"
-              >
-                <TrashIcon className="h-5 w-5" />
-              </button>
-            </div>
+            <ActionsTableButtons
+              onClickDelete={onClickDelete}
+              onClickEdit={onClickEdit}
+              value={value}
+            />
           );
         },
         accessorKey: "id",
@@ -97,10 +115,6 @@ const index = () => {
     ],
     []
   );
-
-  if (!data) {
-    return <div>no data</div>;
-  }
 
   const openModal = (): void => {
     setIsOpen(true);
@@ -135,12 +149,17 @@ const index = () => {
             onCancel={closeModal}
           />
         </Modal>
-        <Table
-          data={data}
-          columns={cols}
-          showFooter={false}
-          loading={isLoading}
-        />
+
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Table
+            data={data}
+            columns={cols}
+            showFooter={false}
+            loading={isLoading}
+          />
+        )}
       </div>
     </div>
   );

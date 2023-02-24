@@ -21,7 +21,7 @@ const TextField: FC<Props> = ({
   touched,
 }) => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Field
         type={type || "text"}
         id={id}

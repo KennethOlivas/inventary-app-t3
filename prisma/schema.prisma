@@ -91,16 +91,17 @@ model Order {
     status    String
     total     Int
     products  Product[]
-    Client    Client    @relation(fields: [clientId], references: [id])
+    Customer  Customer  @relation(fields: [clientId], references: [id])
     clientId  String
 }
 
-model Client {
+model Customer {
     id        String   @id @default(uuid())
     name      String
     lastName  String
     email     String
     phone     String
+    address   String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     Orders    Order[]

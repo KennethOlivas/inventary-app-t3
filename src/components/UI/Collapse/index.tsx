@@ -13,12 +13,12 @@ const Collapse: FC<Props> = ({ children, title }) => {
       {({ open }) => (
         <>
           <Disclosure.Button
-            className={`flex w-full items-center justify-between rounded-lg
-              px-4 py-2 text-left text-xl font-bold tracking-wider outline-none duration-150 hover:bg-neutral-800 hover:text-white ${
+            className={`flex items-center justify-center  rounded-lg px-4 py-2
+              text-left font-bold tracking-wider outline-none duration-150 hover:bg-neutral-800 hover:text-white xl:justify-between ${
                 open ? "text-white" : ""
               }  `}
           >
-            <span>{title}</span>
+            <span className="hidden xl:inline-block  ">{title}</span>
             <ChevronUpIcon
               className={`${
                 open ? "rotate-180 transform" : ""

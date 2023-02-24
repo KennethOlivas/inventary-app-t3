@@ -51,7 +51,7 @@ const Breadcrumbs = () => {
                   />
                   <Link
                     href={`${item}`}
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ml-2"
+                    className="ml-1 text-sm font-medium capitalize text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ml-2"
                   >
                     {item.split("/")[item.split("/").length - 2]}
                   </Link>

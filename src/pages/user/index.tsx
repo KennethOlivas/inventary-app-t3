@@ -16,6 +16,7 @@ import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import Link from "next/link";
 import FieldUserButton from "@/utils/FieldData/FieldUserButton";
 import HeaderTitle from "@/components/UI/HeaderTitle";
+import Loader from "@/components/Loader";
 
 const index: NextPage = () => {
   const { push } = useRouter();
@@ -68,10 +69,6 @@ const index: NextPage = () => {
     []
   );
 
-  if (!data) {
-    return <div>no data</div>;
-  }
-
   const closeModal = (): void => {
     setIsOpen(false);
   };
@@ -119,13 +116,18 @@ const index: NextPage = () => {
         <Modal size="md" onClose={closeModal} state={isOpen} title="Add User">
           <AddUserForm onCancel={closeModal} onAddUser={refetch} />
         </Modal>
-        <Table
-          onRowClick={onClickRow}
-          data={data}
-          columns={cols}
-          showFooter={false}
-          loading={isLoading}
-        />
+
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Table
+            onRowClick={onClickRow}
+            data={data}
+            columns={cols}
+            showFooter={false}
+            loading={isLoading}
+          />
+        )}
       </div>
     </div>
   );
