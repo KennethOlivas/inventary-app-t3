@@ -62,12 +62,11 @@ const index = () => {
         <Modal onClose={closeModal} state={isOpen} title="Add Role" size="md">
           <AddRoleForm onAddUser={refetch} onCancel={closeModal} />
         </Modal>
-
         <Modal
           onClose={closeModal}
           state={editRole}
           title={selectedRole?.name}
-          size="md"
+          size="5xl"
         >
           <div>Settings Role</div>
         </Modal>

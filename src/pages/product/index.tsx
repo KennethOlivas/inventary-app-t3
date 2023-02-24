@@ -139,7 +139,7 @@ const index = () => {
         <Modal
           state={isOpen}
           title={isEdit ? "Edit Product" : "Add Product"}
-          size="md"
+          size="2xl"
           onClose={closeModal}
         >
           <UpsertProductForm

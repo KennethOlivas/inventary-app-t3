@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import clsx from "clsx";
 import type { FC, ReactNode } from "react";
 import React, { Fragment } from "react";
 
@@ -19,6 +20,7 @@ const Modal: FC<Props> = ({
   description,
   size,
 }) => {
+  const sizeClass = "max-w-" + size;
   return (
     <>
       <Transition appear show={state} as={Fragment}>
@@ -47,9 +49,10 @@ const Modal: FC<Props> = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full max-w-${size} transform 
-                overflow-hidden rounded-2xl bg-[#171717] p-6 text-left
-                align-middle shadow-xl transition-all`}
+                  className={clsx(
+                    sizeClass +
+                      " w-full transform overflow-hidden rounded-2xl bg-[#171717] p-6 text-left align-middle shadow-xl transition-all"
+                  )}
                 >
                   <Dialog.Title
                     as="h3"
