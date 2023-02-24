@@ -1,4 +1,4 @@
-import { sidebarItems } from "@/common/sideBarData";
+import { sidebarItems, Admin } from "@/common/sideBarData";
 import { ChevronUpIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import type { FC } from "react";
@@ -27,9 +27,11 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
 
   useEffect(() => {
     const getIndexOfPath = () => {
-      const index = sidebarItems?.findIndex((item) => {
-        return item.href.includes(path);
-      });
+      const index = sidebarItems
+        .map((item) => item.items)
+        .flat()
+        .findIndex((item) => item.href === `/${path}`);
+
       if (index === undefined) return "0";
       return index === -1 ? "0" : index.toString();
     };
@@ -67,16 +69,17 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
             <p>icon</p>
           </div>
         </div>
-        <div className="mx-2">
-          <Collapse>
-            {sidebarItems?.map((i) => (
-              <MenuItem key={i.id} item={i} selected={sidebarIndex} />
-            ))}
-          </Collapse>
+        <div className="flex flex-col space-y-2">
+          {sidebarItems.map((sidebar) => (
+            <Collapse key={sidebar.title} title={sidebar.title}>
+              {sidebar.items.map((item) => (
+                <MenuItem key={item.id} item={item} selected={sidebarIndex} />
+              ))}
+            </Collapse>
+          ))}
         </div>
         <div className="flex-grow" />
       </div>
-
       <Footer />
     </div>
   );

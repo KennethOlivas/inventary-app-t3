@@ -92,7 +92,7 @@ const index: NextPage = () => {
           <div className="flex space-x-4">
             <FieldUserButton onFinishQuery={refetch} />
             <Link
-              href="/user/roles"
+              href="/roles"
               className="flex rounded-md bg-yellow-600 px-4 py-2 text-white/90 shadow-lg shadow-yellow-600/40 transition-all duration-200 hover:bg-yellow-500 hover:text-white"
             >
               Roles

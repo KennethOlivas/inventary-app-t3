@@ -3,12 +3,13 @@ import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import type { FC, ReactNode } from "react";
 
 type Props = {
+  title: string;
   children: ReactNode;
 };
 
-const Collapse: FC<Props> = ({ children }) => {
+const Collapse: FC<Props> = ({ children, title }) => {
   return (
-    <Disclosure>
+    <Disclosure defaultOpen={true}>
       {({ open }) => (
         <>
           <Disclosure.Button
@@ -17,7 +18,7 @@ const Collapse: FC<Props> = ({ children }) => {
                 open ? "text-white" : ""
               }  `}
           >
-            <span>Main</span>
+            <span>{title}</span>
             <ChevronUpIcon
               className={`${
                 open ? "rotate-180 transform" : ""
@@ -33,7 +34,7 @@ const Collapse: FC<Props> = ({ children }) => {
             leaveFrom="transform translate-y-0 opacity-100"
             leaveTo="transform -translate-y-10 opacity-0"
           >
-            <Disclosure.Panel>{children}</Disclosure.Panel>
+            <Disclosure.Panel className="mt-2">{children}</Disclosure.Panel>
           </Transition>
         </>
       )}

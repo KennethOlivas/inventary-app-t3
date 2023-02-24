@@ -5,30 +5,40 @@ import {
   WrenchScrewdriverIcon,
   UsersIcon,
   CubeIcon,
-  UserGroupIcon,
   StarIcon,
+  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { onChangeMenu } from "@/store/features/Sidebar/sideBarSlice";
-import type { SideBarItem } from "@/common/sideBarData";
 
+// create a new array of icons name + Icon property
 const Icons = [
-  <Squares2X2Icon className="h-5 w-5" />,
-  <CubeIcon className="h-5 w-5" />,
-  <StarIcon className="h-5 w-5" />,
-  <WrenchScrewdriverIcon className="h-5 w-5" />,
-  <UsersIcon className="h-5 w-5" />,
+  { name: "Squares2X2Icon", Icon: <Squares2X2Icon className="h-5 w-5" /> },
+  { name: "CubeIcon", Icon: <CubeIcon className="h-5 w-5" /> },
+  { name: "StarIcon", Icon: <StarIcon className="h-5 w-5" /> },
+  {
+    name: "WrenchScrewdriverIcon",
+    Icon: <WrenchScrewdriverIcon className="h-5 w-5" />,
+  },
+  { name: "UsersIcon", Icon: <UsersIcon className="h-5 w-5" /> },
+  { name: "LockClosedIcon", Icon: <LockClosedIcon className="h-5 w-5" /> },
 ];
+
 type Props = {
-  item: SideBarItem;
+  item: {
+    id: string;
+    title: string;
+    notifications: number | boolean;
+    href: string;
+    icon?: string;
+  };
   selected: string;
 };
 
-const MenuItem: FC<Props> = ({
-  item: { id, title, notifications, href },
-  selected,
-}) => {
+const MenuItem: FC<Props> = ({ item, selected }) => {
+  const { id, title, notifications, href, icon } = item;
+
   const dispatch = useDispatch();
   return (
     <Link href={href ?? "/"}>
@@ -40,7 +50,12 @@ const MenuItem: FC<Props> = ({
           )}
           onClick={() => dispatch(onChangeMenu(id))}
         >
-          {Icons[Number(id)]}
+          {Icons.map((item) => {
+            if (item.name === icon) {
+              return item.Icon;
+            }
+          })}
+
           <div className="ml-2 block sm:hidden xl:block">{title}</div>
           <div className="block flex-grow sm:hidden xl:block" />
           {notifications && (
