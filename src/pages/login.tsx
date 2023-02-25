@@ -10,7 +10,7 @@ const login = () => {
     router.push("/dashboard");
   }
   return (
-    <div>
+    <div className="flex h-screen w-screen items-center justify-center bg-[#171717]">
       <AuthShowcase />
     </div>
   );
