@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import AddRoleForm from "@/components/Roles/AddRoleForm";
 import Table from "@/components/Table";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
@@ -59,15 +59,10 @@ const index = () => {
             <PlusIcon className="ml-2 h-6 w-6" />
           </button>
         </HeaderTitle>
-        <Modal onClose={closeModal} state={isOpen} title="Add Role" size="md">
+        <Modal onClose={closeModal} state={isOpen} title="Add Role">
           <AddRoleForm onAddUser={refetch} onCancel={closeModal} />
         </Modal>
-        <Modal
-          onClose={closeModal}
-          state={editRole}
-          title={selectedRole?.name}
-          size="5xl"
-        >
+        <Modal onClose={closeModal} state={editRole} title={selectedRole?.name}>
           <div>Settings Role</div>
         </Modal>
         {isLoading ? (

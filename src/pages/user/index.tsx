@@ -8,7 +8,7 @@ import {
   Cog6ToothIcon,
   DocumentArrowDownIcon,
 } from "@heroicons/react/24/outline";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import AddUserForm from "@/components/User/AddUserForm";
 import type { User } from "@prisma/client";
 import { useRouter } from "next/router";
@@ -113,7 +113,7 @@ const index: NextPage = () => {
             </button>
           </div>
         </HeaderTitle>
-        <Modal size="md" onClose={closeModal} state={isOpen} title="Add User">
+        <Modal onClose={closeModal} state={isOpen} title="Add User">
           <AddUserForm onCancel={closeModal} onAddUser={refetch} />
         </Modal>
 

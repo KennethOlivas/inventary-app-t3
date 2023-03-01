@@ -3,7 +3,7 @@ import * as z from "zod";
 
 import { schemaForType } from "@/utils/schemaForType";
 
-const ProductInput = schemaForType<Customer>()(
+const CustomerInput = schemaForType<Customer>()(
   z.object({
     id: z.string(),
     name: z.string(),
@@ -16,4 +16,4 @@ const ProductInput = schemaForType<Customer>()(
   })
 );
 
-export default ProductInput;
+export default CustomerInput;

@@ -1,5 +1,5 @@
 import Loader from "@/components/Loader";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import UpsertProductForm from "@/components/Product/UpsertProductForm";
 import Table from "@/components/Table";
 import ActionsTableButtons from "@/components/UI/ActionsTableButtons.tsx";
@@ -139,7 +139,6 @@ const index = () => {
         <Modal
           state={isOpen}
           title={isEdit ? "Edit Product" : "Add Product"}
-          size="2xl"
           onClose={closeModal}
         >
           <UpsertProductForm
@@ -149,7 +148,6 @@ const index = () => {
             onCancel={closeModal}
           />
         </Modal>
-
         {isLoading ? (
           <Loader />
         ) : (

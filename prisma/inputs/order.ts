@@ -6,11 +6,14 @@ import { schemaForType } from "@/utils/schemaForType";
 const ProductInput = schemaForType<Order>()(
   z.object({
     id: z.string(),
-    status: z.string(),
     createdAt: z.date(),
     updatedAt: z.date(),
     total: z.number(),
-    clientId: z.string(),
+    customerId: z.string(),
+    shipping: z.boolean(),
+    subTotal: z.number(),
+    iva: z.number(),
+    status: z.enum(["PENDING", "COMPLETED", "CANCELED"]),
   })
 );
 

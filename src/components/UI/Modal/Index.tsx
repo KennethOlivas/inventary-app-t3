@@ -4,7 +4,6 @@ import type { FC, ReactNode } from "react";
 import React, { Fragment } from "react";
 
 type Props = {
-  size: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
   title?: string;
   state: boolean;
   onClose: () => void;
@@ -12,15 +11,7 @@ type Props = {
   description?: string;
 };
 
-const Modal: FC<Props> = ({
-  onClose,
-  state,
-  title,
-  children,
-  description,
-  size,
-}) => {
-  const sizeClass = "max-w-" + size;
+const Modal: FC<Props> = ({ onClose, state, title, children, description }) => {
   return (
     <>
       <Transition appear show={state} as={Fragment}>
@@ -50,8 +41,7 @@ const Modal: FC<Props> = ({
               >
                 <Dialog.Panel
                   className={clsx(
-                    sizeClass +
-                      " w-full transform overflow-hidden rounded-2xl bg-[#171717] p-6 text-left align-middle shadow-xl transition-all"
+                    "transform overflow-hidden rounded-2xl bg-[#171717] p-6 text-left align-middle shadow-xl transition-all"
                   )}
                 >
                   <Dialog.Title

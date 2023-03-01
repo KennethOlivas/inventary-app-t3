@@ -12,6 +12,7 @@ import {
 } from "@/store/features/Sidebar/sideBarSlice";
 import { useRouter } from "next/router";
 import Collapse from "../UI/Collapse";
+import { motion } from "framer-motion";
 
 type Props = {
   onSidebarHide: () => void;
@@ -38,10 +39,14 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
   }, [router.pathname]);
 
   return (
-    <div
+    <motion.div
+      initial={{ x: -100 }}
+      animate={{ x: 0 }}
+      exit={{ x: -100 }}
+      transition={{ duration: 0.2 }}
+      hidden={!showSidebar}
       className={clsx(
-        "bg-card fixed inset-y-0 left-0 z-10 w-full flex-col transition-all duration-200 ease-in-out sm:flex sm:w-20 xl:w-60",
-        showSidebar ? "flex" : "hidden"
+        "bg-card fixed inset-y-0 left-0 z-10 w-full flex-col transition-all duration-200 ease-in-out sm:flex sm:w-20 xl:w-60"
       )}
     >
       <div className="flex-shrink-0 overflow-hidden p-2 duration-300 ease-out sm:transition-none">
@@ -80,7 +85,7 @@ const Sidebar: FC<Props> = ({ onSidebarHide, showSidebar }) => {
         <div className="flex-grow" />
       </div>
       <Footer />
-    </div>
+    </motion.div>
   );
 };
 

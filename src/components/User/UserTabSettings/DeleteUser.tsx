@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import { api } from "@/utils/api";
 import {
   CheckIcon,

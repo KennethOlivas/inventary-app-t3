@@ -84,15 +84,45 @@ model Product {
     orderId     String?
 }
 
+enum ShippingStatus {
+    REDY_TO_SHIP
+    SHIPPED
+    DELIVERED
+}
+
+model Shipping {
+    id         String         @id @default(uuid())
+    name       String
+    price      Int
+    city       String
+    address    String
+    status     ShippingStatus
+    deliveryAt DateTime
+    createdAt  DateTime       @default(now())
+    updatedAt  DateTime       @updatedAt
+    Order      Order?         @relation(fields: [orderId], references: [id])
+    orderId    String?        @unique
+}
+
+enum Status {
+    PENDING
+    COMPLETED
+    CANCELED
+}
+
 model Order {
-    id        String    @id @default(uuid())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    status    String
-    total     Int
-    products  Product[]
-    Customer  Customer  @relation(fields: [clientId], references: [id])
-    clientId  String
+    id         String    @id @default(uuid())
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    status     Status
+    shipping   Boolean
+    subTotal   Float
+    iva        Float
+    total      Float
+    products   Product[]
+    Customer   Customer  @relation(fields: [customerId], references: [id])
+    customerId String
+    Shipping   Shipping?
 }
 
 model Customer {

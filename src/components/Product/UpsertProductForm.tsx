@@ -109,7 +109,7 @@ const UpsertProductForm: FC<Props> = ({
           validationSchema={toFormikValidationSchema(Schema)}
         >
           {({ errors, touched }) => (
-            <Form>
+            <Form className="w-[600px]">
               <>
                 <div className="my-4 flex flex-col space-y-4">
                   <TextField

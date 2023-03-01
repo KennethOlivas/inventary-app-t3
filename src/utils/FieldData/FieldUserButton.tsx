@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import { CircleStackIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import React, { useState } from "react";

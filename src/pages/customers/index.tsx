@@ -1,5 +1,5 @@
 import AddCustomerForm from "@/components/Costumer/AddCustomerForm";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import Table from "@/components/Table";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
@@ -65,12 +65,7 @@ const index = () => {
             <PlusIcon className="ml-2 h-5 w-5" />
           </button>
         </HeaderTitle>
-        <Modal
-          state={isOpen}
-          title="add customer"
-          onClose={closeModal}
-          size="4xl"
-        >
+        <Modal state={isOpen} title="add customer" onClose={closeModal}>
           <AddCustomerForm onAddUser={refetch} onCancel={closeModal} />
         </Modal>
         <Table

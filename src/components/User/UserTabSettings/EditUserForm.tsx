@@ -1,5 +1,5 @@
 import TextField from "@/components/Inputs/TextField";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import Alert from "@/components/UI/Alert";
 import { api } from "@/utils/api";
 import type { User } from "@prisma/client";

@@ -3,6 +3,7 @@ import { addProduct } from "./mutations/addProduct";
 import { deleteProduct } from "./mutations/deleteProduct";
 import { editProduct } from "./mutations/editProduct";
 import { all } from "./queries/all";
+import { getProductsByName } from "./queries/byName";
 import { getProductById } from "./queries/getProductById";
 
 export const productRouter = createTRPCRouter({
@@ -11,4 +12,5 @@ export const productRouter = createTRPCRouter({
   addProduct: addProduct,
   deleteProduct: deleteProduct,
   editProduct: editProduct,
+  getProductsByName: getProductsByName,
 });
