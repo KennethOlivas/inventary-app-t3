@@ -90,6 +90,7 @@ Table Shipping {
 Table Order {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
+  invoiceNumber String [unique, not null]
   updatedAt DateTime [not null]
   status Status [not null]
   shipping Boolean [not null]

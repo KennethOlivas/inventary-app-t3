@@ -1,6 +1,6 @@
 import { api } from "@/utils/api";
 import type { Product } from "@prisma/client";
-import type { FC} from "react";
+import type { FC } from "react";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,10 +11,6 @@ import {
   selectOrder,
   updateQuantity,
 } from "@/store/features/order/orderSlice";
-
-interface NewProduct extends Product {
-  quantity: number;
-}
 
 const AddProductStep: FC = () => {
   const dispatch = useDispatch();
@@ -163,7 +159,7 @@ const AddProductStep: FC = () => {
                 </motion.div>
               ))}
               <div className="mt-4 flex flex-col items-end gap-4">
-                <div className="w-full rounded-lg  p-4 sm:max-w-xs">
+                <div className="w-full rounded-lg p-4 sm:max-w-xs ">
                   <div className="space-y-1">
                     <div className="flex justify-between gap-4 text-gray-50">
                       <span>Subtotal</span>
@@ -185,7 +181,7 @@ const AddProductStep: FC = () => {
                           {order?.total}
                         </span>
                         <span className="text-sm text-gray-300">
-                          including IVA
+                          IVA Calculated
                         </span>
                       </span>
                     </div>

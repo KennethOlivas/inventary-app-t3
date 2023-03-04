@@ -111,18 +111,19 @@ enum Status {
 }
 
 model Order {
-    id         String    @id @default(uuid())
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    status     Status
-    shipping   Boolean
-    subTotal   Float
-    iva        Float
-    total      Float
-    products   Product[]
-    Customer   Customer  @relation(fields: [customerId], references: [id])
-    customerId String
-    Shipping   Shipping?
+    id            String    @id @default(uuid())
+    createdAt     DateTime  @default(now())
+    invoiceNumber String    @unique
+    updatedAt     DateTime  @updatedAt
+    status        Status
+    shipping      Boolean
+    subTotal      Float
+    iva           Float
+    total         Float
+    products      Product[]
+    Customer      Customer  @relation(fields: [customerId], references: [id])
+    customerId    String
+    Shipping      Shipping?
 }
 
 model Customer {

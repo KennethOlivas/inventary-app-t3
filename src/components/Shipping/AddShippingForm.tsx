@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import { ShippingInput } from "prisma/inputs";
-import type { FC} from "react";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import type { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -38,7 +38,15 @@ const AddShippingForm: FC = () => {
   }, [shipping]);
 
   const onSubmit = async (values: typeof initialValues) => {
-    dispatch(addShipping(values));
+    dispatch(
+      addShipping({
+        address: values.address,
+        city: values.city,
+        name: values.name,
+        price: values.price,
+        status: "REDY_TO_SHIP",
+      })
+    );
   };
 
   const handleFillWithCustomerData = () => {
