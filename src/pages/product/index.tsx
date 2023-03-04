@@ -6,7 +6,6 @@ import ActionsTableButtons from "@/components/UI/ActionsTableButtons.tsx";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import type { Product } from "@prisma/client";
 import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useCallback, useMemo, useState } from "react";

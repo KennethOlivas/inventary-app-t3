@@ -69,7 +69,7 @@ const DeleteUser: FC<Props> = ({ userData }) => {
         </div>
       </div>
 
-      <Modal state={isOpen} size="md" onClose={() => {}}>
+      <Modal state={isOpen} onClose={() => {}}>
         <div className="mb-4 bg-transparent  text-emerald-400" role="alert">
           <div className="flex items-center">
             <CheckIcon className="mr-2 h-6 w-6" />

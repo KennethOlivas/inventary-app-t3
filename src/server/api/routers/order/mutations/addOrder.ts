@@ -36,7 +36,7 @@ export const addOrder = protectedProcedure
       shippingOrder: { address, city, name, price, status: shippingStatus },
     } = input;
 
-    const totalOrder = shipping ? subTotal + iva + price : subTotal + iva;
+    const totalOrder = shipping ? total + price : total;
     const order = ctx.prisma.order.create({
       data: {
         invoiceNumber,

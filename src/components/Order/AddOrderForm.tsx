@@ -6,7 +6,7 @@ import {
   TruckIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Form, Formik } from "formik";
+import type { FC } from "react";
 import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import Step from "../UI/Step";
@@ -15,7 +15,12 @@ import AddPaymentStep from "./Steps/AddPaymentStep";
 import AddProductStep from "./Steps/AddProductStep";
 import AddShippingStep from "./Steps/AddShippingStep";
 
-const AddOrderForm = () => {
+type Props = {
+  onClose: () => void;
+  onSubmitted: () => void;
+};
+
+const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
   const [step, setStep] = useState<number>(1);
   const { customer, products, order, shipping } = useSelector(selectOrder);
   const addOrder = api.order.addOrder.useMutation();
@@ -85,6 +90,15 @@ const AddOrderForm = () => {
         status: "REDY_TO_SHIP",
       },
     });
+    onSubmitted();
+  };
+
+  const handlePrevStep = () => {
+    if (step === 1) {
+      onClose();
+      return;
+    }
+    setStep(step - 1);
   };
 
   return (
@@ -108,13 +122,12 @@ const AddOrderForm = () => {
           {step === 4 && <AddPaymentStep />}
           <div className="mt-4 flex justify-end space-x-4">
             <button
-              onClick={() => setStep(step - 1)}
+              onClick={handlePrevStep}
               className={`indigo-button ${
                 products?.length === 0 && "cursor-not-allowed opacity-50"
               }`}
-              disabled={step === 1}
             >
-              Previous
+              {step === 1 ? "Cancel" : "Previus"}
             </button>
 
             {step === 4 ? (

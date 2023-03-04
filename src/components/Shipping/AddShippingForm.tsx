@@ -67,7 +67,7 @@ const AddShippingForm: FC = () => {
         onSubmit={onSubmit}
         validationSchema={toFormikValidationSchema(schema)}
       >
-        {({ values, setFieldValue, setValues, handleChange, handleSubmit }) => (
+        {({ setValues, handleSubmit }) => (
           <Form className="flex flex-col space-y-4">
             <TextField name="name" id="name" placeholder="Full Name" />
             <TextField name="address" id="address" placeholder="Address" />

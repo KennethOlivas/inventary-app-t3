@@ -5,20 +5,62 @@ import Table from "@/components/Table";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
-import type { Order } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
+import { CustomerInput } from "prisma/inputs";
+import { z } from "zod";
+import type { Customer, Order, Shipping } from "@prisma/client";
+
+type OrderData =
+  | Order & {
+      Shipping: Shipping | null;
+      Customer: Customer;
+    };
 
 const index = () => {
   const [showModal, setShowModal] = useState(false);
   const { data, isLoading } = api.order.all.useQuery();
 
-  const cols = useMemo<ColumnDef<Order>[]>(
+  const cols = useMemo<ColumnDef<OrderData>[]>(
     () => [
       {
-        header: "id",
+        header: "invoce",
+        cell: (row) => {
+          const invoiceNumber = z.string().parse(row.getValue());
+          return (
+            <span className=" text-sm capitalize text-gray-100">
+              # {invoiceNumber}
+            </span>
+          );
+        },
+        accessorKey: "invoiceNumber",
+      },
+      {
+        header: "customer",
+        cell: (row) => {
+          const customer = CustomerInput.parse(row.getValue());
+          return (
+            <span className=" text-sm capitalize text-gray-100">
+              {customer.name} {customer.lastName}
+            </span>
+          );
+        },
+        accessorKey: "Customer",
+      },
+      {
+        header: "status",
         cell: (row) => row.renderValue(),
-        accessorKey: "id",
+        accessorKey: "status",
+      },
+      {
+        header: "total",
+        cell: (row) => {
+          const total = z.number().parse(row.getValue());
+          return (
+            <span className=" text-sm capitalize text-gray-100">$ {total}</span>
+          );
+        },
+        accessorKey: "total",
       },
     ],
     []
@@ -42,7 +84,7 @@ const index = () => {
         </HeaderTitle>
 
         <Modal state={showModal} onClose={closeModal}>
-          <AddOrderForm />
+          <AddOrderForm onClose={closeModal} onSubmitted={closeModal} />
         </Modal>
         {isLoading ? (
           <Loader />
