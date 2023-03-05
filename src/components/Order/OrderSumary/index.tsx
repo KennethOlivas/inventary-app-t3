@@ -5,12 +5,33 @@ import CustomerSumary from "./CustomerSumary";
 import ProdcutsSumary from "./ProdcutsSumary";
 import ShippingSumary from "./ShippingSumary";
 import Sumary from "./Sumary";
+import { motion } from "framer-motion";
 
 type OrderData =
   | Order & {
       Shipping: Shipping | null;
       Customer: Customer;
     };
+
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 150, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 interface Props {
   order: OrderData;
@@ -30,9 +51,17 @@ const OrderSumary: FC<Props> = ({ order, refetch }) => {
           Status <span className="text-indigo-500">{order.status}</span>
         </p>
       </div>
-      <div className="jusitfy-center mt-4 flex w-full flex-col items-stretch  space-y-4 md:space-y-6 xl:flex-row xl:space-x-8 xl:space-y-0">
+      <motion.section
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        className="jusitfy-center mt-4 flex w-full flex-col items-stretch  space-y-4 md:space-y-6 xl:flex-row xl:space-x-8 xl:space-y-0"
+      >
         <div className="flex w-full flex-col items-start justify-start space-y-4 md:space-y-6 xl:space-y-8">
-          <div className="flex w-full flex-col items-start justify-start rounded-md bg-neutral-900 px-4 py-4 md:p-6 md:py-6 xl:p-8">
+          <motion.div
+            variants={item}
+            className="flex w-full flex-col items-start justify-start rounded-md bg-neutral-900 px-4 py-4 md:p-6 md:py-6 xl:p-8"
+          >
             <p className="text-lg font-semibold leading-6 text-gray-100 md:text-xl xl:leading-5">
               Products
             </p>
@@ -40,8 +69,11 @@ const OrderSumary: FC<Props> = ({ order, refetch }) => {
               <p className="text-sm font-medium leading-5 text-gray-400"></p>
             </div>
             <ProdcutsSumary orderId={id} />
-          </div>
-          <div className="flex w-full flex-col items-stretch justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6 ">
+          </motion.div>
+          <motion.div
+            variants={item}
+            className="flex w-full flex-col items-stretch justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6 "
+          >
             <Sumary
               iva={order.iva}
               subTotal={order.subTotal}
@@ -51,10 +83,12 @@ const OrderSumary: FC<Props> = ({ order, refetch }) => {
             {Shipping && (
               <ShippingSumary refetch={refetch} shipping={Shipping} />
             )}
-          </div>
+          </motion.div>
         </div>
-        <CustomerSumary customer={Customer} />
-      </div>
+        <motion.div variants={item}>
+          <CustomerSumary customer={Customer} />
+        </motion.div>
+      </motion.section>
     </div>
   );
 };
