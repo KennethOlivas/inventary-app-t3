@@ -44,12 +44,7 @@ const FieldUserButton: FC<Props> = ({ onFinishQuery }) => {
         Field user data
         <CircleStackIcon className="ml-2 h-6 w-6" />
       </button>
-      <Modal
-        size="lg"
-        onClose={() => {}}
-        title="Adding users"
-        state={modalState}
-      >
+      <Modal onClose={() => {}} title="Adding users" state={modalState}>
         <div>
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center">

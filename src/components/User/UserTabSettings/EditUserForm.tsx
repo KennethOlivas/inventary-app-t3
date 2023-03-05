@@ -87,7 +87,7 @@ const EditUserForm: FC<Props> = ({ userData }) => {
           </div>
         </Form>
       </Formik>
-      <Modal state={isOpen} onClose={closeModal} size="sm">
+      <Modal state={isOpen} onClose={closeModal}>
         <Alert
           type="success"
           title="User Updated"
