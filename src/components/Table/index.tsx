@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type { ColumnDef, FilterFn, SortingState } from "@tanstack/react-table";
-import Select from "../Select";
+import Select from "../UI/Select";
 import {
   ArrowDownIcon,
   ArrowUpIcon,

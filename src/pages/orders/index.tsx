@@ -10,6 +10,7 @@ import React, { useMemo, useState } from "react";
 import { CustomerInput } from "prisma/inputs";
 import { z } from "zod";
 import type { Customer, Order, Shipping } from "@prisma/client";
+import { useRouter } from "next/router";
 
 type OrderData =
   | Order & {
@@ -18,11 +19,22 @@ type OrderData =
     };
 
 const index = () => {
+  const { push } = useRouter();
   const [showModal, setShowModal] = useState(false);
   const { data, isLoading } = api.order.all.useQuery();
 
   const cols = useMemo<ColumnDef<OrderData>[]>(
     () => [
+      {
+        header: "id",
+        cell: (row) => {
+          const id = z.string().parse(row.getValue()).slice(0, 5);
+          return (
+            <span className=" text-sm capitalize text-gray-100">{id}...</span>
+          );
+        },
+        accessorKey: "id",
+      },
       {
         header: "invoce",
         cell: (row) => {
@@ -73,6 +85,11 @@ const index = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  const handleClickedRow = (id: string) => {
+    push(`/orders/order/${id}`);
+  };
+
   return (
     <div className="w-screen">
       <Breadcrumbs />
@@ -89,7 +106,12 @@ const index = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <Table data={data} columns={cols} showFooter={false} />
+          <Table
+            onRowClick={handleClickedRow}
+            data={data}
+            columns={cols}
+            showFooter={false}
+          />
         )}
       </div>
     </div>
