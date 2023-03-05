@@ -1,4 +1,4 @@
-import type { Order, Product } from "@prisma/client";
+import type { Order } from "@prisma/client";
 import * as z from "zod";
 
 import { schemaForType } from "@/utils/schemaForType";

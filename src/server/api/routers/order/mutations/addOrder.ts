@@ -46,12 +46,9 @@ export const addOrder = protectedProcedure
         status,
         subTotal,
         total: totalOrder,
-        products: {
-          connect: products.map((product) => ({ id: product.id })),
-        },
       },
     });
-
+    /* Updating the stock of the product and creating a new productOrder. */
     if (await order) {
       // update quantity of products
       products.forEach(async (product) => {
@@ -59,6 +56,7 @@ export const addOrder = protectedProcedure
         const productToUpdate = await ctx.prisma.product.findUnique({
           where: { id },
         });
+        /* Updating the stock of the product. */
         if (productToUpdate) {
           await ctx.prisma.product.update({
             where: { id },
@@ -67,6 +65,14 @@ export const addOrder = protectedProcedure
             },
           });
         }
+        /* Creating a new productOrder. */
+        await ctx.prisma.productOrder.create({
+          data: {
+            orderId: (await order).id,
+            productId: id,
+            quantity,
+          },
+        });
       });
 
       if (shipping) {

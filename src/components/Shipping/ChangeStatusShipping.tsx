@@ -31,7 +31,6 @@ const ChangeStatusShipping: FC<Props> = ({
         theme: "dark",
       });
       refetch();
-
       handleClose();
     },
   });

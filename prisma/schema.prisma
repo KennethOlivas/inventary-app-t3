@@ -72,16 +72,16 @@ model VerificationToken {
 
 // model product 
 model Product {
-    id          String   @id @default(uuid())
-    name        String
-    description String?
-    price       Int
-    image       String?
-    stock       Int
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    Order       Order?   @relation(fields: [orderId], references: [id])
-    orderId     String?
+    id           String         @id @default(uuid())
+    name         String
+    description  String?
+    price        Int
+    image        String?
+    stock        Int
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    orderId      String?
+    ProductOrder ProductOrder[]
 }
 
 enum ShippingStatus {
@@ -110,20 +110,31 @@ enum Status {
     CANCELED
 }
 
+model ProductOrder {
+    id        String   @id @default(uuid())
+    quantity  Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Order     Order?   @relation(fields: [orderId], references: [id])
+    orderId   String?
+    Product   Product? @relation(fields: [productId], references: [id])
+    productId String?
+}
+
 model Order {
-    id            String    @id @default(uuid())
-    createdAt     DateTime  @default(now())
-    invoiceNumber String    @unique
-    updatedAt     DateTime  @updatedAt
+    id            String         @id @default(uuid())
+    createdAt     DateTime       @default(now())
+    invoiceNumber String         @unique
+    updatedAt     DateTime       @updatedAt
     status        Status
     shipping      Boolean
     subTotal      Float
     iva           Float
     total         Float
-    products      Product[]
-    Customer      Customer  @relation(fields: [customerId], references: [id])
+    Customer      Customer       @relation(fields: [customerId], references: [id])
     customerId    String
     Shipping      Shipping?
+    ProductOrder  ProductOrder[]
 }
 
 model Customer {

@@ -14,7 +14,6 @@ export const byId = protectedProcedure.input(schema).query(({ ctx, input }) => {
     include: {
       Customer: true,
       Shipping: true,
-      products: true,
     },
   });
 });

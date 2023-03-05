@@ -69,8 +69,8 @@ Table Product {
   stock Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  Order Order
   orderId String
+  ProductOrder ProductOrder [not null]
 }
 
 Table Shipping {
@@ -87,6 +87,17 @@ Table Shipping {
   orderId String [unique]
 }
 
+Table ProductOrder {
+  id String [pk]
+  quantity Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  Order Order
+  orderId String
+  Product Product
+  productId String
+}
+
 Table Order {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
@@ -97,10 +108,10 @@ Table Order {
   subTotal Float [not null]
   iva Float [not null]
   total Float [not null]
-  products Product [not null]
   Customer Customer [not null]
   customerId String [not null]
   Shipping Shipping
+  ProductOrder ProductOrder [not null]
 }
 
 Table Customer {
@@ -133,8 +144,10 @@ Ref: Session.userId > User.id [delete: Cascade]
 
 Ref: User.roleId > Role.id
 
-Ref: Product.orderId > Order.id
-
 Ref: Shipping.orderId - Order.id
+
+Ref: ProductOrder.orderId > Order.id
+
+Ref: ProductOrder.productId > Product.id
 
 Ref: Order.customerId > Customer.id

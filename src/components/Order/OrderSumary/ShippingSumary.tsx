@@ -1,9 +1,8 @@
 import ChangeStatusShipping from "@/components/Shipping/ChangeStatusShipping";
 import { TruckIcon } from "@heroicons/react/24/outline";
 import type { Shipping } from "@prisma/client";
-
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type Props = {
   shipping: Shipping;
