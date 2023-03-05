@@ -2,6 +2,7 @@ import Modal from "@/components/UI/Modal/Index";
 import { CircleStackIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import React, { useState } from "react";
+import { useNotification } from "react-hook-notification";
 import { api } from "../api";
 
 type Props = {
@@ -9,9 +10,18 @@ type Props = {
 };
 
 const FieldUserButton: FC<Props> = ({ onFinishQuery }) => {
+  const notification = useNotification();
   const [modalState, setModalState] = useState(false);
   const [users, setUsers] = useState<string>("");
-  const addUser = api.user.addUser.useMutation();
+  const addUser = api.user.addUser.useMutation({
+    onSuccess() {
+      notification.success({
+        text: "User added successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+  });
 
   const openModal = async () => {
     setModalState(true);

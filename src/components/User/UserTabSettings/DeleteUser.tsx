@@ -10,15 +10,25 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import React from "react";
+import { useNotification } from "react-hook-notification";
 
 type Props = {
   userData: User | null | undefined;
 };
 
 const DeleteUser: FC<Props> = ({ userData }) => {
+  const notification = useNotification();
   const [isOpen, setIsOpen] = React.useState(false);
   const { push } = useRouter();
-  const deleteUser = api.user.deleteUser.useMutation();
+  const deleteUser = api.user.deleteUser.useMutation({
+    onSuccess: () => {
+      notification.success({
+        text: "User deleted successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+  });
 
   // getSession
   const { data } = useSession();

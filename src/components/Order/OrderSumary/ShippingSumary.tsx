@@ -1,18 +1,17 @@
-import Modal from "@/components/UI/Modal/Index";
+import ChangeStatusShipping from "@/components/Shipping/ChangeStatusShipping";
 import { TruckIcon } from "@heroicons/react/24/outline";
-import type { Shipping, ShippingStatus } from "@prisma/client";
-import type { ChangeEvent, FC } from "react";
+import type { Shipping } from "@prisma/client";
+
+import type { FC } from "react";
 import React, { useState } from "react";
 
 type Props = {
   shipping: Shipping;
+  refetch: () => void;
 };
 
-const status = ["REDY_TO_SHIP", "SHIPPED", "DELIVERED"];
-
-const ShippingSumary: FC<Props> = ({ shipping }) => {
+const ShippingSumary: FC<Props> = ({ shipping, refetch }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [statusValue, setStatusValue] = useState(shipping.status);
 
   const handleOpen = (): void => {
     setIsOpen(true);
@@ -20,10 +19,6 @@ const ShippingSumary: FC<Props> = ({ shipping }) => {
 
   const handleClose = (): void => {
     setIsOpen(false);
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setStatusValue(e.target.value as ShippingStatus);
   };
 
   return (
@@ -57,28 +52,12 @@ const ShippingSumary: FC<Props> = ({ shipping }) => {
           Edit Status
         </button>
       </div>
-      <Modal title="Edit Status" state={isOpen} onClose={handleClose}>
-        <div className="w-[200px] md:w-[400px]">
-          <select
-            onChange={handleChange}
-            className="block w-full rounded-lg border-2 border-indigo-500 bg-neutral-800 p-2.5 text-sm text-gray-50 focus:border-indigo-700 focus:ring-blue-700"
-          >
-            {status.map((status) => (
-              <option
-                key={status}
-                value={status}
-                selected={statusValue === status}
-                className="text-gray-50"
-              >
-                {status}
-              </option>
-            ))}
-          </select>
-          <button className="emerald-button mt-4 w-full items-center justify-center">
-            Save
-          </button>
-        </div>
-      </Modal>
+      <ChangeStatusShipping
+        refetch={refetch}
+        isOpen={isOpen}
+        handleClose={handleClose}
+        shipping={shipping}
+      />
     </div>
   );
 };

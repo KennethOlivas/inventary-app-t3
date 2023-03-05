@@ -9,14 +9,24 @@ import { api } from "@/utils/api";
 import type { Product } from "@prisma/client";
 import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useCallback, useMemo, useState } from "react";
+import { useNotification } from "react-hook-notification";
 
 const index = () => {
+  const notification = useNotification();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data, isLoading, refetch } = api.product.all.useQuery();
   const [editedProductId, setEditedProductId] = useState<string>("");
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const deleteProduct = api.product.deleteProduct.useMutation();
+  const deleteProduct = api.product.deleteProduct.useMutation({
+    onSuccess() {
+      notification.success({
+        text: "Product deleted successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+  });
 
   const onClickDelete = async (id: string) => {
     await deleteProduct.mutateAsync({

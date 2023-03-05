@@ -4,6 +4,7 @@ import { Formik, Form } from "formik";
 import { UserInput } from "prisma/inputs";
 import type { FC } from "react";
 import React, { useMemo } from "react";
+import { useNotification } from "react-hook-notification";
 
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import TextField from "../Inputs/TextField";
@@ -19,9 +20,17 @@ type Props = {
 };
 
 const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
+  const notification = useNotification();
   const addUser = api.user.addUser.useMutation({
     onSuccess() {
+      notification.success({
+        text: "User added successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+
       onAddUser();
+
       onCancel();
     },
 

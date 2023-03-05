@@ -14,6 +14,7 @@ import AddCustomerStep from "./Steps/AddCustomerStep";
 import AddPaymentStep from "./Steps/AddPaymentStep";
 import AddProductStep from "./Steps/AddProductStep";
 import AddShippingStep from "./Steps/AddShippingStep";
+import { useNotification } from "react-hook-notification";
 
 type Props = {
   onClose: () => void;
@@ -21,9 +22,20 @@ type Props = {
 };
 
 const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
+  const notification = useNotification();
   const [step, setStep] = useState<number>(1);
   const { customer, products, order, shipping } = useSelector(selectOrder);
-  const addOrder = api.order.addOrder.useMutation();
+  const addOrder = api.order.addOrder.useMutation({
+    onSuccess: () => {
+      notification.success({
+        text: "Order added successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+      onSubmitted();
+      onClose();
+    },
+  });
   const invoiceNumber = useMemo(() => {
     return (Math.floor(Math.random() * 1000) + 1).toString();
   }, []);

@@ -8,6 +8,7 @@ import { UserInput } from "prisma/inputs";
 import type { FC } from "react";
 import React, { useMemo, useState } from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useNotification } from "react-hook-notification";
 
 const schema = UserInput.pick({
   email: true,
@@ -21,9 +22,15 @@ type Props = {
 };
 
 const EditUserForm: FC<Props> = ({ userData }) => {
+  const notification = useNotification();
   const [isOpen, setIsOpen] = useState(false);
   const addUser = api.user.editUser.useMutation({
     onSuccess() {
+      notification.success({
+        text: "User edited successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
       setIsOpen(true);
     },
     onError() {

@@ -10,7 +10,7 @@ const Order = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
-  const { data, isLoading } = api.order.byId.useQuery({
+  const { data, isLoading, refetch } = api.order.byId.useQuery({
     id,
   });
 
@@ -25,7 +25,7 @@ const Order = () => {
           <HeaderTitle title={`Order #${data?.invoiceNumber}`} />
         </div>
 
-        <OrderSumary order={data!} />
+        <OrderSumary refetch={refetch} order={data!} />
       </div>
     </>
   );

@@ -15,9 +15,10 @@ type OrderData =
 
 interface Props {
   order: OrderData;
+  refetch: () => void;
 }
 
-const OrderSumary: FC<Props> = ({ order }) => {
+const OrderSumary: FC<Props> = ({ order, refetch }) => {
   const { products, createdAt, Shipping, Customer } = order;
 
   return (
@@ -46,7 +47,9 @@ const OrderSumary: FC<Props> = ({ order }) => {
               shipping={Shipping?.price}
               total={order.total}
             />
-            {Shipping && <ShippingSumary shipping={Shipping} />}
+            {Shipping && (
+              <ShippingSumary refetch={refetch} shipping={Shipping} />
+            )}
           </div>
         </div>
         <CustomerSumary customer={Customer} />
