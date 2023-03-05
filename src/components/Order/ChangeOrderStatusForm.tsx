@@ -1,51 +1,45 @@
 import { api } from "@/utils/api";
-import type { Shipping } from "@prisma/client";
 import type { FormikValues } from "formik";
-import { Formik, Form, Field } from "formik";
+import { Field, Form, Formik } from "formik";
 import type { FC } from "react";
-import React from "react";
-import Modal from "../UI/Modal/Index";
 import { useNotification } from "react-hook-notification";
 
-const status = ["REDY_TO_SHIP", "SHIPPED", "DELIVERED"];
+const statusOrder = ["PENDING", "COMPLETED", "CANCELED"];
 
 type Props = {
-  shipping: Shipping;
-  isOpen: boolean;
-  handleClose: () => void;
+  id: string;
+  status: string;
   refetch: () => void;
+  onStatusChange: () => void;
 };
 
-const ChangeStatusShipping: FC<Props> = ({
-  handleClose,
-  isOpen,
-  shipping,
+const ChangeOrderStatusForm: FC<Props> = ({
+  id,
+  status,
   refetch,
+  onStatusChange,
 }) => {
   const notification = useNotification();
-  const ChangeStatus = api.shipping.changeStatus.useMutation({
+  const changeStatus = api.order.changeStatus.useMutation({
     onSuccess: () => {
       notification.success({
-        text: "Shipping status changed successfully",
+        text: "Order status changed successfully",
         position: "bottom-right",
         theme: "dark",
       });
       refetch();
-      handleClose();
     },
   });
-  const handleSubmit = (values: FormikValues) => {
-    ChangeStatus.mutate({
-      id: shipping.id,
-      status: values.status,
-    });
-  };
 
+  const handleSubmit = async (values: FormikValues) => {
+    await changeStatus.mutateAsync({ id, status: values.status });
+    onStatusChange();
+  };
   return (
-    <Modal title="Edit Status" state={isOpen} onClose={handleClose}>
+    <div>
       <Formik
         initialValues={{
-          status: shipping.status,
+          status,
         }}
         onSubmit={handleSubmit}
       >
@@ -55,7 +49,7 @@ const ChangeStatusShipping: FC<Props> = ({
             as="select"
             className="block w-full rounded-lg border-2 border-indigo-500 bg-neutral-800 p-2.5 text-sm text-gray-50 focus:border-indigo-700 focus:ring-blue-700"
           >
-            {status.map((status) => (
+            {statusOrder.map((status) => (
               <option key={status} value={status} className="text-gray-50">
                 {status}
               </option>
@@ -66,8 +60,8 @@ const ChangeStatusShipping: FC<Props> = ({
           </button>
         </Form>
       </Formik>
-    </Modal>
+    </div>
   );
 };
 
-export default ChangeStatusShipping;
+export default ChangeOrderStatusForm;

@@ -26,6 +26,9 @@ const OrderSumary: FC<Props> = ({ order, refetch }) => {
         <p className="text-base font-medium leading-6 text-gray-400">
           {createdAt.toLocaleString()}
         </p>
+        <p className="text-lg font-semibold text-white">
+          Status <span className="text-indigo-500">{order.status}</span>
+        </p>
       </div>
       <div className="jusitfy-center mt-4 flex w-full flex-col items-stretch  space-y-4 md:space-y-6 xl:flex-row xl:space-x-8 xl:space-y-0">
         <div className="flex w-full flex-col items-start justify-start space-y-4 md:space-y-6 xl:space-y-8">
