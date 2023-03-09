@@ -35,7 +35,7 @@ const ProdcutsSumary: FC<Props> = ({ orderId }) => {
         <div className="mt-4 flex w-full flex-col items-start justify-start md:mt-6 md:flex-row md:items-center md:space-x-6 xl:space-x-8 ">
           <div className="flex w-full flex-col items-center justify-between space-y-4  p-2 transition-all duration-100 hover:rounded-md hover:border-0 hover:bg-neutral-800 hover:shadow-xl md:flex-row md:space-y-0">
             <div className="flex w-full flex-col items-start justify-start space-y-2">
-              <h3 className="text-xl font-semibold leading-6 text-gray-100 xl:text-2xl">
+              <h3 className="font-semibold leading-6 text-gray-100">
                 {item.Product?.name}
               </h3>
               <div className="flex flex-col items-start justify-start space-y-2">

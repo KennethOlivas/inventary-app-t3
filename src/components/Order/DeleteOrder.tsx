@@ -38,7 +38,6 @@ const DeleteOrder: FC<Props> = ({ id }) => {
         Delete
         <ExclamationTriangleIcon className="ml-2 h-6 w-6 text-white" />
       </button>
-
       <Modal state={isShowing} onClose={toggle}>
         <div className="flex flex-col items-center justify-center space-y-4">
           <p className="text-xl font-semibold text-pink-500">

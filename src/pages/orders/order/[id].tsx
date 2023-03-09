@@ -7,7 +7,6 @@ import HeaderTitle from "@/components/UI/HeaderTitle";
 import Modal from "@/components/UI/Modal/Index";
 import useModal from "@/hooks/modalState";
 import { api } from "@/utils/api";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 
 const Order = () => {
@@ -25,7 +24,7 @@ const Order = () => {
 
   return (
     <>
-      <div className="w-screen">
+      <div className="mb-4 w-screen">
         <Breadcrumbs />
         <div className="max-w-screen-2xl-lg mx-auto  px-2">
           <HeaderTitle title={`Order #${data?.invoiceNumber}`}>

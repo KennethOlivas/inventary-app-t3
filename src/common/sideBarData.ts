@@ -35,13 +35,6 @@ export const sidebarItems: SideBarItem[] = [
       },
       {
         id: "3",
-        title: "Inventary",
-        notifications: 6,
-        href: "/inventary",
-        icon: "WrenchScrewdriverIcon",
-      },
-      {
-        id: "4",
         title: "Orders",
         notifications: false,
         href: "/orders",
@@ -53,14 +46,14 @@ export const sidebarItems: SideBarItem[] = [
     title: "Admin",
     items: [
       {
-        id: "5",
+        id: "4",
         title: "Users",
         notifications: false,
         href: "/user",
         icon: "UsersIcon",
       },
       {
-        id: "6",
+        id: "5",
         title: "Roles",
         notifications: false,
         href: "/roles",

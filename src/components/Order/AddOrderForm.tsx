@@ -1,4 +1,4 @@
-import { selectOrder } from "@/store/features/order/orderSlice";
+import { resetOrder, selectOrder } from "@/store/features/order/orderSlice";
 import { api } from "@/utils/api";
 import {
   ClipboardDocumentListIcon,
@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import React, { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Step from "../UI/Step";
 import AddCustomerStep from "./Steps/AddCustomerStep";
 import AddPaymentStep from "./Steps/AddPaymentStep";
@@ -22,6 +22,7 @@ type Props = {
 };
 
 const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
+  const dispatch = useDispatch();
   const notification = useNotification();
   const [step, setStep] = useState<number>(1);
   const { customer, products, order, shipping } = useSelector(selectOrder);
@@ -102,12 +103,14 @@ const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
         status: "REDY_TO_SHIP",
       },
     });
+    dispatch(resetOrder());
     onSubmitted();
   };
 
   const handlePrevStep = () => {
     if (step === 1) {
       onClose();
+      dispatch(resetOrder());
       return;
     }
     setStep(step - 1);

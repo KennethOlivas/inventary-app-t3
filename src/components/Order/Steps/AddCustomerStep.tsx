@@ -7,7 +7,7 @@ import { api } from "@/utils/api";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import type { Customer } from "@prisma/client";
 import { motion } from "framer-motion";
-import type { FC} from "react";
+import type { FC } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -37,7 +37,7 @@ const AddCustomerStep: FC = () => {
       <div>
         <input
           type="text"
-          placeholder="Search product"
+          placeholder="Search Customer"
           className="w-full rounded-lg border-2 border-gray-300 bg-transparent p-3 pl-4 text-gray-400 outline-none transition-all duration-150 focus:border-indigo-500"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

@@ -10,7 +10,7 @@ const ShippingInput = schemaForType<Shipping>()(
     city: z.string(),
     status: z.enum(["REDY_TO_SHIP", "SHIPPED", "DELIVERED"]),
     name: z.string(),
-    price: z.number().min(1),
+    price: z.number(),
     createdAt: z.date(),
     updatedAt: z.date(),
     deliveryAt: z.date(),

@@ -55,7 +55,7 @@ const Inoce = () => {
               </thead>
               <tbody>
                 {products?.map((product) => (
-                  <tr>
+                  <tr key={product.id}>
                     <td>
                       <div className="flex flex-row flex-wrap items-center">
                         <div className="mb-1 flex-1 leading-5 ltr:ml-2 rtl:mr-2 ">
