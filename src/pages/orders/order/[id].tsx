@@ -7,9 +7,10 @@ import HeaderTitle from "@/components/UI/HeaderTitle";
 import Modal from "@/components/UI/Modal/Index";
 import useModal from "@/hooks/modalState";
 import { api } from "@/utils/api";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-const Order = () => {
+const Order: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
   const { isShowing, toggle } = useModal();

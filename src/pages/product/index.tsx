@@ -10,8 +10,9 @@ import type { Product } from "@prisma/client";
 import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useCallback, useMemo, useState } from "react";
 import { useNotification } from "react-hook-notification";
+import type { NextPage } from "next";
 
-const index = () => {
+const index: NextPage = () => {
   const notification = useNotification();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data, isLoading, refetch } = api.product.all.useQuery();

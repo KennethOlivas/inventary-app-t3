@@ -8,8 +8,9 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import type { Customer } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
+import type { NextPage } from "next";
 
-const index = () => {
+const index: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data, refetch, isLoading } = api.customer.all.useQuery();
 

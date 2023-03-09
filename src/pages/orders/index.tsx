@@ -11,6 +11,7 @@ import { CustomerInput } from "prisma/inputs";
 import { z } from "zod";
 import type { Customer, Order, Shipping } from "@prisma/client";
 import { useRouter } from "next/router";
+import type { NextPage } from "next";
 
 type OrderData =
   | Order & {
@@ -18,7 +19,7 @@ type OrderData =
       Customer: Customer;
     };
 
-const index = () => {
+const index: NextPage = () => {
   const { push } = useRouter();
   const [showModal, setShowModal] = useState(false);
   const { data, isLoading } = api.order.all.useQuery();

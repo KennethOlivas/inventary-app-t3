@@ -9,8 +9,9 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { Role } from "@prisma/client";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import Loader from "@/components/Loader";
+import type { NextPage } from "next";
 
-const index = () => {
+const index: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [editRole, setEditRole] = useState(false);

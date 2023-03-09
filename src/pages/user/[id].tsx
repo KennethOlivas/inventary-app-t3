@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import UserTabSettings from "@/components/User/UserTabSettings/UserTabSettings";
 import HeaderTitle from "@/components/UI/HeaderTitle";
+import type { NextPage } from "next";
 
-const User = () => {
+const User: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
   const { data, isLoading } = api.user.byId.useQuery({ id: id });
