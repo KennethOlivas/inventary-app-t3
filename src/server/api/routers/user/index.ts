@@ -6,6 +6,7 @@ import { editUser } from "./mutations/editUser";
 import { xlsx } from "./queries/xlsx";
 import { deleteUser } from "./mutations/deleteUser";
 import { byEmail } from "./queries/byEmail";
+import { addRole } from "./mutations/addRole";
 
 export const userRouter = createTRPCRouter({
   all: all,
@@ -14,5 +15,6 @@ export const userRouter = createTRPCRouter({
   addUser: addUser,
   editUser: editUser,
   deleteUser: deleteUser,
+  addRole: addRole,
   xlsx: xlsx,
 });

@@ -19,9 +19,10 @@ const schema = UserInput.pick({
 
 type Props = {
   userData: User | null | undefined;
+  refetch?: () => void;
 };
 
-const EditUserForm: FC<Props> = ({ userData }) => {
+const EditUserForm: FC<Props> = ({ userData, refetch }) => {
   const notification = useNotification();
   const [isOpen, setIsOpen] = useState(false);
   const addUser = api.user.editUser.useMutation({
@@ -31,6 +32,7 @@ const EditUserForm: FC<Props> = ({ userData }) => {
         position: "bottom-right",
         theme: "dark",
       });
+      refetch?.();
       setIsOpen(true);
     },
     onError() {

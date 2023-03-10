@@ -10,7 +10,7 @@ import type { NextPage } from "next";
 const User: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { data, isLoading } = api.user.byId.useQuery({ id: id });
+  const { data, isLoading, refetch } = api.user.byId.useQuery({ id: id });
   if (isLoading) {
     return <Loader />;
   }
@@ -45,7 +45,7 @@ const User: NextPage = () => {
                   Position: Dev
                 </div>
                 <div className="mt-2 text-center text-lg font-normal">
-                  Role: Dev
+                  Role: {data.Role?.name}
                 </div>
                 <div className="mt-2 px-6 text-center text-sm font-light">
                   <p>Description</p>
@@ -60,7 +60,7 @@ const User: NextPage = () => {
               </div>
             </div>
             <div>
-              <UserTabSettings userData={data} />
+              <UserTabSettings userData={data} refetch={refetch} />
             </div>
           </div>
         </div>
