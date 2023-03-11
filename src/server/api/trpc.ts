@@ -139,6 +139,20 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
+export const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
+  if (!ctx.session?.user.roles.includes("ADMIN")) {
+    throw new Error("Not accessible");
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
+// create a middleware that enforces the user has the role of "admin" before running the procedure
+
 /**
  * Protected (authenticated) procedure
  *

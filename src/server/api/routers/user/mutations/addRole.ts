@@ -1,18 +1,18 @@
 import { protectedProcedure } from "@/server/api/trpc";
-import { UserInput, RoleInput } from "prisma/inputs";
+import { UserInput } from "prisma/inputs";
 
-const schema = UserInput.pick({ id: true }).extend({
-  role: RoleInput.pick({ id: true }),
-});
+const schema = UserInput.pick({ id: true, roles: true });
 
 export const addRole = protectedProcedure
   .input(schema)
   .mutation(({ ctx, input }) => {
-    const { id, role } = input;
+    const { id, roles } = input;
     return ctx.prisma.user.update({
       where: { id },
       data: {
-        roleId: role.id,
+        roles: {
+          set: roles,
+        },
       },
     });
   });

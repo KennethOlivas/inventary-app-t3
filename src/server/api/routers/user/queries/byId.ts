@@ -9,8 +9,5 @@ export const byId = publicProcedure.input(schema).query(({ ctx, input }) => {
     where: {
       id,
     },
-    include: {
-      Role: true,
-    },
   });
 });

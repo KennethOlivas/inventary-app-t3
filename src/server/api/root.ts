@@ -1,6 +1,5 @@
 import { createTRPCRouter } from "./trpc";
 import { userRouter } from "@/server/api/routers/user";
-import { roleRouter } from "./routers/role";
 import { productRouter } from "./routers/product";
 import { customerRouter } from "./routers/customer";
 import { orderRouter } from "./routers/order";
@@ -14,7 +13,6 @@ import { productOrderRouter } from "./routers/productOrder";
  */
 export const appRouter = createTRPCRouter({
   user: userRouter,
-  role: roleRouter,
   product: productRouter,
   customer: customerRouter,
   order: orderRouter,

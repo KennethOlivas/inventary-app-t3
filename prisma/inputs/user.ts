@@ -1,4 +1,5 @@
 import type { User } from "@prisma/client";
+import { Role } from "@prisma/client";
 import * as z from "zod";
 
 import { schemaForType } from "@/utils/schemaForType";
@@ -14,7 +15,7 @@ const UserInput = schemaForType<User>()(
     image: z.string(),
     position: z.string(),
     description: z.string(),
-    roleId: z.string(),
+    roles: z.array(z.enum([Role.ADMIN, Role.USER])),
   })
 );
 

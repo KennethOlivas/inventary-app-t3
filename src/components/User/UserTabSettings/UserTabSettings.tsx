@@ -25,7 +25,7 @@ const UserTabSettings: FC<Props> = ({ userData, refetch }) => {
       <TabItem>
         <EditRoleForm
           id={userData!.id}
-          roleId={userData?.roleId}
+          roles={userData?.roles}
           refetch={refetch}
         />
       </TabItem>

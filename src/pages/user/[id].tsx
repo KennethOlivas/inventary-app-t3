@@ -45,7 +45,7 @@ const User: NextPage = () => {
                   Position: Dev
                 </div>
                 <div className="mt-2 text-center text-lg font-normal">
-                  Role: {data.Role?.name}
+                  Role: {data.roles.map((role) => role + " ")}
                 </div>
                 <div className="mt-2 px-6 text-center text-sm font-light">
                   <p>Description</p>

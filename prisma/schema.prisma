@@ -42,10 +42,9 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Role {
-    id    String @id @default(cuid())
-    name  String
-    users User[]
+enum Role {
+    ADMIN
+    USER
 }
 
 model User {
@@ -58,8 +57,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    Role          Role?     @relation(fields: [roleId], references: [id])
-    roleId        String?
+    roles         Role[]    @default([USER])
 }
 
 model VerificationToken {
