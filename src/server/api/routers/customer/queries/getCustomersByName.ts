@@ -1,4 +1,7 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import {
+  enforceUserIsAdminOrVendor,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import { CustomerInput } from "prisma/inputs";
 
 const schema = CustomerInput.pick({
@@ -6,6 +9,7 @@ const schema = CustomerInput.pick({
 });
 
 export const getCustomersByName = protectedProcedure
+  .use(enforceUserIsAdminOrVendor)
   .input(schema)
   .query(({ ctx, input }) => {
     const { name } = input;

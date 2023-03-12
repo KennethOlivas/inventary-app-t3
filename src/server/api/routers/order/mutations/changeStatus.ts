@@ -1,4 +1,7 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import {
+  enforceUserIsAdminOrVendor,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import { OrderInput } from "prisma/inputs";
 
 const schema = OrderInput.pick({
@@ -7,6 +10,7 @@ const schema = OrderInput.pick({
 });
 
 export const changeStatus = protectedProcedure
+  .use(enforceUserIsAdminOrVendor)
   .input(schema)
   .mutation(async ({ ctx, input }) => {
     const { id, status } = input;

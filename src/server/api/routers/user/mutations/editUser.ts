@@ -1,4 +1,4 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import { enforceUserIsAdmin, protectedProcedure } from "@/server/api/trpc";
 import { UserInput } from "prisma/inputs";
 import { z } from "zod";
 
@@ -14,6 +14,7 @@ const schema = z.object({
 
 export const editUser = protectedProcedure
   .input(schema)
+  .use(enforceUserIsAdmin)
   .mutation(({ ctx, input }) => {
     const {
       id,

@@ -1,4 +1,7 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import {
+  enforceUserIsAdminOrVendor,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import { OrderInput, ProductInput, ShippingInput } from "prisma/inputs";
 import { z } from "zod";
 
@@ -22,6 +25,7 @@ const schema = OrderInput.extend({
 });
 
 export const addOrder = protectedProcedure
+  .use(enforceUserIsAdminOrVendor)
   .input(schema)
   .mutation(async ({ ctx, input }) => {
     const {

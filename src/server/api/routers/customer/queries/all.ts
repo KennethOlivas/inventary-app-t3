@@ -1,5 +1,10 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import {
+  enforceUserIsAdminOrVendor,
+  protectedProcedure,
+} from "@/server/api/trpc";
 
-export const all = protectedProcedure.query(({ ctx }) => {
-  return ctx.prisma.customer.findMany();
-});
+export const all = protectedProcedure
+  .use(enforceUserIsAdminOrVendor)
+  .query(({ ctx }) => {
+    return ctx.prisma.customer.findMany();
+  });

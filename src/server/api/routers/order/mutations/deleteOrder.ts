@@ -1,4 +1,4 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import { enforceUserIsAdmin, protectedProcedure } from "@/server/api/trpc";
 import { OrderInput } from "prisma/inputs";
 
 const schema = OrderInput.pick({
@@ -6,6 +6,7 @@ const schema = OrderInput.pick({
 });
 
 export const deleteOrder = protectedProcedure
+  .use(enforceUserIsAdmin)
   .input(schema)
   .mutation(async ({ ctx, input }) => {
     const { id } = input;

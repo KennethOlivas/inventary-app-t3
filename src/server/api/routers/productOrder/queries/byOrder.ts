@@ -1,4 +1,7 @@
-import { protectedProcedure } from "@/server/api/trpc";
+import {
+  enforceUserIsAdminOrVendor,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import productOrderInput from "prisma/inputs/productOrder";
 
 const schema = productOrderInput.pick({
@@ -6,6 +9,7 @@ const schema = productOrderInput.pick({
 });
 
 export const byOrder = protectedProcedure
+  .use(enforceUserIsAdminOrVendor)
   .input(schema)
   .query(({ ctx, input }) => {
     const { orderId } = input;

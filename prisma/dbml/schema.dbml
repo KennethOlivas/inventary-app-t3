@@ -122,6 +122,8 @@ Table Customer {
 Enum Role {
   ADMIN
   USER
+  VENDOR
+  LOGISTICS
 }
 
 Enum ShippingStatus {
