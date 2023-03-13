@@ -24,6 +24,13 @@ const EditRoleForm: FC<Props> = ({ id, roles, refetch }) => {
       });
       refetch?.();
     },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
   });
   const initialValues = {
     roles: roles,

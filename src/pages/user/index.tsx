@@ -22,7 +22,12 @@ const index: NextPage = () => {
   const { push } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { data, isLoading, refetch } = api.user.all.useQuery(
-    undefined // no input,
+    undefined, // no input,
+    {
+      onError: (error) => {
+        push("/500?message=" + error.message + "&code=" + error.data?.code);
+      },
+    }
   );
 
   const xlsx = api.user.xlsx.useMutation({

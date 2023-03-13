@@ -23,6 +23,13 @@ const DeleteOrder: FC<Props> = ({ id }) => {
 
       router.push("/orders");
     },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
   });
   const { isShowing, toggle } = useModal();
 

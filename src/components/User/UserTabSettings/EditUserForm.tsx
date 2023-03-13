@@ -35,8 +35,12 @@ const EditUserForm: FC<Props> = ({ userData, refetch }) => {
       refetch?.();
       setIsOpen(true);
     },
-    onError() {
-      console.log("error");
+    onError(e) {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
     },
   });
 

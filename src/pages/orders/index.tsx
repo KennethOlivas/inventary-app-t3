@@ -22,7 +22,11 @@ type OrderData =
 const index: NextPage = () => {
   const { push } = useRouter();
   const [showModal, setShowModal] = useState(false);
-  const { data, isLoading } = api.order.all.useQuery();
+  const { data, isLoading } = api.order.all.useQuery(void 0, {
+    onError: (error) => {
+      push("/500?message=" + error.message + "&code=" + error.data?.code);
+    },
+  });
 
   const cols = useMemo<ColumnDef<OrderData>[]>(
     () => [

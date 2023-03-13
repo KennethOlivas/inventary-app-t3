@@ -42,7 +42,11 @@ const UpsertProductForm: FC<Props> = ({
     },
 
     onError() {
-      console.log("error");
+      notification.error({
+        text: "Error adding product",
+        position: "bottom-right",
+        theme: "dark",
+      });
       onCancel();
     },
   });
@@ -59,7 +63,11 @@ const UpsertProductForm: FC<Props> = ({
     },
 
     onError() {
-      console.log("error");
+      notification.error({
+        text: "Error adding product",
+        position: "bottom-right",
+        theme: "dark",
+      });
       onCancel();
     },
   });

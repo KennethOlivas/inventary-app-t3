@@ -33,6 +33,13 @@ const ChangeStatusShipping: FC<Props> = ({
       refetch();
       handleClose();
     },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
   });
   const handleSubmit = (values: FormikValues) => {
     ChangeStatus.mutate({

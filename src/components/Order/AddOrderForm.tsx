@@ -36,6 +36,14 @@ const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
       onSubmitted();
       onClose();
     },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+      onClose();
+    },
   });
   const invoiceNumber = useMemo(() => {
     return (Math.floor(Math.random() * 1000) + 1).toString();

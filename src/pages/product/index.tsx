@@ -11,11 +11,19 @@ import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useCallback, useMemo, useState } from "react";
 import { useNotification } from "react-hook-notification";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 const index: NextPage = () => {
+  const router = useRouter();
   const notification = useNotification();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { data, isLoading, refetch } = api.product.all.useQuery();
+  const { data, isLoading, refetch } = api.product.all.useQuery(void 0, {
+    onError: (error) => {
+      router.push(
+        "/500?message=" + error.message + "&code=" + error.data?.code
+      );
+    },
+  });
   const [editedProductId, setEditedProductId] = useState<string>("");
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -23,6 +31,13 @@ const index: NextPage = () => {
     onSuccess() {
       notification.success({
         text: "Product deleted successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+    onError(error) {
+      notification.error({
+        text: error.message,
         position: "bottom-right",
         theme: "dark",
       });
@@ -94,7 +109,7 @@ const index: NextPage = () => {
             </span>
           );
         },
-        accessorKey: "stock",
+        accessorFn: (row) => row.stock,
       },
 
       {

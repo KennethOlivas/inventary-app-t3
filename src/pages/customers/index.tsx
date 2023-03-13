@@ -9,10 +9,16 @@ import type { Customer } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 const index: NextPage = () => {
+  const { push } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const { data, refetch, isLoading } = api.customer.all.useQuery();
+  const { data, refetch, isLoading } = api.customer.all.useQuery(void 0, {
+    onError: (error) => {
+      push("/500?message=" + error.message + "&code=" + error.data?.code);
+    },
+  });
 
   const cols = useMemo<ColumnDef<Customer>[]>(
     () => [

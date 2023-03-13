@@ -28,6 +28,13 @@ const DeleteUser: FC<Props> = ({ userData }) => {
         theme: "dark",
       });
     },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
   });
 
   // getSession

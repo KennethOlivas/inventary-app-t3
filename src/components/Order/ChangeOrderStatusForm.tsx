@@ -29,6 +29,13 @@ const ChangeOrderStatusForm: FC<Props> = ({
       });
       refetch();
     },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
   });
 
   const handleSubmit = async (values: FormikValues) => {

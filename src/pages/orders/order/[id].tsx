@@ -15,9 +15,18 @@ const Order: NextPage = () => {
   const id = router.query.id as string;
   const { isShowing, toggle } = useModal();
 
-  const { data, isLoading, refetch } = api.order.byId.useQuery({
-    id,
-  });
+  const { data, isLoading, refetch } = api.order.byId.useQuery(
+    {
+      id,
+    },
+    {
+      onError: (error) => {
+        router.push(
+          "/500?message=" + error.message + "&code=" + error.data?.code
+        );
+      },
+    }
+  );
 
   if (isLoading) {
     return <Loader />;

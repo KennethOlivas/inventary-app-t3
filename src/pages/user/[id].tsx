@@ -10,7 +10,16 @@ import type { NextPage } from "next";
 const User: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { data, isLoading, refetch } = api.user.byId.useQuery({ id: id });
+  const { data, isLoading, refetch } = api.user.byId.useQuery(
+    { id: id },
+    {
+      onError: (error) => {
+        router.push(
+          "/500?message=" + error.message + "&code=" + error.data?.code
+        );
+      },
+    }
+  );
   if (isLoading) {
     return <Loader />;
   }

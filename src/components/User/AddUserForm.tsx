@@ -35,7 +35,11 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
     },
 
     onError() {
-      console.log("error");
+      notification.error({
+        text: "Error adding product",
+        position: "bottom-right",
+        theme: "dark",
+      });
       onCancel();
     },
   });

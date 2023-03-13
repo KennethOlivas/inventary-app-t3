@@ -21,6 +21,13 @@ const FieldUserButton: FC<Props> = ({ onFinishQuery }) => {
         theme: "dark",
       });
     },
+    onError(e) {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
   });
 
   const openModal = async () => {

@@ -141,7 +141,11 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
 
 export const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user.roles.includes("ADMIN")) {
-    throw new Error("Not accessible");
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      cause: "User is not an admin",
+      message: "User is not an admin",
+    });
   }
   return next({
     ctx: {
@@ -156,7 +160,11 @@ export const enforceUserIsAdminOrVendor = t.middleware(({ ctx, next }) => {
     !ctx.session?.user.roles.includes("ADMIN") &&
     !ctx.session?.user.roles.includes("VENDOR")
   ) {
-    throw new Error("Not accessible");
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      cause: "User is not an admin",
+      message: "User is not an admin",
+    });
   }
   return next({
     ctx: {
@@ -171,7 +179,11 @@ export const enfoceUserIsAdminOrLogistics = t.middleware(({ ctx, next }) => {
     !ctx.session?.user.roles.includes("ADMIN") &&
     !ctx.session?.user.roles.includes("LOGISTICS")
   ) {
-    throw new Error("Not accessible");
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      cause: "User is not an admin",
+      message: "User is not an admin",
+    });
   }
   return next({
     ctx: {
