@@ -1,5 +1,5 @@
 import TextField from "@/components/Inputs/TextField";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import Alert from "@/components/UI/Alert";
 import { api } from "@/utils/api";
 import type { User } from "@prisma/client";
@@ -8,6 +8,7 @@ import { UserInput } from "prisma/inputs";
 import type { FC } from "react";
 import React, { useMemo, useState } from "react";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useNotification } from "react-hook-notification";
 
 const schema = UserInput.pick({
   email: true,
@@ -18,16 +19,28 @@ const schema = UserInput.pick({
 
 type Props = {
   userData: User | null | undefined;
+  refetch?: () => void;
 };
 
-const EditUserForm: FC<Props> = ({ userData }) => {
+const EditUserForm: FC<Props> = ({ userData, refetch }) => {
+  const notification = useNotification();
   const [isOpen, setIsOpen] = useState(false);
   const addUser = api.user.editUser.useMutation({
     onSuccess() {
+      notification.success({
+        text: "User edited successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+      refetch?.();
       setIsOpen(true);
     },
-    onError() {
-      console.log("error");
+    onError(e) {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
     },
   });
 
@@ -87,7 +100,7 @@ const EditUserForm: FC<Props> = ({ userData }) => {
           </div>
         </Form>
       </Formik>
-      <Modal state={isOpen} onClose={closeModal} size="sm">
+      <Modal state={isOpen} onClose={closeModal}>
         <Alert
           type="success"
           title="User Updated"

@@ -19,7 +19,7 @@ const Breadcrumbs = () => {
   });
 
   return (
-    <section className="p-4 px-2">
+    <section className="px-2 pt-1.5 pb-3">
       <nav
         className="flex rounded-lg bg-[#171717] px-5 py-3 text-gray-700"
         aria-label="Breadcrumb"

@@ -139,6 +139,60 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
+export const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
+  if (!ctx.session?.user.roles.includes("ADMIN")) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      cause: "User is not an admin",
+      message: "User is not an admin",
+    });
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
+export const enforceUserIsAdminOrVendor = t.middleware(({ ctx, next }) => {
+  if (
+    !ctx.session?.user.roles.includes("ADMIN") &&
+    !ctx.session?.user.roles.includes("VENDOR")
+  ) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      cause: "User is not an admin",
+      message: "User is not an admin",
+    });
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
+export const enfoceUserIsAdminOrLogistics = t.middleware(({ ctx, next }) => {
+  if (
+    !ctx.session?.user.roles.includes("ADMIN") &&
+    !ctx.session?.user.roles.includes("LOGISTICS")
+  ) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      cause: "User is not an admin",
+      message: "User is not an admin",
+    });
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
 /**
  * Protected (authenticated) procedure
  *

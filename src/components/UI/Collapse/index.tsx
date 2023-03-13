@@ -34,7 +34,7 @@ const Collapse: FC<Props> = ({ children, title }) => {
             leaveFrom="transform translate-y-0 opacity-100"
             leaveTo="transform -translate-y-10 opacity-0"
           >
-            <Disclosure.Panel className="mt-2">{children}</Disclosure.Panel>
+            <Disclosure.Panel>{children}</Disclosure.Panel>
           </Transition>
         </>
       )}

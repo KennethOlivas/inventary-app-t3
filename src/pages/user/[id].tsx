@@ -5,11 +5,21 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import UserTabSettings from "@/components/User/UserTabSettings/UserTabSettings";
 import HeaderTitle from "@/components/UI/HeaderTitle";
+import type { NextPage } from "next";
 
-const User = () => {
+const User: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { data, isLoading } = api.user.byId.useQuery({ id: id });
+  const { data, isLoading, refetch } = api.user.byId.useQuery(
+    { id: id },
+    {
+      onError: (error) => {
+        router.push(
+          "/500?message=" + error.message + "&code=" + error.data?.code
+        );
+      },
+    }
+  );
   if (isLoading) {
     return <Loader />;
   }
@@ -44,7 +54,7 @@ const User = () => {
                   Position: Dev
                 </div>
                 <div className="mt-2 text-center text-lg font-normal">
-                  Role: Dev
+                  Role: {data.roles.map((role) => role + " ")}
                 </div>
                 <div className="mt-2 px-6 text-center text-sm font-light">
                   <p>Description</p>
@@ -59,7 +69,7 @@ const User = () => {
               </div>
             </div>
             <div>
-              <UserTabSettings userData={data} />
+              <UserTabSettings userData={data} refetch={refetch} />
             </div>
           </div>
         </div>

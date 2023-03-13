@@ -7,6 +7,7 @@ import {
   CubeIcon,
   StarIcon,
   LockClosedIcon,
+  TruckIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -20,6 +21,10 @@ const Icons = [
   {
     name: "WrenchScrewdriverIcon",
     Icon: <WrenchScrewdriverIcon className="h-5 w-5" />,
+  },
+  {
+    name: "TruckIcon",
+    Icon: <TruckIcon className="h-5 w-5" />,
   },
   { name: "UsersIcon", Icon: <UsersIcon className="h-5 w-5" /> },
   { name: "LockClosedIcon", Icon: <LockClosedIcon className="h-5 w-5" /> },
@@ -44,6 +49,7 @@ const MenuItem: FC<Props> = ({ item, selected }) => {
     <Link href={href ?? "/"}>
       <div className="group relative inline-block w-full">
         <button
+          key={id}
           className={clsx(
             "flex w-full cursor-pointer items-center justify-start py-4 px-3 sm:justify-center sm:px-0 xl:justify-start  xl:px-3",
             selected === id ? "sidebar-item-selected" : "sidebar-item"
@@ -52,7 +58,7 @@ const MenuItem: FC<Props> = ({ item, selected }) => {
         >
           {Icons.map((item) => {
             if (item.name === icon) {
-              return item.Icon;
+              return <div key={item.name}>{item.Icon}</div>;
             }
           })}
 

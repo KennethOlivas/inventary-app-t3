@@ -1,7 +1,8 @@
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import { CircleStackIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import React, { useState } from "react";
+import { useNotification } from "react-hook-notification";
 import { api } from "../api";
 
 type Props = {
@@ -9,9 +10,25 @@ type Props = {
 };
 
 const FieldUserButton: FC<Props> = ({ onFinishQuery }) => {
+  const notification = useNotification();
   const [modalState, setModalState] = useState(false);
   const [users, setUsers] = useState<string>("");
-  const addUser = api.user.addUser.useMutation();
+  const addUser = api.user.addUser.useMutation({
+    onSuccess() {
+      notification.success({
+        text: "User added successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+    onError(e) {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+  });
 
   const openModal = async () => {
     setModalState(true);
@@ -44,12 +61,7 @@ const FieldUserButton: FC<Props> = ({ onFinishQuery }) => {
         Field user data
         <CircleStackIcon className="ml-2 h-6 w-6" />
       </button>
-      <Modal
-        size="lg"
-        onClose={() => {}}
-        title="Adding users"
-        state={modalState}
-      >
+      <Modal onClose={() => {}} title="Adding users" state={modalState}>
         <div>
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center">

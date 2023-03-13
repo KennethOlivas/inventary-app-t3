@@ -1,23 +1,48 @@
 import Loader from "@/components/Loader";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import UpsertProductForm from "@/components/Product/UpsertProductForm";
 import Table from "@/components/Table";
 import ActionsTableButtons from "@/components/UI/ActionsTableButtons.tsx";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import type { Product } from "@prisma/client";
 import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useCallback, useMemo, useState } from "react";
+import { useNotification } from "react-hook-notification";
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
-const index = () => {
+const index: NextPage = () => {
+  const router = useRouter();
+  const notification = useNotification();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { data, isLoading, refetch } = api.product.all.useQuery();
+  const { data, isLoading, refetch } = api.product.all.useQuery(void 0, {
+    onError: (error) => {
+      router.push(
+        "/500?message=" + error.message + "&code=" + error.data?.code
+      );
+    },
+  });
   const [editedProductId, setEditedProductId] = useState<string>("");
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const deleteProduct = api.product.deleteProduct.useMutation();
+  const deleteProduct = api.product.deleteProduct.useMutation({
+    onSuccess() {
+      notification.success({
+        text: "Product deleted successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+    onError(error) {
+      notification.error({
+        text: error.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+  });
 
   const onClickDelete = async (id: string) => {
     await deleteProduct.mutateAsync({
@@ -84,7 +109,7 @@ const index = () => {
             </span>
           );
         },
-        accessorKey: "stock",
+        accessorFn: (row) => row.stock,
       },
 
       {
@@ -139,7 +164,6 @@ const index = () => {
         <Modal
           state={isOpen}
           title={isEdit ? "Edit Product" : "Add Product"}
-          size="2xl"
           onClose={closeModal}
         >
           <UpsertProductForm
@@ -149,7 +173,6 @@ const index = () => {
             onCancel={closeModal}
           />
         </Modal>
-
         {isLoading ? (
           <Loader />
         ) : (

@@ -1,5 +1,5 @@
 import AddCustomerForm from "@/components/Costumer/AddCustomerForm";
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import Table from "@/components/Table";
 import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
@@ -8,10 +8,17 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import type { Customer } from "@prisma/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
-const index = () => {
+const index: NextPage = () => {
+  const { push } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const { data, refetch, isLoading } = api.customer.all.useQuery();
+  const { data, refetch, isLoading } = api.customer.all.useQuery(void 0, {
+    onError: (error) => {
+      push("/500?message=" + error.message + "&code=" + error.data?.code);
+    },
+  });
 
   const cols = useMemo<ColumnDef<Customer>[]>(
     () => [
@@ -65,12 +72,7 @@ const index = () => {
             <PlusIcon className="ml-2 h-5 w-5" />
           </button>
         </HeaderTitle>
-        <Modal
-          state={isOpen}
-          title="add customer"
-          onClose={closeModal}
-          size="4xl"
-        >
+        <Modal state={isOpen} title="add customer" onClose={closeModal}>
           <AddCustomerForm onAddUser={refetch} onCancel={closeModal} />
         </Modal>
         <Table

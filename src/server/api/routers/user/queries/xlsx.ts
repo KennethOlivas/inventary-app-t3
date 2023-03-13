@@ -1,8 +1,8 @@
-import { publicProcedure } from "@/server/api/trpc";
+import { protectedProcedure } from "@/server/api/trpc";
 import * as ExcelJS from "exceljs";
 import { readFileSync } from "fs";
 
-export const xlsx = publicProcedure.mutation(async ({ ctx }) => {
+export const xlsx = protectedProcedure.mutation(async ({ ctx }) => {
   const response = ctx.prisma.user.findMany({
     select: {
       id: true,

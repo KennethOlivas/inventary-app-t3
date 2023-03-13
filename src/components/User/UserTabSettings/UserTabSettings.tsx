@@ -4,13 +4,15 @@ import type { User } from "@prisma/client";
 import type { FC } from "react";
 import React, { useMemo } from "react";
 import DeleteUser from "./DeleteUser";
+import EditRoleForm from "./EditRoleForm";
 import EditUserForm from "./EditUserForm";
 
 type Props = {
   userData: User | null | undefined;
+  refetch?: () => void;
 };
 
-const UserTabSettings: FC<Props> = ({ userData }) => {
+const UserTabSettings: FC<Props> = ({ userData, refetch }) => {
   const setingsItems = useMemo(() => {
     return ["General", "Roles", "More"];
   }, []);
@@ -18,10 +20,14 @@ const UserTabSettings: FC<Props> = ({ userData }) => {
   return (
     <Tabs items={setingsItems}>
       <TabItem>
-        <EditUserForm userData={userData} />
+        <EditUserForm userData={userData} refetch={refetch} />
       </TabItem>
       <TabItem>
-        <p>data2</p>
+        <EditRoleForm
+          id={userData!.id}
+          roles={userData?.roles}
+          refetch={refetch}
+        />
       </TabItem>
       <TabItem>
         <DeleteUser userData={userData} />

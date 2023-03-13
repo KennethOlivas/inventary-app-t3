@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal/Index";
+import Modal from "@/components/UI/Modal/Index";
 import { api } from "@/utils/api";
 import {
   CheckIcon,
@@ -10,15 +10,32 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import React from "react";
+import { useNotification } from "react-hook-notification";
 
 type Props = {
   userData: User | null | undefined;
 };
 
 const DeleteUser: FC<Props> = ({ userData }) => {
+  const notification = useNotification();
   const [isOpen, setIsOpen] = React.useState(false);
   const { push } = useRouter();
-  const deleteUser = api.user.deleteUser.useMutation();
+  const deleteUser = api.user.deleteUser.useMutation({
+    onSuccess: () => {
+      notification.success({
+        text: "User deleted successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+    onError: (e) => {
+      notification.error({
+        text: e.message,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    },
+  });
 
   // getSession
   const { data } = useSession();
@@ -69,7 +86,7 @@ const DeleteUser: FC<Props> = ({ userData }) => {
         </div>
       </div>
 
-      <Modal state={isOpen} size="md" onClose={() => {}}>
+      <Modal state={isOpen} onClose={() => {}}>
         <div className="mb-4 bg-transparent  text-emerald-400" role="alert">
           <div className="flex items-center">
             <CheckIcon className="mr-2 h-6 w-6" />

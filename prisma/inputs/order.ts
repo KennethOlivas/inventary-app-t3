@@ -3,15 +3,19 @@ import * as z from "zod";
 
 import { schemaForType } from "@/utils/schemaForType";
 
-const ProductInput = schemaForType<Order>()(
+const OrderInput = schemaForType<Order>()(
   z.object({
     id: z.string(),
-    status: z.string(),
     createdAt: z.date(),
     updatedAt: z.date(),
+    invoiceNumber: z.string(),
     total: z.number(),
-    clientId: z.string(),
+    customerId: z.string(),
+    shipping: z.boolean(),
+    subTotal: z.number(),
+    iva: z.number(),
+    status: z.enum(["PENDING", "COMPLETED", "CANCELED"]),
   })
 );
 
-export default ProductInput;
+export default OrderInput;

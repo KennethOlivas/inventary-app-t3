@@ -42,7 +42,11 @@ const UpsertProductForm: FC<Props> = ({
     },
 
     onError() {
-      console.log("error");
+      notification.error({
+        text: "Error adding product",
+        position: "bottom-right",
+        theme: "dark",
+      });
       onCancel();
     },
   });
@@ -59,7 +63,11 @@ const UpsertProductForm: FC<Props> = ({
     },
 
     onError() {
-      console.log("error");
+      notification.error({
+        text: "Error adding product",
+        position: "bottom-right",
+        theme: "dark",
+      });
       onCancel();
     },
   });
@@ -109,7 +117,7 @@ const UpsertProductForm: FC<Props> = ({
           validationSchema={toFormikValidationSchema(Schema)}
         >
           {({ errors, touched }) => (
-            <Form>
+            <Form className="w-[600px]">
               <>
                 <div className="my-4 flex flex-col space-y-4">
                   <TextField
@@ -120,16 +128,14 @@ const UpsertProductForm: FC<Props> = ({
                     error={errors.name}
                     touched={touched.name}
                   />
-
                   <TextField
                     id="stock"
                     name="stock"
                     placeholder="Stock"
                     type="number"
-                    error={errors.price}
-                    touched={touched.price}
+                    error={errors.stock}
+                    touched={touched.stock}
                   />
-
                   <TextField
                     id="price"
                     name="price"
@@ -138,7 +144,6 @@ const UpsertProductForm: FC<Props> = ({
                     error={errors.price}
                     touched={touched.price}
                   />
-
                   <TextField
                     id="description"
                     name="description"
@@ -157,7 +162,6 @@ const UpsertProductForm: FC<Props> = ({
                   >
                     Cancel
                   </button>
-
                   <button
                     type="submit"
                     className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"

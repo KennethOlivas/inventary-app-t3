@@ -4,6 +4,7 @@ import { Formik, Form } from "formik";
 import { UserInput } from "prisma/inputs";
 import type { FC } from "react";
 import React, { useMemo } from "react";
+import { useNotification } from "react-hook-notification";
 
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import TextField from "../Inputs/TextField";
@@ -19,14 +20,26 @@ type Props = {
 };
 
 const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
+  const notification = useNotification();
   const addUser = api.user.addUser.useMutation({
     onSuccess() {
+      notification.success({
+        text: "User added successfully",
+        position: "bottom-right",
+        theme: "dark",
+      });
+
       onAddUser();
+
       onCancel();
     },
 
     onError() {
-      console.log("error");
+      notification.error({
+        text: "Error adding product",
+        position: "bottom-right",
+        theme: "dark",
+      });
       onCancel();
     },
   });
@@ -53,7 +66,7 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
       validationSchema={toFormikValidationSchema(Schema)}
     >
       {({ errors, touched }) => (
-        <Form>
+        <Form className="w-[400px]">
           <>
             <div className="my-4 flex flex-col space-y-4">
               <TextField
@@ -81,7 +94,6 @@ const AddUserForm: FC<Props> = ({ onCancel, onAddUser }) => {
               >
                 Cancel
               </button>
-
               <button
                 type="submit"
                 className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white/90 shadow-lg shadow-indigo-600/40 transition-all duration-200 hover:bg-indigo-500 hover:text-white"

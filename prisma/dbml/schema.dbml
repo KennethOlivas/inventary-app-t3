@@ -30,12 +30,6 @@ Table Session {
   user User [not null]
 }
 
-Table Role {
-  id String [pk]
-  name String [not null]
-  users User [not null]
-}
-
 Table User {
   id String [pk]
   name String
@@ -46,8 +40,7 @@ Table User {
   image String
   accounts Account [not null]
   sessions Session [not null]
-  Role Role
-  roleId String
+  roles Role[] [not null]
 }
 
 Table VerificationToken {
@@ -69,19 +62,49 @@ Table Product {
   stock Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
+  orderId String
+  ProductOrder ProductOrder [not null]
+}
+
+Table Shipping {
+  id String [pk]
+  name String [not null]
+  price Int [not null]
+  city String [not null]
+  address String [not null]
+  status ShippingStatus [not null]
+  deliveryAt DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  Order Order
+  orderId String [unique]
+}
+
+Table ProductOrder {
+  id String [pk]
+  quantity Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
   Order Order
   orderId String
+  Product Product
+  productId String
 }
 
 Table Order {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
+  invoiceNumber String [unique, not null]
   updatedAt DateTime [not null]
-  status String [not null]
-  total Int [not null]
-  products Product [not null]
+  status Status [not null]
+  shipping Boolean [not null]
+  subTotal Float [not null]
+  iva Float [not null]
+  total Float [not null]
   Customer Customer [not null]
-  clientId String [not null]
+  customerId String [not null]
+  Shipping Shipping
+  ProductOrder ProductOrder [not null]
 }
 
 Table Customer {
@@ -96,12 +119,33 @@ Table Customer {
   Orders Order [not null]
 }
 
+Enum Role {
+  ADMIN
+  USER
+  VENDOR
+  LOGISTICS
+}
+
+Enum ShippingStatus {
+  REDY_TO_SHIP
+  SHIPPED
+  DELIVERED
+}
+
+Enum Status {
+  PENDING
+  COMPLETED
+  CANCELED
+}
+
 Ref: Account.userId > User.id [delete: Cascade]
 
 Ref: Session.userId > User.id [delete: Cascade]
 
-Ref: User.roleId > Role.id
+Ref: Shipping.orderId - Order.id
 
-Ref: Product.orderId > Order.id
+Ref: ProductOrder.orderId > Order.id
 
-Ref: Order.clientId > Customer.id
+Ref: ProductOrder.productId > Product.id
+
+Ref: Order.customerId > Customer.id

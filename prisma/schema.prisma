@@ -42,10 +42,11 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Role {
-    id    String @id @default(cuid())
-    name  String
-    users User[]
+enum Role {
+    ADMIN
+    USER
+    VENDOR
+    LOGISTICS
 }
 
 model User {
@@ -58,8 +59,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    Role          Role?     @relation(fields: [roleId], references: [id])
-    roleId        String?
+    roles         Role[]    @default([USER])
 }
 
 model VerificationToken {
@@ -72,27 +72,69 @@ model VerificationToken {
 
 // model product 
 model Product {
-    id          String   @id @default(uuid())
-    name        String
-    description String?
-    price       Int
-    image       String?
-    stock       Int
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    Order       Order?   @relation(fields: [orderId], references: [id])
-    orderId     String?
+    id           String         @id @default(uuid())
+    name         String
+    description  String?
+    price        Int
+    image        String?
+    stock        Int
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    orderId      String?
+    ProductOrder ProductOrder[]
+}
+
+enum ShippingStatus {
+    REDY_TO_SHIP
+    SHIPPED
+    DELIVERED
+}
+
+model Shipping {
+    id         String         @id @default(uuid())
+    name       String
+    price      Int
+    city       String
+    address    String
+    status     ShippingStatus
+    deliveryAt DateTime
+    createdAt  DateTime       @default(now())
+    updatedAt  DateTime       @updatedAt
+    Order      Order?         @relation(fields: [orderId], references: [id])
+    orderId    String?        @unique
+}
+
+enum Status {
+    PENDING
+    COMPLETED
+    CANCELED
+}
+
+model ProductOrder {
+    id        String   @id @default(uuid())
+    quantity  Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Order     Order?   @relation(fields: [orderId], references: [id])
+    orderId   String?
+    Product   Product? @relation(fields: [productId], references: [id])
+    productId String?
 }
 
 model Order {
-    id        String    @id @default(uuid())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    status    String
-    total     Int
-    products  Product[]
-    Customer  Customer  @relation(fields: [clientId], references: [id])
-    clientId  String
+    id            String         @id @default(uuid())
+    createdAt     DateTime       @default(now())
+    invoiceNumber String         @unique
+    updatedAt     DateTime       @updatedAt
+    status        Status
+    shipping      Boolean
+    subTotal      Float
+    iva           Float
+    total         Float
+    Customer      Customer       @relation(fields: [customerId], references: [id])
+    customerId    String
+    Shipping      Shipping?
+    ProductOrder  ProductOrder[]
 }
 
 model Customer {
