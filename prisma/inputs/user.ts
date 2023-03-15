@@ -15,7 +15,11 @@ const UserInput = schemaForType<User>()(
     image: z.string(),
     position: z.string(),
     description: z.string(),
-    roles: z.array(z.enum([Role.ADMIN, Role.USER])),
+    roles: z.array(
+      z.enum([Role.ADMIN, Role.USER, Role.LOGISTICS, Role.VENDOR])
+    ),
+    createdAt: z.date(),
+    updatedAt: z.date(),
   })
 );
 

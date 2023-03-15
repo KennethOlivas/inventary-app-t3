@@ -2,6 +2,7 @@ import { createTRPCRouter } from "../../trpc";
 import { addOrder } from "./mutations/addOrder";
 import { changeStatus } from "./mutations/changeStatus";
 import { deleteOrder } from "./mutations/deleteOrder";
+import { xlsx } from "./mutations/xlsx";
 import { all } from "./queries/all";
 import { byId } from "./queries/byId";
 import { bycountCustomerOrderId } from "./queries/countCustomerOrder";
@@ -17,4 +18,5 @@ export const orderRouter = createTRPCRouter({
   deleteOrder: deleteOrder,
   countTotalOrders: countTotalOrders,
   countTotalCanceledOrders: countTotalCanceledOrders,
+  xlsx: xlsx,
 });

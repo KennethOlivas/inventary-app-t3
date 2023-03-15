@@ -13,7 +13,7 @@ type Props = {
 };
 
 const EditRoleForm: FC<Props> = ({ id, roles, refetch }) => {
-  const allRoles: Role[] = ["ADMIN", "USER"];
+  const allRoles: Role[] = ["ADMIN", "USER", "VENDOR", "LOGISTICS"];
   const notification = useNotification();
   const changeRole = api.user.addRole.useMutation({
     onSuccess: () => {
@@ -44,7 +44,7 @@ const EditRoleForm: FC<Props> = ({ id, roles, refetch }) => {
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ values, setValues }) => (
           <Form>
-            <div className="flex space-x-8 py-4">
+            <div className="flex h-[200px] space-x-8 py-4">
               {allRoles.map((role) => (
                 <label
                   key={role}
