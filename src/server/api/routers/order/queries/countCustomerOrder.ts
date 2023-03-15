@@ -5,7 +5,7 @@ const schema = OrderInput.pick({
   customerId: true,
 });
 
-export const bycountCustomerOrderId = protectedProcedure
+export const byCountCustomerOrderId = protectedProcedure
   .input(schema)
   .query(({ ctx, input }) => {
     const { customerId } = input;

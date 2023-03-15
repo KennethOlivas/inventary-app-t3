@@ -18,7 +18,7 @@ const Cards = () => {
   console.log(totalProducts);
 
   return (
-    <div className="flex flex-wrap p-4">
+    <div className="spacex4 flex flex-wrap py-4">
       <div className="w-full px-4 lg:w-6/12 xl:w-3/12">
         <div className="relative mb-6 flex min-w-0 flex-col break-words rounded bg-neutral-900 text-neutral-100 shadow-lg xl:mb-0">
           <div className="flex-auto p-4">
