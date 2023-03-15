@@ -52,13 +52,6 @@ export const sidebarItems: SideBarItem[] = [
         href: "/user",
         icon: "UsersIcon",
       },
-      {
-        id: "5",
-        title: "Roles",
-        notifications: false,
-        href: "/roles",
-        icon: "LockClosedIcon",
-      },
     ],
   },
 ];
