@@ -12,6 +12,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useNotification } from "react-hook-notification";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import ProductReport from "@/components/Reports/ProductReport";
 
 const index: NextPage = () => {
   const router = useRouter();
@@ -156,6 +157,7 @@ const index: NextPage = () => {
       <div className="max-w-screen-2xl-lg mx-auto px-2">
         <HeaderTitle title="Products">
           <div className="flex space-x-4">
+            <ProductReport />
             <button onClick={openModal} className="indigo-button">
               New Product
             </button>

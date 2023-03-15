@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER');
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER', 'VENDOR', 'LOGISTICS');
 
 -- CreateEnum
 CREATE TYPE "ShippingStatus" AS ENUM ('REDY_TO_SHIP', 'SHIPPED', 'DELIVERED');
@@ -44,7 +44,9 @@ CREATE TABLE "User" (
     "description" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
-    "roles" "Role"[],
+    "roles" "Role"[] DEFAULT ARRAY['USER']::"Role"[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -167,9 +169,3 @@ ALTER TABLE "ProductOrder" ADD CONSTRAINT "ProductOrder_productId_fkey" FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
-
--- INSERT INTO User with role ADMIN and email kennetholivas1@gmail.com
-
-INSERT INTO "public"."User"("id","name","email","emailVerified","roles") VALUES ('ckq7x0x0a0000j6s9q2q2q2q2','Kenneth Olivas','3312@gmail.com', '2021-09-01 00:00:00', '{"ADMIN"}');
-

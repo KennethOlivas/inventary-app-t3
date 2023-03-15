@@ -3,7 +3,7 @@ import { all } from "./queries/all";
 import { byId } from "./queries/byId";
 import { addUser } from "./mutations/addUser";
 import { editUser } from "./mutations/editUser";
-import { xlsx } from "./queries/xlsx";
+import { xlsx } from "./mutations/xlsx";
 import { deleteUser } from "./mutations/deleteUser";
 import { byEmail } from "./queries/byEmail";
 import { addRole } from "./mutations/addRole";

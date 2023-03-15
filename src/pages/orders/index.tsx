@@ -12,6 +12,7 @@ import { z } from "zod";
 import type { Customer, Order, Shipping } from "@prisma/client";
 import { useRouter } from "next/router";
 import type { NextPage } from "next";
+import OrderReport from "@/components/Reports/OrderReport";
 
 type OrderData =
   | Order & {
@@ -100,9 +101,12 @@ const index: NextPage = () => {
       <Breadcrumbs />
       <div className="max-w-screen-2xl-lg mx-auto  px-2">
         <HeaderTitle title="Orders">
-          <button onClick={openModal} className="indigo-button capitalize">
-            add order
-          </button>
+          <div className="flex space-x-4">
+            <OrderReport />
+            <button onClick={openModal} className="indigo-button capitalize">
+              add order
+            </button>
+          </div>
         </HeaderTitle>
 
         <Modal state={showModal} onClose={closeModal}>
