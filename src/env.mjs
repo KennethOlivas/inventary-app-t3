@@ -26,6 +26,7 @@ const server = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   BASE_URL: z.string().url(),
   TRCP_URL: z.string().url(),
+  AUTH_KEY: z.string(),
 });
 
 /**
@@ -51,6 +52,7 @@ const processEnv = {
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   BASE_URL: process.env.BASE_URL,
   TRCP_URL: process.env.TRCP_URL,
+  AUTH_KEY: process.env.AUTH_KEY,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

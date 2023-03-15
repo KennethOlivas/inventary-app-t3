@@ -2,45 +2,45 @@ import { api } from "@/utils/api";
 import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
 import { signIn, signOut, useSession } from "next-auth/react";
-import type { FC} from "react";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import TextField from "./Inputs/TextField";
 
 const AuthShowcase: FC = () => {
   const { data: sessionData } = useSession();
-  const [email, setEmail] = useState("");
+  const [key, setKey] = useState("");
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { data, refetch } = api.user.byEmail.useQuery({
-    email: email,
+  const { data, refetch } = api.keyRouter.validateKey.useQuery({
+    key: key,
   });
 
   const inicialValues = {
-    email: "",
+    key: "",
   };
 
   useEffect(() => {
-    if (data?.id) {
+    if (data) {
       signIn();
       setIsLoading(false);
     }
 
-    if (email && !data?.id) {
+    if (data === false) {
       setError(true);
       setIsLoading(false);
     }
   }, [data]);
+  console.log(data);
 
   const onSubmit = async (
     values: typeof inicialValues,
     formikHelpers: FormikHelpers<typeof inicialValues>
   ) => {
-    setEmail(values.email);
+    setKey(values.key);
     await refetch();
 
     formikHelpers.resetForm();
   };
-  console.log(error);
 
   return (
     <div className="flex flex-col items-center justify-center ">
@@ -58,15 +58,15 @@ const AuthShowcase: FC = () => {
               <Form>
                 <div className="mt-4 w-full">
                   <TextField
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    id="email"
+                    name="key"
+                    type="textarea"
+                    placeholder="key"
+                    id="key"
                   />
                 </div>
                 {error && (
                   <div className="mt-2 text-sm text-red-500">
-                    Email not found
+                    invalid key, try again
                   </div>
                 )}
 
