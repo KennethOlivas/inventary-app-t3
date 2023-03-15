@@ -51,13 +51,13 @@ const User: NextPage = () => {
                 </div>
                 <hr className="mt-2" />
                 <div className="mt-2 text-center text-lg font-normal">
-                  Position: Dev
+                  Position: {data.position}
                 </div>
                 <div className="mt-2 text-center text-lg font-normal">
                   Role: {data.roles.map((role) => role + " ")}
                 </div>
                 <div className="mt-2 px-6 text-center text-sm font-light">
-                  <p>Description</p>
+                  <p>Description: {data.description}</p>
                 </div>
               </div>
             </div>
