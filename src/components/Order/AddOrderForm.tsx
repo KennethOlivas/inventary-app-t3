@@ -18,10 +18,10 @@ import { useNotification } from "react-hook-notification";
 
 type Props = {
   onClose: () => void;
-  onSubmitted: () => void;
+  onSubmited: () => void;
 };
 
-const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
+const AddOrderForm: FC<Props> = ({ onClose, onSubmited }) => {
   const dispatch = useDispatch();
   const notification = useNotification();
   const [step, setStep] = useState<number>(1);
@@ -33,7 +33,7 @@ const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
         position: "bottom-right",
         theme: "dark",
       });
-      onSubmitted();
+      onSubmited();
       onClose();
     },
     onError: (e) => {
@@ -112,7 +112,6 @@ const AddOrderForm: FC<Props> = ({ onClose, onSubmitted }) => {
       },
     });
     dispatch(resetOrder());
-    onSubmitted();
   };
 
   const handlePrevStep = () => {

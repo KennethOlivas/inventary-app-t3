@@ -6,13 +6,14 @@ import Breadcrumbs from "@/components/UI/Breadcrumbs";
 import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
 import type { ColumnDef } from "@tanstack/react-table";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { CustomerInput } from "prisma/inputs";
 import { z } from "zod";
 import type { Customer, Order, Shipping } from "@prisma/client";
 import { useRouter } from "next/router";
 import type { NextPage } from "next";
 import OrderReport from "@/components/Reports/OrderReport";
+import useModal from "@/hooks/modalState";
 
 type OrderData =
   | Order & {
@@ -22,8 +23,8 @@ type OrderData =
 
 const index: NextPage = () => {
   const { push } = useRouter();
-  const [showModal, setShowModal] = useState(false);
-  const { data, isLoading } = api.order.all.useQuery(void 0, {
+  const { isShowing, toggle } = useModal();
+  const { data, isLoading, refetch } = api.order.all.useQuery(void 0, {
     onError: (error) => {
       push("/500?message=" + error.message + "&code=" + error.data?.code);
     },
@@ -84,12 +85,9 @@ const index: NextPage = () => {
     []
   );
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
+  const handleSubmit = () => {
+    refetch();
+    toggle();
   };
 
   const handleClickedRow = (id: string) => {
@@ -103,14 +101,13 @@ const index: NextPage = () => {
         <HeaderTitle title="Orders">
           <div className="flex space-x-4">
             <OrderReport />
-            <button onClick={openModal} className="indigo-button capitalize">
+            <button onClick={toggle} className="indigo-button capitalize">
               add order
             </button>
           </div>
         </HeaderTitle>
-
-        <Modal state={showModal} onClose={closeModal}>
-          <AddOrderForm onClose={closeModal} onSubmitted={closeModal} />
+        <Modal state={isShowing} onClose={toggle}>
+          <AddOrderForm onClose={toggle} onSubmited={handleSubmit} />
         </Modal>
         {isLoading ? (
           <Loader />
