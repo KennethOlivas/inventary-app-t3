@@ -43,6 +43,7 @@ Table User {
   roles Role[] [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
+  Order Order [not null]
 }
 
 Table VerificationToken {
@@ -107,6 +108,8 @@ Table Order {
   customerId String [not null]
   Shipping Shipping
   ProductOrder ProductOrder [not null]
+  User User
+  userId String
 }
 
 Table Customer {
@@ -170,3 +173,5 @@ Ref: ProductOrder.orderId > Order.id
 Ref: ProductOrder.productId > Product.id
 
 Ref: Order.customerId > Customer.id
+
+Ref: Order.userId > User.id

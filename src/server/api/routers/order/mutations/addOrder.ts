@@ -22,6 +22,7 @@ const schema = OrderInput.extend({
   id: true,
   updatedAt: true,
   createdAt: true,
+  userId: true,
 });
 
 export const addOrder = protectedProcedure
@@ -50,6 +51,7 @@ export const addOrder = protectedProcedure
         status,
         subTotal,
         total: totalOrder,
+        userId: ctx.session.user.id,
       },
     });
     /* Updating the stock of the product and creating a new productOrder. */

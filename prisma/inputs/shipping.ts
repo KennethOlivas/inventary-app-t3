@@ -6,8 +6,10 @@ import { schemaForType } from "@/utils/schemaForType";
 const ShippingInput = schemaForType<Shipping>()(
   z.object({
     id: z.string(),
-    address: z.string(),
-    city: z.string(),
+    address: z.string({ required_error: "Address is required" }),
+    city: z.string({
+      required_error: "City is required",
+    }),
     status: z.enum(["REDY_TO_SHIP", "SHIPPED", "DELIVERED"]),
     name: z.string(),
     price: z.number(),

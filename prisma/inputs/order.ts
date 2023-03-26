@@ -15,6 +15,7 @@ const OrderInput = schemaForType<Order>()(
     subTotal: z.number(),
     iva: z.number(),
     status: z.enum(["PENDING", "COMPLETED", "CANCELED"]),
+    userId: z.string().uuid(),
   })
 );
 
