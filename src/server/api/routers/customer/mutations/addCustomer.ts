@@ -10,13 +10,14 @@ const schema = CustomerInput.pick({
   lastName: true,
   phone: true,
   address: true,
+  city: true,
 });
 
 export const addCustomer = protectedProcedure
   .use(enforceUserIsAdminOrVendor)
   .input(schema)
   .mutation(({ ctx, input }) => {
-    const { name, address, email, lastName, phone } = input;
+    const { name, address, email, lastName, phone, city } = input;
     return ctx.prisma.customer.create({
       data: {
         name,
@@ -24,6 +25,7 @@ export const addCustomer = protectedProcedure
         email,
         lastName,
         phone,
+        city,
       },
     });
   });

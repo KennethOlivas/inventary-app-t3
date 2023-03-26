@@ -119,6 +119,14 @@ export const orderSlice = createSlice({
         };
       }
     },
+    deleteShipping: (state, action: PayloadAction<boolean>) => {
+      if (!action.payload) {
+        state.shipping = null;
+        if (state.order) {
+          state.order.shipping = false;
+        }
+      }
+    },
     deleteProduct: (state, action: PayloadAction<Delete>) => {
       if (state.products) {
         const deletedProduct = state.products.find(
@@ -155,6 +163,7 @@ export const {
   addShipping,
   deleteProduct,
   deleteCustomer,
+  deleteShipping,
   resetOrder,
   updateShipping,
   updateQuantity,

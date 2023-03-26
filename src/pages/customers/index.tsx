@@ -6,10 +6,11 @@ import HeaderTitle from "@/components/UI/HeaderTitle";
 import { api } from "@/utils/api";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import type { Customer } from "@prisma/client";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import ActionsTableButtons from "@/components/UI/ActionsTableButtons.tsx";
 
 const index: NextPage = () => {
   const { push } = useRouter();
@@ -19,6 +20,15 @@ const index: NextPage = () => {
       push("/500?message=" + error.message + "&code=" + error.data?.code);
     },
   });
+
+  const deleteCustomer = api.customer.deleteCustomer.useMutation();
+
+  const onClickDelete = async (id: string) => {
+    await deleteCustomer.mutateAsync({
+      id,
+    });
+    refetch();
+  };
 
   const cols = useMemo<ColumnDef<Customer>[]>(
     () => [
@@ -43,9 +53,28 @@ const index: NextPage = () => {
         accessorKey: "phone",
       },
       {
+        header: "City",
+        cell: (row) => row.renderValue(),
+        accessorKey: "city",
+      },
+      {
         header: "Address",
         cell: (row) => row.renderValue(),
         accessorKey: "address",
+      },
+      {
+        header: "Actions",
+        cell: (row: CellContext<Customer, unknown>) => {
+          const value = row.renderValue() as string;
+          return (
+            <ActionsTableButtons
+              onClickDelete={onClickDelete}
+              onClickEdit={() => {}}
+              value={value}
+            />
+          );
+        },
+        accessorKey: "id",
       },
     ],
     []

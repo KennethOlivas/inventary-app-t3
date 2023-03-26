@@ -1,4 +1,5 @@
 import { api } from "@/utils/api";
+import { Cities } from "@prisma/client";
 import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
 import { CustomerInput } from "prisma/inputs";
@@ -15,6 +16,7 @@ const Schema = CustomerInput.pick({
   email: true,
   phone: true,
   address: true,
+  city: true,
 });
 
 type Props = {
@@ -51,6 +53,7 @@ const AddCustomerForm: FC<Props> = ({ onAddUser, onCancel }) => {
     email: "",
     phone: "",
     address: "",
+    city: Cities.Managua,
   };
 
   const onSubmit = async (

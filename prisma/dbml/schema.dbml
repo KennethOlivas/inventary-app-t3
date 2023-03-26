@@ -116,6 +116,7 @@ Table Customer {
   email String [not null]
   phone String [not null]
   address String [not null]
+  city Cities
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   Orders Order [not null]
@@ -138,6 +139,24 @@ Enum Status {
   PENDING
   COMPLETED
   CANCELED
+}
+
+Enum Cities {
+  Chinandega
+  Esteli
+  Leon
+  Managua
+  Masaya
+  Matagalpa
+  Rivas
+  Granada
+  Jinotega
+  Carazo
+  Boaco
+  Madriz
+  Chontales
+  NuevaSegovia
+  RioSanJuan
 }
 
 Ref: Account.userId > User.id [delete: Cascade]

@@ -123,7 +123,6 @@ const index: NextPage = () => {
         },
         accessorKey: "description",
       },
-
       {
         header: "Actions",
         cell: (row: CellContext<Product, unknown>) => {

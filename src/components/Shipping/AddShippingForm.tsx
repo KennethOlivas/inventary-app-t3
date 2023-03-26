@@ -1,12 +1,11 @@
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { ShippingInput } from "prisma/inputs";
 import type { FC } from "react";
-import { useEffect, useState } from "react";
-import type { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import TextField from "../Inputs/TextField";
 import { addShipping, selectOrder } from "@/store/features/order/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Cities } from "@prisma/client";
 
 const schema = ShippingInput.pick({
   name: true,
@@ -19,23 +18,13 @@ const schema = ShippingInput.pick({
 const AddShippingForm: FC = () => {
   const dispatch = useDispatch();
   const { shipping, customer } = useSelector(selectOrder);
-  const [initialValues, setInitialValues] = useState<z.infer<typeof schema>>({
-    name: shipping?.name || "",
-    address: shipping?.address || "",
-    city: shipping?.city || "",
+  const initialValues = {
+    name: customer?.name || "",
+    address: customer?.address || "",
+    city: customer?.city || "",
     status: shipping?.status || "REDY_TO_SHIP",
     price: shipping?.price || 0,
-  });
-
-  useEffect(() => {
-    setInitialValues({
-      name: shipping?.name || "",
-      address: shipping?.address || "",
-      city: shipping?.city || "",
-      status: shipping?.status || "REDY_TO_SHIP",
-      price: shipping?.price || 0,
-    });
-  }, [shipping]);
+  };
 
   const onSubmit = async (values: typeof initialValues) => {
     dispatch(
@@ -49,17 +38,6 @@ const AddShippingForm: FC = () => {
     );
   };
 
-  const handleFillWithCustomerData = () => {
-    dispatch(
-      addShipping({
-        name: customer?.name + " " + customer?.lastName || "",
-        price: 0,
-        city: "",
-        address: customer?.address || "",
-        status: "REDY_TO_SHIP",
-      })
-    );
-  };
   return (
     <div>
       <Formik
@@ -67,18 +45,29 @@ const AddShippingForm: FC = () => {
         onSubmit={onSubmit}
         validationSchema={toFormikValidationSchema(schema)}
       >
-        {({ setValues, handleSubmit }) => (
+        {({ handleSubmit }) => (
           <Form className="flex flex-col space-y-4">
             <TextField name="name" id="name" placeholder="Full Name" />
             <TextField name="address" id="address" placeholder="Address" />
-            <TextField name="city" id="city" placeholder="city" />
+            <Field
+              name="city"
+              as="select"
+              className="block w-full rounded-lg border-2 border-neutral-50 bg-neutral-900 p-3 text-sm text-gray-50 focus:border-indigo-700 focus:ring-blue-700"
+            >
+              {Object.keys(Cities)
+                .filter((v) => isNaN(Number(v)))
+                .map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+            </Field>
             <TextField
               name="price"
               id="price"
               placeholder="Price shipping"
               type="number"
             />
-
             <div className="flex space-x-4">
               <button
                 onClick={() => {
@@ -88,23 +77,6 @@ const AddShippingForm: FC = () => {
                 type="button"
               >
                 save shipping
-              </button>
-
-              <button
-                className="emerald-button justify-center text-center capitalize"
-                type="button"
-                onClick={() => {
-                  handleFillWithCustomerData();
-                  setValues({
-                    name: customer?.name + " " + customer?.lastName || "",
-                    price: 0,
-                    city: "",
-                    address: customer?.address || "",
-                    status: "REDY_TO_SHIP",
-                  });
-                }}
-              >
-                Fill with customer data
               </button>
             </div>
           </Form>

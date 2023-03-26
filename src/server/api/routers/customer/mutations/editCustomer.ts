@@ -11,6 +11,7 @@ const schema = CustomerInput.pick({
   lastName: true,
   phone: true,
   address: true,
+  city: true,
 });
 
 export const editCustomer = protectedProcedure

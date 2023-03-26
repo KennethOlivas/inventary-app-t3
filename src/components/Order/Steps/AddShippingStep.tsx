@@ -1,9 +1,16 @@
 import AddShippingForm from "@/components/Shipping/AddShippingForm";
 import Switch from "@/components/UI/Switch";
-import { useState } from "react";
+import { deleteShipping } from "@/store/features/order/orderSlice";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const AddShippingStep = () => {
+  const dispatch = useDispatch();
   const [hasShipping, setHasShipping] = useState(false);
+
+  useEffect(() => {
+    dispatch(deleteShipping(hasShipping));
+  }, [hasShipping]);
 
   const handleShippingChange = (enabled: boolean) => {
     setHasShipping(enabled);
