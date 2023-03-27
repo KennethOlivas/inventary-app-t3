@@ -8,6 +8,7 @@ import {
   StarIcon,
   LockClosedIcon,
   TruckIcon,
+  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -28,6 +29,7 @@ const Icons = [
   },
   { name: "UsersIcon", Icon: <UsersIcon className="h-5 w-5" /> },
   { name: "LockClosedIcon", Icon: <LockClosedIcon className="h-5 w-5" /> },
+  { name: "CogIcon", Icon: <Cog6ToothIcon className="h-5 w-5" /> },
 ];
 
 type Props = {

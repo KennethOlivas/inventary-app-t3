@@ -52,6 +52,13 @@ export const sidebarItems: SideBarItem[] = [
         href: "/user",
         icon: "UsersIcon",
       },
+      {
+        id: "5",
+        title: "Settings",
+        notifications: false,
+        href: "/settings",
+        icon: "CogIcon",
+      },
     ],
   },
 ];
