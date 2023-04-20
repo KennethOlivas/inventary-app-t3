@@ -5,7 +5,6 @@ import fs from "fs";
 
 export const backup = publicProcedure.use(enforceUserIsAdmin).query(() => {
   return new Promise<string>((resolve, reject) => {
-    // Ejecutar el comando pg_dump para hacer el backup
     exec(
       "docker exec -t postgres pg_dumpall -c -U postgres > backup.sql",
       (error) => {

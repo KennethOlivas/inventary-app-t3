@@ -11,7 +11,7 @@ SET standard_conforming_strings = on;
 -- Drop databases (except postgres and template1)
 --
 
-DROP DATABASE inventary;
+DROP DATABASE "POSTGRES_DB";
 
 
 
@@ -28,7 +28,7 @@ DROP ROLE postgres;
 --
 
 CREATE ROLE postgres;
-ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:rkSv8AjBNp5ZEhzG315rdg==$24VOd5K/4/nYR7Tui2JUIefBYwGD2fCwFzSkycYR2bc=:a/OBILyhRrPefXgizaJrCLCvBivkQQtNjb8zK0858Os=';
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:0GXtpFP0BRYU6L7D/3muPg==$oMEzjN25Bn/auwYwqEcl+jP55ItSCESgv0RWhG8u62U=:jgWK8cWPo2xlX7/ApiHs9AF+FFizf92hkSb3sOBZdxY=';
 
 --
 -- User Configurations
@@ -53,8 +53,8 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.1 (Debian 15.1-1.pgdg110+1)
--- Dumped by pg_dump version 15.1 (Debian 15.1-1.pgdg110+1)
+-- Dumped from database version 15.2 (Debian 15.2-1.pgdg110+1)
+-- Dumped by pg_dump version 15.2 (Debian 15.2-1.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -131,15 +131,15 @@ GRANT CONNECT ON DATABASE template1 TO PUBLIC;
 --
 
 --
--- Database "inventary" dump
+-- Database "POSTGRES_DB" dump
 --
 
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.1 (Debian 15.1-1.pgdg110+1)
--- Dumped by pg_dump version 15.1 (Debian 15.1-1.pgdg110+1)
+-- Dumped from database version 15.2 (Debian 15.2-1.pgdg110+1)
+-- Dumped by pg_dump version 15.2 (Debian 15.2-1.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -153,15 +153,15 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: inventary; Type: DATABASE; Schema: -; Owner: postgres
+-- Name: POSTGRES_DB; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE inventary WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+CREATE DATABASE "POSTGRES_DB" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
 
 
-ALTER DATABASE inventary OWNER TO postgres;
+ALTER DATABASE "POSTGRES_DB" OWNER TO postgres;
 
-\connect inventary
+\connect "POSTGRES_DB"
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -173,22 +173,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
---
-
--- *not* creating schema, since initdb creates it
-
-
-ALTER SCHEMA public OWNER TO postgres;
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON SCHEMA public IS '';
-
 
 --
 -- Name: Cities; Type: TYPE; Schema: public; Owner: postgres
@@ -446,7 +430,7 @@ ALTER TABLE public._prisma_migrations OWNER TO postgres;
 --
 
 COPY public."Account" (id, "userId", type, provider, "providerAccountId", refresh_token, access_token, expires_at, token_type, scope, id_token, session_state) FROM stdin;
-clfpzsi5b0009m0s0wddvrk8n	clfpzsi560006m0s0cj9ph36c	oauth	google	112001066917946377868	\N	ya29.a0Ael9sCNMvLr5IGcr0XwjwZKhy51Ty5ZDBCt8VqRtQTQGkUfnAqr7091r98rgwAW9ham7jobLJ6Zsp4C1fCbJq_iIrf8GIz8jXDT8TM8uWURJChrQ_Ni--_rpFaGgKSxyPYa4Jayx376L1B-lQsGCYvsD_6WtxAaCgYKAekSARESFQF4udJhgXRZhYXta7x4oAKF2wgYSg0165	1679874550	Bearer	https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile	eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhYWU4ZDdjOTIwNThiNWVlYTQ1Njg5NWJmODkwODQ1NzFlMzA2ZjMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4MTQ1OTY3OTU0MjYtbTU3MzU5a3BiMTBncW1waG1hZDdtYm5jZjduYzdsdXMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4MTQ1OTY3OTU0MjYtbTU3MzU5a3BiMTBncW1waG1hZDdtYm5jZjduYzdsdXMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTIwMDEwNjY5MTc5NDYzNzc4NjgiLCJlbWFpbCI6Imtlbm5ldGhvbGl2YXMxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoib3h3aHl0RXpFWWZRLUkzMS1RYm9nUSIsIm5hbWUiOiJLZW5uZXRoIE9saXZhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BR05teXhZcHp0czgxMG9WRkdkVk9BTnc5VWQ0aFpaZ19TOHltZHJOc0cwV0hZcz1zOTYtYyIsImdpdmVuX25hbWUiOiJLZW5uZXRoIiwiZmFtaWx5X25hbWUiOiJPbGl2YXMiLCJsb2NhbGUiOiJlcyIsImlhdCI6MTY3OTg3MDk1MCwiZXhwIjoxNjc5ODc0NTUwfQ.Vrnz0uIzQP6D_vG8zYq3cN15oDBo8zCxyxl5uCJ4Mush4Z-E9y9RFhd6QGRospM8Ul-nANF3GTtRWAQTUOgEJ58iu9EOJosXI86ajdpYY_il-IyqxaA3YjkHJaMKVLUaNKXgY776P1DvKiu_Cwqdj9oMPnX71_sfoMcvnqSNie6Sq9SFBik7zajDYE_9TfYzZg2JECF__VRvjU9I5suI0S4V00jl1ssHbzF3Jt7j8I4-8DBE9QGlRSLFut4sLROucV_zMpLZCtCYt5WFRT-EzRVO1XqhLZqlHzj9lE5--KucxJdQlqyL8K_6HWcZhslxb2eTcwKT1Gqh6hNH_-8cOQ	\N
+clgjpnxpj0003m0swlb0ywi5h	clgjpnxp90000m0swsvmizyxe	oauth	google	112001066917946377868	\N	ya29.a0Ael9sCP-JUQRa9x-qzMhIJyoRsjoKh6lQoE-Ydhd6Nz72jh70J1p9qJ165pOWGYCqzuDPj_SY11zZ2vbz8QnCuRIUmeTPKNJR-7hMElmTcx1L-uK8BOLhr73Zt-gZWv9LTtN267iZfl1iE5uA4f-MNb0ullinwaCgYKAQ8SARESFQF4udJhFiD42GsY11bpebpXTiac9A0165	1681671526	Bearer	https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/userinfo.email	eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk2OTcxODA4Nzk2ODI5YTk3MmU3OWE5ZDFhOWZmZjExY2Q2MWIxZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4MTQ1OTY3OTU0MjYtbTU3MzU5a3BiMTBncW1waG1hZDdtYm5jZjduYzdsdXMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4MTQ1OTY3OTU0MjYtbTU3MzU5a3BiMTBncW1waG1hZDdtYm5jZjduYzdsdXMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTIwMDEwNjY5MTc5NDYzNzc4NjgiLCJlbWFpbCI6Imtlbm5ldGhvbGl2YXMxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiejRPVzl6SEtVZXJRcEV6TWVlTTIxZyIsIm5hbWUiOiJLZW5uZXRoIE9saXZhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BR05teXhZcHp0czgxMG9WRkdkVk9BTnc5VWQ0aFpaZ19TOHltZHJOc0cwV0hZcz1zOTYtYyIsImdpdmVuX25hbWUiOiJLZW5uZXRoIiwiZmFtaWx5X25hbWUiOiJPbGl2YXMiLCJsb2NhbGUiOiJlcyIsImlhdCI6MTY4MTY2NzkyNywiZXhwIjoxNjgxNjcxNTI3fQ.caOJH8RhFv8Ilk7EgTCNG3_2NHPHB0fYraPWmJsD1b8_xIdEu6hJ4vymvJLlGJSGOexmXaYWyUl-9r6VK56HVhHzNrRgaBGqR03vNPkg8qu0FwGxrZioTmGTr07jCIHFjpE-q6a2_Z3SJjX-WjzbgHOnLkdFk_piXmS458ZC8-EXSxTYg5muGYxd5kGtYnKruXtFAaRQlbi4TS2a-8B3NaEhO30EH3heQoeimKWkcwbGLisregSXx1eiusWlGwLzojus5ZdTurq-wZgIhwvSQLoY4wc7TD01UGF5L1cijpQOEv9W4CnCD8Kcu1kbi0E9P1gE0F_XfA3sNSpDtLSxsQ	\N
 \.
 
 
@@ -487,7 +471,7 @@ COPY public."ProductOrder" (id, quantity, "createdAt", "updatedAt", "orderId", "
 --
 
 COPY public."Session" (id, "sessionToken", "userId", expires) FROM stdin;
-clfpzsi5g000am0s0os18sgtt	25e6a186-5d32-429f-96a9-fefd8fc03e27	clfpzsi560006m0s0cj9ph36c	2023-04-25 22:49:11.907
+clgjpnxpr0005m0swffm9o8kd	7853f1ab-6a66-4e49-9baa-e6c020e15241	clgjpnxp90000m0swsvmizyxe	2023-05-18 01:57:22.694
 \.
 
 
@@ -504,7 +488,7 @@ COPY public."Shipping" (id, name, price, city, address, status, "deliveryAt", "c
 --
 
 COPY public."User" (id, name, email, "position", description, "emailVerified", image, roles, "createdAt", "updatedAt") FROM stdin;
-clfpzsi560006m0s0cj9ph36c	Kenneth Olivas	kennetholivas1@gmail.com	\N	\N	\N	https://lh3.googleusercontent.com/a/AGNmyxYpzts810oVFGdVOANw9Ud4hZZg_S8ymdrNsG0WHYs=s96-c	{ADMIN}	2023-03-26 22:49:11.898	2023-03-26 22:49:11.898
+clgjpnxp90000m0swsvmizyxe	Kenneth Olivas	kennetholivas1@gmail.com	\N	\N	\N	https://lh3.googleusercontent.com/a/AGNmyxYpzts810oVFGdVOANw9Ud4hZZg_S8ymdrNsG0WHYs=s96-c	{ADMIN}	2023-04-16 17:58:47.901	2023-04-16 17:58:47.901
 \.
 
 
@@ -521,7 +505,7 @@ COPY public."VerificationToken" (identifier, token, expires) FROM stdin;
 --
 
 COPY public._prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) FROM stdin;
-34a198fe-04c4-482a-813e-802931f8994d	8ec84479bbb9123a2a7b4984424fa0dda362fb50f4fc89c21778484f6cbafaac	2023-03-26 22:36:48.176856+00	20230326223648_init	\N	\N	2023-03-26 22:36:48.063751+00	1
+a7d21a49-390c-46ed-9947-d01cb4b142cd	8ec84479bbb9123a2a7b4984424fa0dda362fb50f4fc89c21778484f6cbafaac	2023-04-16 17:51:39.810486+00	20230326223648_init	\N	\N	2023-04-16 17:51:39.70268+00	1
 \.
 
 
@@ -703,13 +687,6 @@ ALTER TABLE ONLY public."Shipping"
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE USAGE ON SCHEMA public FROM PUBLIC;
-
-
---
 -- PostgreSQL database dump complete
 --
 
@@ -721,8 +698,8 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.1 (Debian 15.1-1.pgdg110+1)
--- Dumped by pg_dump version 15.1 (Debian 15.1-1.pgdg110+1)
+-- Dumped from database version 15.2 (Debian 15.2-1.pgdg110+1)
+-- Dumped by pg_dump version 15.2 (Debian 15.2-1.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

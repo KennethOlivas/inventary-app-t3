@@ -4,8 +4,11 @@ import React from "react";
 const Backup = () => {
   const { data: databaseSize } = api.database.databaseSize.useQuery();
   const { data: backup } = api.database.backup.useQuery();
+  const [file, setFile] = React.useState<File | undefined>(undefined);
+  const restore = api.database.restore.useMutation();
   const databaseSizeString = JSON.stringify(databaseSize) || "";
   const databaseSizeString2 = databaseSizeString.match(/(\d+)/g)?.toString();
+
   console.log(backup);
 
   const backupHandler = () => {
@@ -42,9 +45,38 @@ const Backup = () => {
                   >
                     Backup
                   </button>
-                  <button className="mt-4 mr-0 flex w-48 justify-center rounded bg-amber-100 py-2 text-sm font-medium text-amber-700 dark:text-amber-600 lg:mt-0 xl:mr-8">
-                    Restore
-                  </button>
+
+                  <label className="text-blue border-blue flex w-64 cursor-pointer flex-col items-center rounded-md bg-white px-4 py-0.5 uppercase tracking-wide shadow-lg hover:bg-indigo-500 hover:text-white">
+                    <svg
+                      className="h-8 w-8"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                    </svg>
+                    <input
+                      onChange={(e) => {
+                        if (e.target.files) {
+                          setFile(e.target.files[0]);
+                        }
+                      }}
+                      type="file"
+                      className="hidden"
+                    />
+                  </label>
+                  {file && (
+                    <button
+                      onClick={() => {
+                        if (file) {
+                          console.log(file);
+                        }
+                      }}
+                      className="mt-4 mr-0 flex w-48 justify-center rounded bg-emerald-100 py-2 text-sm font-medium text-emerald-700 dark:text-emerald-600 lg:mt-0 xl:mr-8"
+                    >
+                      {file.name}
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col items-start lg:flex-row lg:items-center">
@@ -83,7 +115,6 @@ const Backup = () => {
                 </div>
               </div>
             </div>
-            {/* Card code block end */}
           </div>
         </div>
       </div>
