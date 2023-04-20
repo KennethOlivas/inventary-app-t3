@@ -69,7 +69,16 @@ const Backup = () => {
                     <button
                       onClick={() => {
                         if (file) {
-                          console.log(file);
+                          const reader = new FileReader();
+                          reader.readAsText(file);
+                          reader.onload = () => {
+                            const text = reader.result;
+                            if (typeof text === "string") {
+                              restore.mutate({
+                                file: text,
+                              });
+                            }
+                          };
                         }
                       }}
                       className="mt-4 mr-0 flex w-48 justify-center rounded bg-emerald-100 py-2 text-sm font-medium text-emerald-700 dark:text-emerald-600 lg:mt-0 xl:mr-8"
